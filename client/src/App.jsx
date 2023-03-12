@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 const eventSource = new window.EventSource('http://localhost:3000/events')
@@ -13,11 +12,18 @@ function App () {
 
   return (
     <div className='App'>
-      <div>
-      </div>
+      <div></div>
       <h1>Vite + React</h1>
       <div className='card'>
-        <button onClick={() => setCount(count => count + 1)}>
+        <button
+          onClick={() => {
+            setCount(count => count + 1)
+            window.fetch('http://localhost:3000/count', {
+              method: 'POST',
+              mode: 'cors'
+            })
+          }}
+        >
           count is {count}
         </button>
         <p>
