@@ -13,7 +13,7 @@ function App() {
 				<button
 					type="button"
 					onClick={() => {
-						window.fetch("http://localhost:3000/count", {
+						window.fetch("/count", {
 							method: "POST",
 							mode: "cors",
 						});

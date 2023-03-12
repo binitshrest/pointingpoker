@@ -1,36 +1,11 @@
+import process from "node:process";
 import express from "express";
-import cors from "cors";
-
-class Observable {
-	constructor() {
-		this.observers = new Set();
-	}
-
-	subscribe(func) {
-		this.observers.add(func);
-
-		return () => {
-			this.observers.delete(func);
-		};
-	}
-
-	publish(data) {
-		for (const func of this.observers) {
-			func(data);
-		}
-	}
-}
-
-const app = express();
-const observable = new Observable();
-
-app.use(cors());
+import observable from "./observable.js";
 
 let count = 0;
 
-app.get("/", (request, response) => {
-	response.send("Hello world");
-});
+const app = express();
+app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 app.post("/count", (request, response) => {
 	count += 1;
@@ -55,13 +30,21 @@ app.get("/events", (request, response) => {
 
 	const unsubscribe = observable.subscribe(func);
 
+	console.log("Connection established");
+
 	request.on("close", () => {
 		unsubscribe();
 		console.log("Connection closed");
 	});
 });
 
-const port = 3000;
+app.get("*", (request, response) => {
+	response.sendFile(
+		new URL("client/dist/index.html", import.meta.url).pathname
+	);
+});
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
 	console.log(`Running on port ${port}`);
 });

@@ -6,7 +6,8 @@
   "exports": "./index.js",
   "scripts": {
     "test": "xo",
-    "start": "node index.js",
+    "build": "cd client && npm run build",
+    "start": "npm run build && node index.js",
     "dev": "nodemon index.js",
     "lint": "xo --fix",
     "prepare": "husky install"
@@ -14,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.18.2"
   },
   "devDependencies": {

@@ -1,0 +1,14 @@
+{
+  "events": {
+    "start": "npm run lint && npm run build"
+  },
+  "watch": [
+    "./"
+  ],
+  "ignore": [
+    "client/dist",
+    "client/vite.config.js.timestamp*.mjs"
+  ],
+  "ext": "js, mjs, json, jsx, css, html",
+  "verbose": true
+}
