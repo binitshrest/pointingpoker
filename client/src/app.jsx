@@ -3,7 +3,7 @@ import "./app.css";
 
 const eventSource = new window.EventSource("http://localhost:3000/events");
 
-eventSource.addEventListener((event) => {
+eventSource.addEventListener('message', (event) => {
 	console.log("new message", event.data);
 });
 
