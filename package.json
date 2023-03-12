@@ -10,7 +10,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "xo --fix",
-    "prepare": "npm i && husky install && cd client && npm i"
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
