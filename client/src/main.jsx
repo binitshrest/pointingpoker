@@ -1,5 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// eslint-disable-next-line n/file-extension-in-import
+import ReactDOM from "react-dom/client";
 import App from "./app.jsx";
 import "./index.css";
 

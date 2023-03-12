@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React, { useSyncExternalStore } from "react";
 import "./app.css";
-
-const eventSource = new window.EventSource("http://localhost:3000/events");
-
-eventSource.addEventListener('message', (event) => {
-	console.log("new message", event.data);
-});
+import store from "./store.js";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const count = useSyncExternalStore(store.subscribe, store.getSnapshot);
 
 	return (
 		<div className="App">
@@ -18,7 +13,6 @@ function App() {
 				<button
 					type="button"
 					onClick={() => {
-						setCount((count) => count + 1);
 						window.fetch("http://localhost:3000/count", {
 							method: "POST",
 							mode: "cors",
