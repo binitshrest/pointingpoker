@@ -6,12 +6,13 @@ function App() {
 	const { count } = useSyncExternalStore(store.subscribe, store.getSnapshot);
 
 	return (
-		<div className="App">
+		<div>
 			<div />
-			<h1>Vite + React</h1>
+			<h1>Pointing Poker</h1>
 			<div className="card">
 				<button
 					type="button"
+					className="nes-btn"
 					onClick={() => {
 						window.fetch("/count", {
 							method: "POST",
@@ -21,13 +22,7 @@ function App() {
 				>
 					count is {count}
 				</button>
-				<p>
-					Edit <code>src/App.jsx</code> and save to test HMR
-				</p>
 			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
 		</div>
 	);
 }
