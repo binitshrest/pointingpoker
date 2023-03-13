@@ -10,18 +10,25 @@ function App() {
 			<div />
 			<h1>Pointing Poker</h1>
 			<div className="card">
-				<button
-					type="button"
-					className="nes-btn"
-					onClick={() => {
-						window.fetch("/count", {
-							method: "POST",
-							mode: "cors",
-						});
-					}}
-				>
-					count is {count}
-				</button>
+				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+					<button
+						key={number}
+						type="button"
+						className="btn nes-btn"
+						onClick={() => {
+							window.fetch("/count", {
+								method: "POST",
+								mode: "cors",
+							});
+						}}
+					>
+						{number}
+					</button>
+				))}
+				<div className="container nes-container with-title">
+					<p className="title">Count</p>
+					<p>{count}</p>
+				</div>
 			</div>
 		</div>
 	);
