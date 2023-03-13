@@ -3,7 +3,7 @@ import "./app.css";
 import store from "./store.js";
 
 function App() {
-	const count = useSyncExternalStore(store.subscribe, store.getSnapshot);
+	const { count } = useSyncExternalStore(store.subscribe, store.getSnapshot);
 
 	return (
 		<div className="App">

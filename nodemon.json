@@ -1,7 +1,5 @@
 {
-  "events": {
-    "start": "npm run lint && npm run build"
-  },
+  "exec": "npm run lint && npm run build && node index.js",
   "watch": [
     "./"
   ],

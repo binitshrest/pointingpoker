@@ -2,14 +2,14 @@ import process from "node:process";
 import express from "express";
 import observable from "./observable.js";
 
-let count = 0;
+const store = { count: 0 };
 
 const app = express();
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 app.post("/count", (request, response) => {
-	count += 1;
-	observable.publish(count);
+	store.count += 1;
+	observable.publish(JSON.stringify(store));
 	response.sendStatus(200);
 });
 
@@ -26,7 +26,7 @@ app.get("/events", (request, response) => {
 		response.write(`data: ${data}\n\n`);
 	};
 
-	func(count);
+	func(JSON.stringify(store));
 
 	const unsubscribe = observable.subscribe(func);
 

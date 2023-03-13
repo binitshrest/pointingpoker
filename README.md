@@ -4,7 +4,7 @@ Pointing poker web app implemented with React 18 and simple express backend
 https://pointingpoker.onrender.com/
 
 ## Todos
-- [ ] JSON store
+- [x] JSON store
 - [ ] Land on voting page with random name
 - [ ] Clear votes
 - [ ] Average of votes

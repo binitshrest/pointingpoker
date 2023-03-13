@@ -5,8 +5,8 @@ class Store {
 		const eventSource = new window.EventSource("/events");
 
 		const listener = (event) => {
-			console.log("new data", event.data);
-			data = event.data;
+			data = JSON.parse(event.data);
+			console.log("new data", data);
 			callback();
 		};
 
