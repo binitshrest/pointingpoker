@@ -7,7 +7,7 @@ https://pointingpoker.onrender.com/
 - [x] JSON store
 - [x] Change favicon
 - [x] Vote buttons
-- [ ] store vote in backend
+- [x] store vote in backend
 - [ ] Vote with name
 - [ ] Land on voting page with random name
 - [ ] Clear votes

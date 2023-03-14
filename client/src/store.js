@@ -1,4 +1,4 @@
-let data = 0;
+let data = {};
 
 class Store {
 	subscribe(callback) {

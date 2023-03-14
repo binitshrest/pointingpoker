@@ -2,13 +2,14 @@ import process from "node:process";
 import express from "express";
 import observable from "./observable.js";
 
-const store = { count: 0 };
+const store = { vote: "?" };
 
 const app = express();
+app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
-app.post("/count", (request, response) => {
-	store.count += 1;
+app.post("/vote", (request, response) => {
+	store.vote = request.body.vote;
 	observable.publish(JSON.stringify(store));
 	response.sendStatus(200);
 });
