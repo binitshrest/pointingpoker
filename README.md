@@ -5,7 +5,7 @@ https://pointingpoker.onrender.com/
 
 ## Todos
 - [x] JSON store
-- [ ] Change favicon
+- [x] Change favicon
 - [x] Vote buttons
 - [ ] store vote in backend
 - [ ] Vote with name
