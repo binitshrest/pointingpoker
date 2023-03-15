@@ -1,11 +1,10 @@
-import { useSyncExternalStore } from "react";
 import "./app.css";
-import store from "./store.js";
+import { useStore } from "./store.js";
 
 const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
 
 function App() {
-	const { votes } = useSyncExternalStore(store.subscribe, store.getSnapshot);
+	const { votes } = useStore();
 
 	return (
 		<div>

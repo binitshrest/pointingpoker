@@ -1,24 +1,25 @@
+import { useSyncExternalStore } from "react";
+
 let data = {};
 
-class Store {
-	subscribe(callback) {
-		const eventSource = new window.EventSource("/events");
+function subscribe(callback) {
+	const eventSource = new window.EventSource("/events");
 
-		const listener = (event) => {
-			data = JSON.parse(event.data);
-			console.log("new data", data);
-			callback();
-		};
+	const listener = (event) => {
+		data = JSON.parse(event.data);
+		console.log("new data", data);
+		callback();
+	};
 
-		eventSource.addEventListener("message", listener);
+	eventSource.addEventListener("message", listener);
 
-		return () => eventSource.removeEventListener("message", listener);
-	}
-
-	getSnapshot() {
-		return data;
-	}
+	return () => eventSource.removeEventListener("message", listener);
 }
 
-const store = new Store();
-export default store;
+function getSnapshot() {
+	return data;
+}
+
+export function useStore() {
+	return useSyncExternalStore(subscribe, getSnapshot);
+}

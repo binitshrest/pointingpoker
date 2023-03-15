@@ -10,7 +10,7 @@ https://pointingpoker.onrender.com/
 - [x] store vote in backend
 - [x] Vote with name
 - [x] Land on voting page with random name
-- [ ] use store hook
+- [x] use store hook
 - [ ] render all votes
 - [ ] Clear votes
 - [ ] Average of votes
