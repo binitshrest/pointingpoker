@@ -11,7 +11,8 @@ https://pointingpoker.onrender.com/
 - [x] Vote with name
 - [x] Land on voting page with random name
 - [x] use store hook
-- [ ] render all votes
+- [x] render all votes
+- [ ] join session with empty vote
 - [ ] Clear votes
 - [ ] Average of votes
 - [ ] Edit name

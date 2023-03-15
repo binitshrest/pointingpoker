@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 
-let data = {};
+let data = { votes: {} };
 
 function subscribe(callback) {
 	const eventSource = new window.EventSource("/events");

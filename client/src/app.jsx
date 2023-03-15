@@ -1,11 +1,9 @@
 import "./app.css";
-import { useStore } from "./store.js";
+import Votes from "./components/votes.jsx";
 
 const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
 
-function App() {
-	const { votes } = useStore();
-
+export default function App() {
 	return (
 		<div>
 			<div />
@@ -32,15 +30,8 @@ function App() {
 						{number}
 					</button>
 				))}
-				<div className="container nes-container with-title">
-					<p className="title">Vote</p>
-					<p>
-						{MY_NAME}: {votes?.[MY_NAME]?.vote ?? "?"}
-					</p>
-				</div>
+				<Votes />
 			</div>
 		</div>
 	);
 }
-
-export default App;
