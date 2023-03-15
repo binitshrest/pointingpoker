@@ -2,8 +2,10 @@ import { useSyncExternalStore } from "react";
 import "./app.css";
 import store from "./store.js";
 
+const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
+
 function App() {
-	const { vote } = useSyncExternalStore(store.subscribe, store.getSnapshot);
+	const { votes } = useSyncExternalStore(store.subscribe, store.getSnapshot);
 
 	return (
 		<div>
@@ -21,7 +23,10 @@ function App() {
 								headers: {
 									"Content-Type": "application/json",
 								},
-								body: JSON.stringify({ vote: number }),
+								body: JSON.stringify({
+									vote: number,
+									name: MY_NAME,
+								}),
 							});
 						}}
 					>
@@ -30,7 +35,9 @@ function App() {
 				))}
 				<div className="container nes-container with-title">
 					<p className="title">Vote</p>
-					<p>{vote}</p>
+					<p>
+						{MY_NAME}: {votes?.[MY_NAME]?.vote ?? "?"}
+					</p>
 				</div>
 			</div>
 		</div>

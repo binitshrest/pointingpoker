@@ -2,14 +2,17 @@ import process from "node:process";
 import express from "express";
 import observable from "./observable.js";
 
-const store = { vote: "?" };
+const store = { votes: {} };
+
+// Schema { votes: { name: { vote: '', display: bool } } }
 
 const app = express();
 app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 app.post("/vote", (request, response) => {
-	store.vote = request.body.vote;
+	const { vote, name } = request.body;
+	store.votes[name] = { vote, display: true };
 	observable.publish(JSON.stringify(store));
 	response.sendStatus(200);
 });

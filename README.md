@@ -8,8 +8,10 @@ https://pointingpoker.onrender.com/
 - [x] Change favicon
 - [x] Vote buttons
 - [x] store vote in backend
-- [ ] Vote with name
-- [ ] Land on voting page with random name
+- [x] Vote with name
+- [x] Land on voting page with random name
+- [ ] use store hook
+- [ ] render all votes
 - [ ] Clear votes
 - [ ] Average of votes
 - [ ] Edit name
