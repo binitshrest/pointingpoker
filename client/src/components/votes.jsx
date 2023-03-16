@@ -9,16 +9,13 @@ const StyledVotes = styled.div`
 export default function Votes() {
 	const { votes } = useStore();
 
+	const display = Object.values(votes).every((vote) => vote !== "?");
+
 	return (
 		<StyledVotes className="nes-container with-title">
 			<p className="title">Votes</p>
 			{Object.keys(votes).map((name) => (
-				<VoteRow
-					key={name}
-					name={name}
-					vote={votes[name].vote}
-					display={votes[name].display}
-				/>
+				<VoteRow key={name} name={name} vote={votes[name]} display={display} />
 			))}
 		</StyledVotes>
 	);

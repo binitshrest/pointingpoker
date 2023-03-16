@@ -4,17 +4,16 @@ import observable from "./observable.js";
 
 const store = { votes: {} };
 
-// Schema { votes: { name: { vote: '', display: bool } } }
-
 const app = express();
 app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 app.post("/vote", (request, response) => {
-	const { vote, name } = request.body;
-	store.votes[name] = { vote, display: false };
-	observable.publish(JSON.stringify(store));
 	response.sendStatus(200);
+
+	const { vote, name } = request.body;
+	store.votes[name] = vote;
+	observable.publish(JSON.stringify(store));
 });
 
 app.get("/events", (request, response) => {

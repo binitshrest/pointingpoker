@@ -15,15 +15,17 @@ https://pointingpoker.onrender.com/
 - [x] join session with empty vote
 - [x] hide votes by default
 - [x] voted indicator
-- [ ] show votes only when all players have voted
+- [x] show votes only when all players have voted
+- [x] hide votes if a new player joins
+- [ ] fix votes alignment
 - [ ] Clear votes
 - [ ] Average of votes
+- [ ] Retain name in local storage
 - [ ] Edit name
 - [ ] validation for unique name
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options
-- [ ] Retain name in local storage
 - [ ] ? Leave session on connection close
 - [ ] Timer for voting session
 - [ ] Ability to remove player
