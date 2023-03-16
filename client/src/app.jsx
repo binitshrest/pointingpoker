@@ -1,29 +1,46 @@
-import "./app.css";
+import styled, { createGlobalStyle } from "styled-components";
 import Votes from "./components/votes.jsx";
-import { joinSession, vote } from "./utils.js";
+import { vote } from "./utils.js";
 
-joinSession();
+const GlobalStyle = createGlobalStyle`
+	body {
+		margin: 0;
+		display: flex;
+		place-items: center;
+		min-width: 320px;
+		min-height: 100vh;
+	}
+
+	#root {
+		max-width: 1280px;
+		margin: 0 auto;
+		padding: 2rem;
+		text-align: center;
+	}
+`;
+
+const Button = styled.button`
+	margin: 8px;
+`;
 
 export default function App() {
 	return (
-		<div>
-			<div />
+		<>
+			<GlobalStyle />
 			<h1>Pointing Poker</h1>
-			<div>
-				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
-					<button
-						key={number}
-						type="button"
-						className="btn nes-btn"
-						onClick={() => {
-							vote(number);
-						}}
-					>
-						{number}
-					</button>
-				))}
-				<Votes />
-			</div>
-		</div>
+			{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+				<Button
+					key={number}
+					type="button"
+					className="nes-btn"
+					onClick={() => {
+						vote(number);
+					}}
+				>
+					{number}
+				</Button>
+			))}
+			<Votes />
+		</>
 	);
 }

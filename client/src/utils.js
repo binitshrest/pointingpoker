@@ -13,6 +13,8 @@ export function vote(vote) {
 	});
 }
 
-export function joinSession() {
+function joinSession() {
 	return vote("?");
 }
+
+joinSession();
