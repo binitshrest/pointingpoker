@@ -1,7 +1,8 @@
 import "./app.css";
 import Votes from "./components/votes.jsx";
+import { joinSession, vote } from "./utils.js";
 
-const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
+joinSession();
 
 export default function App() {
 	return (
@@ -15,16 +16,7 @@ export default function App() {
 						type="button"
 						className="btn nes-btn"
 						onClick={() => {
-							window.fetch("/vote", {
-								method: "POST",
-								headers: {
-									"Content-Type": "application/json",
-								},
-								body: JSON.stringify({
-									vote: number,
-									name: MY_NAME,
-								}),
-							});
+							vote(number);
 						}}
 					>
 						{number}
