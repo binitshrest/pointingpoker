@@ -13,10 +13,12 @@ https://pointingpoker.onrender.com/
 - [x] use store hook
 - [x] render all votes
 - [x] join session with empty vote
+- [x] hide votes by default
+- [ ] show votes only when all players have voted
 - [ ] Clear votes
 - [ ] Average of votes
 - [ ] Edit name
-- [ ] Show/hide votes
+- [ ] validation for unique name
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options

@@ -12,7 +12,7 @@ app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 app.post("/vote", (request, response) => {
 	const { vote, name } = request.body;
-	store.votes[name] = { vote, display: true };
+	store.votes[name] = { vote, display: false };
 	observable.publish(JSON.stringify(store));
 	response.sendStatus(200);
 });
