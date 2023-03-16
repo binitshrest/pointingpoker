@@ -18,7 +18,7 @@ https://pointingpoker.onrender.com/
 - [x] show votes only when all players have voted
 - [x] hide votes if a new player joins
 - [x] Leave session on connection close
-- [ ] fix votes alignment
+- [x] fix votes alignment
 - [ ] Clear votes
 - [ ] Average of votes
 - [ ] Retain name in local storage
@@ -28,6 +28,7 @@ https://pointingpoker.onrender.com/
 - [ ] Persist state in backend
 - [ ] Create custom vote options
 - [ ] Timer for voting session
+- [ ] Error handling for connection close
 - [ ] Ability to remove player
 - [ ] Cron job to minimize cold start
 - [ ] Rooms for different teams
