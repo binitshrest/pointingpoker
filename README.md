@@ -17,6 +17,7 @@ https://pointingpoker.onrender.com/
 - [x] voted indicator
 - [x] show votes only when all players have voted
 - [x] hide votes if a new player joins
+- [x] Leave session on connection close
 - [ ] fix votes alignment
 - [ ] Clear votes
 - [ ] Average of votes
@@ -26,7 +27,6 @@ https://pointingpoker.onrender.com/
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options
-- [ ] ? Leave session on connection close
 - [ ] Timer for voting session
 - [ ] Ability to remove player
 - [ ] Cron job to minimize cold start

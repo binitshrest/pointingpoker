@@ -16,7 +16,7 @@ app.post("/vote", (request, response) => {
 	observable.publish(JSON.stringify(store));
 });
 
-app.get("/events", (request, response) => {
+app.get("/events/:name", (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",
 		Connection: "keep-alive",
@@ -29,14 +29,17 @@ app.get("/events", (request, response) => {
 		response.write(`data: ${data}\n\n`);
 	};
 
-	func(JSON.stringify(store));
-
 	const unsubscribe = observable.subscribe(func);
+
+	store.votes[request.params.name] = "?";
+	observable.publish(JSON.stringify(store));
 
 	console.log("Connection established");
 
 	request.on("close", () => {
 		unsubscribe();
+		delete store.votes[request.params.name];
+		observable.publish(JSON.stringify(store));
 		console.log("Connection closed");
 	});
 });

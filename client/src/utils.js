@@ -1,4 +1,4 @@
-const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
+export const MY_NAME = `player${Math.floor(Math.random() * 100)}`;
 
 export function vote(vote) {
 	return fetch("/vote", {
@@ -12,9 +12,3 @@ export function vote(vote) {
 		}),
 	});
 }
-
-function joinSession() {
-	return vote("?");
-}
-
-joinSession();

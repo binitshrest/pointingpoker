@@ -1,9 +1,10 @@
 import { useSyncExternalStore } from "react";
+import { MY_NAME } from "./utils.js";
 
 let data = { votes: {} };
 
 function subscribe(callback) {
-	const eventSource = new window.EventSource("/events");
+	const eventSource = new EventSource(`/events/${MY_NAME}`);
 
 	const listener = (event) => {
 		data = JSON.parse(event.data);
