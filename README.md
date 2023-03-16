@@ -14,7 +14,7 @@ https://pointingpoker.onrender.com/
 - [x] render all votes
 - [x] join session with empty vote
 - [x] hide votes by default
-- [ ] voted indicator
+- [x] voted indicator
 - [ ] show votes only when all players have voted
 - [ ] Clear votes
 - [ ] Average of votes
