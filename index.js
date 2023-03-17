@@ -1,5 +1,6 @@
 import process from "node:process";
 import express from "express";
+import cors from "cors";
 import observable from "./observable.js";
 
 const store = { votes: {} };
@@ -7,6 +8,10 @@ const store = { votes: {} };
 const app = express();
 app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
+
+if (process.env.NODE_ENV === "dev") {
+	app.use(cors());
+}
 
 app.post("/vote", (request, response) => {
 	response.sendStatus(200);

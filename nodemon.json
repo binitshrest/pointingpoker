@@ -1,5 +1,5 @@
 {
-  "exec": "npm run lint && npm run build && node index.js",
+  "exec": "npm run lint && npm run build && NODE_ENV=dev node index.js",
   "watch": [
     "./"
   ],
