@@ -1,7 +1,7 @@
 import process from "node:process";
 import express from "express";
 import cors from "cors";
-import observable from "./observable.js";
+import { observable, publish } from "./observable.js";
 
 const store = { votes: {} };
 
@@ -18,7 +18,17 @@ app.post("/vote", (request, response) => {
 
 	const { vote, name } = request.body;
 	store.votes[name] = vote;
-	observable.publish(JSON.stringify(store));
+	publish(store);
+});
+
+app.delete("/vote", (request, response) => {
+	response.sendStatus(200);
+
+	for (const name of Object.keys(store.votes)) {
+		store.votes[name] = "?";
+	}
+
+	publish(store);
 });
 
 app.get("/events/:name", (request, response) => {
@@ -37,14 +47,14 @@ app.get("/events/:name", (request, response) => {
 	const unsubscribe = observable.subscribe(func);
 
 	store.votes[request.params.name] = "?";
-	observable.publish(JSON.stringify(store));
+	publish(store);
 
 	console.log("Connection established");
 
 	request.on("close", () => {
 		unsubscribe();
 		delete store.votes[request.params.name];
-		observable.publish(JSON.stringify(store));
+		publish(store);
 		console.log("Connection closed");
 	});
 });

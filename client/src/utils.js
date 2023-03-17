@@ -12,3 +12,9 @@ export function vote(vote) {
 		}),
 	});
 }
+
+export function clearVotes() {
+	return fetch(`${import.meta.env.VITE_SERVER_BASE_URL}/vote`, {
+		method: "DELETE",
+	});
+}

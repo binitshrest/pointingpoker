@@ -19,7 +19,7 @@ https://pointingpoker.onrender.com/
 - [x] hide votes if a new player joins
 - [x] Leave session on connection close
 - [x] fix votes alignment
-- [ ] Clear votes
+- [x] Clear votes
 - [ ] Average of votes
 - [ ] Retain name in local storage
 - [ ] Edit name
@@ -32,3 +32,6 @@ https://pointingpoker.onrender.com/
 - [ ] Ability to remove player
 - [ ] Cron job to minimize cold start
 - [ ] Rooms for different teams
+- [ ] dark theme
+- [ ] github repo link
+- [ ] link preview and robots.txt

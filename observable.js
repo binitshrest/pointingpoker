@@ -18,5 +18,8 @@ class Observable {
 	}
 }
 
-const observable = new Observable();
-export default observable;
+export const observable = new Observable();
+
+export function publish(data) {
+	observable.publish(JSON.stringify(data));
+}
