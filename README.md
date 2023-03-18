@@ -20,7 +20,8 @@ https://pointingpoker.onrender.com/
 - [x] Leave session on connection close
 - [x] fix votes alignment
 - [x] Clear votes
-- [ ] Average of votes
+- [x] Average of votes
+- [ ] Consensus and confetti
 - [ ] Retain name in local storage
 - [ ] Edit name
 - [ ] validation for unique name
@@ -28,6 +29,7 @@ https://pointingpoker.onrender.com/
 - [ ] Persist state in backend
 - [ ] Create custom vote options
 - [ ] Timer for voting session
+- [ ] Most people voted stat
 - [ ] Error handling for connection close
 - [ ] Ability to remove player
 - [ ] Cron job to minimize cold start

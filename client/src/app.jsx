@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { VoteActions } from "./components/vote-actions.jsx";
 import { VoteButtons } from "./components/vote-buttons.jsx";
+import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
 
 const GlobalStyle = createGlobalStyle`
@@ -40,6 +41,7 @@ export function App() {
 			<VoteButtons />
 			<VoteActions />
 			<Votes />
+			<VoteStats />
 		</AppContainer>
 	);
 }
