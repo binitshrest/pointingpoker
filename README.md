@@ -21,7 +21,7 @@ https://pointingpoker.onrender.com/
 - [x] fix votes alignment
 - [x] Clear votes
 - [x] Average of votes
-- [ ] Consensus and confetti
+- [x] Consensus and confetti
 - [ ] Retain name in local storage
 - [ ] Edit name
 - [ ] validation for unique name

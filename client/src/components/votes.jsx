@@ -10,7 +10,7 @@ export function Votes() {
 	const { votes, display } = useVotes();
 
 	return (
-		<VotesContainer className="nes-container with-title">
+		<VotesContainer className="nes-container with-title is-centered">
 			<p className="title">Votes</p>
 			{Object.keys(votes).map((name) => (
 				<VoteRow key={name} name={name} vote={votes[name]} display={display} />

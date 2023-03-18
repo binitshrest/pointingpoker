@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Emoji } from "./emoji.jsx";
 
 const StyledVoteRow = styled.div`
 	display: grid;
@@ -20,7 +21,7 @@ const Vote = styled.div`
 export function VoteRow({ name, vote, display }) {
 	return (
 		<StyledVoteRow>
-			{vote !== "?" && "🟢"}
+			{vote !== "?" && <Emoji>🟢</Emoji>}
 			<Name>{name}</Name>
 			<Vote display={display}>{display ? vote : "?"}</Vote>
 		</StyledVoteRow>

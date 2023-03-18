@@ -1,19 +1,25 @@
 import styled from "styled-components";
 import { useVotes } from "../votes.js";
+import { Emoji } from "./emoji.jsx";
 
-const VoteStatsContainer = styled.div`
-	text-align: center;
+const StatRow = styled.div`
+	margin-bottom: 8px;
 `;
 
 export function VoteStats() {
-	const { display, averageVote } = useVotes();
+	const { display, averageVote, consensus } = useVotes();
 
 	if (display) {
 		return (
-			<VoteStatsContainer className="nes-container with-title">
+			<div className="nes-container with-title is-centered">
 				<p className="title">Stats</p>
-				Average vote is {averageVote}
-			</VoteStatsContainer>
+				<StatRow>Average vote is {averageVote}</StatRow>
+				{consensus && (
+					<StatRow>
+						Consensus! <Emoji>🎉</Emoji>
+					</StatRow>
+				)}
+			</div>
 		);
 	}
 

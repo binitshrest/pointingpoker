@@ -1,8 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 import { VoteActions } from "./components/vote-actions.jsx";
 import { VoteButtons } from "./components/vote-buttons.jsx";
 import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
+import { useVotes } from "./votes.js";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -21,10 +24,6 @@ const GlobalStyle = createGlobalStyle`
 	h1 {
 		margin-bottom: 0;
 	}
-
-	.nes-container>:last-child {
-		margin-bottom: 8px;
-	}
 `;
 
 const AppContainer = styled.div`
@@ -34,6 +33,9 @@ const AppContainer = styled.div`
 `;
 
 export function App() {
+	const { width, height } = useWindowSize();
+	const { consensus } = useVotes();
+
 	return (
 		<AppContainer>
 			<GlobalStyle />
@@ -42,6 +44,11 @@ export function App() {
 			<VoteActions />
 			<Votes />
 			<VoteStats />
+			<Confetti
+				width={width}
+				height={height}
+				numberOfPieces={consensus ? 500 : 0}
+			/>
 		</AppContainer>
 	);
 }
