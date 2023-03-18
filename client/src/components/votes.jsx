@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useStore } from "../store.js";
+import { useVotes } from "../votes.js";
 import { VoteRow } from "./vote-row.jsx";
 
 const VotesContainer = styled.div`
@@ -7,9 +7,7 @@ const VotesContainer = styled.div`
 `;
 
 export function Votes() {
-	const { votes } = useStore();
-
-	const display = Object.values(votes).every((vote) => vote !== "?");
+	const { votes, display } = useVotes();
 
 	return (
 		<VotesContainer className="nes-container with-title">
