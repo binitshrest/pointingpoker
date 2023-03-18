@@ -1,4 +1,4 @@
-import { vote } from "../utils.js";
+import { vote } from "../utils/api.js";
 import { Button } from "./button.jsx";
 
 export function VoteButtons() {

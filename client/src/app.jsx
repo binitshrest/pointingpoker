@@ -5,7 +5,7 @@ import { VoteActions } from "./components/vote-actions.jsx";
 import { VoteButtons } from "./components/vote-buttons.jsx";
 import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
-import { useVotes } from "./votes.js";
+import { useVotes } from "./hooks/votes.js";
 
 const GlobalStyle = createGlobalStyle`
 	body {

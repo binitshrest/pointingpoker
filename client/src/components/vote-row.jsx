@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { Emoji } from "./emoji.jsx";
+import { Name } from "./name.jsx";
 
 const StyledVoteRow = styled.div`
 	display: grid;
-	justify-content: center;
+	text-align: left;
 	margin-bottom: 8px;
-	grid-template: 1fr / 40px 1fr 1fr;
+	grid-template: 1fr / 20% 1fr 1fr;
 `;
 
-const Name = styled.div`
-	grid-column: 2;
+const StyledEmoji = styled(Emoji)`
+	margin-right: 16px;
+	text-align: right;
 `;
 
 const Vote = styled.div`
@@ -21,7 +23,7 @@ const Vote = styled.div`
 export function VoteRow({ name, vote, display }) {
 	return (
 		<StyledVoteRow>
-			{vote !== "?" && <Emoji>🟢</Emoji>}
+			{vote !== "?" && <StyledEmoji>🟢</StyledEmoji>}
 			<Name>{name}</Name>
 			<Vote display={display}>{display ? vote : "?"}</Vote>
 		</StyledVoteRow>

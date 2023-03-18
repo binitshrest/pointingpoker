@@ -23,7 +23,8 @@ https://pointingpoker.onrender.com/
 - [x] Average of votes
 - [x] Consensus and confetti
 - [ ] Retain name in local storage
-- [ ] Edit name
+- [x] Edit name api
+- [ ] Edit name with input field
 - [ ] validation for unique name
 - [ ] hide votes in payload
 - [ ] Persist state in backend

@@ -31,6 +31,15 @@ app.delete("/vote", (request, response) => {
 	publish(store);
 });
 
+app.post("/name", (request, response) => {
+	const { currentName, newName } = request.body;
+	store.votes[newName] = store.votes[currentName];
+	delete store.votes[currentName];
+	publish(store);
+
+	response.send({ newName });
+});
+
 app.get("/events/:name", (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",

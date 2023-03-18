@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useVotes } from "../votes.js";
+import { useVotes } from "../hooks/votes.js";
 import { VoteRow } from "./vote-row.jsx";
 
 const VotesContainer = styled.div`

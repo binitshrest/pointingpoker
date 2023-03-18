@@ -1,10 +1,10 @@
 import { useSyncExternalStore } from "react";
-import { MY_NAME } from "./utils.js";
+import { getName } from "./name.js";
 
 let data = { votes: {} };
 
 const eventSource = new EventSource(
-	`${import.meta.env.VITE_SERVER_BASE_URL}/events/${MY_NAME}`
+	`${import.meta.env.VITE_SERVER_BASE_URL}/events/${getName()}`
 );
 
 eventSource.addEventListener("message", (event) => {
