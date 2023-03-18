@@ -47,7 +47,9 @@ export function App() {
 			<Confetti
 				width={width}
 				height={height}
+				recycle={false}
 				numberOfPieces={consensus ? 500 : 0}
+				onConfettiComplete={(confetti) => confetti.reset()}
 			/>
 		</AppContainer>
 	);
