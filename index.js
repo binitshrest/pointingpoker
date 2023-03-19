@@ -39,6 +39,17 @@ app.post("/api/:id/name", (request, response) => {
 	response.send({ newName });
 });
 
+app.delete("/api/:name", (request, response) => {
+	const name = request.params.name;
+	const id = Object.keys(store.votes).find(
+		(playerId) => store.votes[playerId].name === name
+	);
+	delete store.votes[id];
+	publish(store);
+
+	response.sendStatus(200);
+});
+
 app.get("/api/events/:id/:name", (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",

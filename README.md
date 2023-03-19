@@ -28,7 +28,7 @@ https://pointingpoker.onrender.com/
 - [x] Retain name in local storage
 - [x] validation for unique name
 - [x] Ability to remove player - UI
-- [ ] Ability to remove player - API
+- [x] Ability to remove player - API
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options

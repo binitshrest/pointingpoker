@@ -31,3 +31,9 @@ export function setName(newName) {
 		}),
 	});
 }
+
+export function removePlayer(name) {
+	return fetch(`${BASE_URL}/${name}`, {
+		method: "DELETE",
+	});
+}

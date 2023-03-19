@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { useHover } from "react-use";
+import { removePlayer } from "../utils/api.js";
 
 const cursorPointerStyle = css`
 	cursor: ${({ $pointer }) =>
@@ -28,6 +29,9 @@ export function NameBox({ children, onClick, editable }) {
 					$pointer
 					$display={hovered}
 					className="nes-icon close is-small"
+					onClick={() => {
+						removePlayer(children);
+					}}
 				/>
 			</div>
 		);
