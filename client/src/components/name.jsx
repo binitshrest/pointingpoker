@@ -17,7 +17,7 @@ const StyledInput = styled.input`
 `;
 
 export function Name({ children }) {
-	const { name, changeName } = useName();
+	const { name, setName } = useName();
 	const [inputMode, setInputMode] = useState(false);
 	const inputRef = useRef(null);
 
@@ -25,7 +25,7 @@ export function Name({ children }) {
 		setInputMode(false);
 		const newName = inputRef.current?.value?.trim?.();
 		if (newName && newName !== name) {
-			changeName(inputRef.current.value);
+			setName(inputRef.current.value);
 		}
 	};
 

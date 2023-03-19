@@ -20,7 +20,7 @@ export function clearVotes() {
 	});
 }
 
-export function editName(newName) {
+export function setName(newName) {
 	return fetch(`${BASE_URL}/${id}/name`, {
 		method: "POST",
 		headers: {

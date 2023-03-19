@@ -25,7 +25,7 @@ https://pointingpoker.onrender.com/
 - [x] Edit name api
 - [x] Edit name with input field
 - [x] schema based on player id
-- [ ] Retain name in local storage
+- [x] Retain name in local storage
 - [ ] validation for unique name
 - [ ] Ability to remove player
 - [ ] hide votes in payload
@@ -40,3 +40,4 @@ https://pointingpoker.onrender.com/
 - [ ] github repo link
 - [ ] link preview and robots.txt
 - [ ] fix UI flicker on vote stats display
+- [ ] ? support multiple tabs
