@@ -5,7 +5,7 @@ import { Name } from "./name.jsx";
 const StyledVoteRow = styled.div`
 	display: grid;
 	margin-bottom: 8px;
-	grid-template: 1fr / 20% 1fr 2fr;
+	grid-template: 1fr / 15% 2fr 1fr;
 `;
 
 const StyledEmoji = styled(Emoji)`

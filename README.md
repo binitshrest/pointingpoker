@@ -22,19 +22,21 @@ https://pointingpoker.onrender.com/
 - [x] Clear votes
 - [x] Average of votes
 - [x] Consensus and confetti
-- [ ] Retain name in local storage
 - [x] Edit name api
-- [ ] Edit name with input field
+- [x] Edit name with input field
+- [ ] schema based on player id
+- [ ] Retain name in local storage
 - [ ] validation for unique name
+- [ ] Ability to remove player
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options
 - [ ] Timer for voting session
 - [ ] Most people voted stat
 - [ ] Error handling for connection close
-- [ ] Ability to remove player
 - [ ] Cron job to minimize cold start
 - [ ] Rooms for different teams
 - [ ] dark theme
 - [ ] github repo link
 - [ ] link preview and robots.txt
+- [ ] fix UI flicker on vote stats display
