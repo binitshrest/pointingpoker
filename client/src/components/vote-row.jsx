@@ -16,7 +16,7 @@ const StyledEmoji = styled(Emoji)`
 const Vote = styled.div`
 	width: 48px;
 	justify-self: center;
-	background-color: ${({ display }) => (display ? "transparent" : "#212529")};
+	background-color: ${({ $display }) => ($display ? "transparent" : "#212529")};
 `;
 
 export function VoteRow({ name, vote, display }) {
@@ -24,7 +24,7 @@ export function VoteRow({ name, vote, display }) {
 		<StyledVoteRow>
 			{vote !== "?" && <StyledEmoji>🟢</StyledEmoji>}
 			<Name>{name}</Name>
-			<Vote display={display}>{display ? vote : "?"}</Vote>
+			<Vote $display={display}>{display ? vote : "?"}</Vote>
 		</StyledVoteRow>
 	);
 }
