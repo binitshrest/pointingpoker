@@ -4,9 +4,8 @@ import { Name } from "./name.jsx";
 
 const StyledVoteRow = styled.div`
 	display: grid;
-	text-align: left;
 	margin-bottom: 8px;
-	grid-template: 1fr / 20% 1fr 1fr;
+	grid-template: 1fr / 20% 1fr 2fr;
 `;
 
 const StyledEmoji = styled(Emoji)`
