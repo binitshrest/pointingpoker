@@ -24,7 +24,7 @@ https://pointingpoker.onrender.com/
 - [x] Consensus and confetti
 - [x] Edit name api
 - [x] Edit name with input field
-- [ ] schema based on player id
+- [x] schema based on player id
 - [ ] Retain name in local storage
 - [ ] validation for unique name
 - [ ] Ability to remove player

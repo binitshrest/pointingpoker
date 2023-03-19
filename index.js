@@ -13,34 +13,33 @@ if (process.env.NODE_ENV === "dev") {
 	app.use(cors());
 }
 
-app.post("/vote", (request, response) => {
-	response.sendStatus(200);
-
-	const { vote, name } = request.body;
-	store.votes[name] = vote;
+app.post("/api/:id/vote", (request, response) => {
+	const { vote } = request.body;
+	const id = request.params.id;
+	store.votes[id].vote = vote;
 	publish(store);
+	response.sendStatus(200);
 });
 
-app.delete("/vote", (request, response) => {
-	response.sendStatus(200);
-
-	for (const name of Object.keys(store.votes)) {
-		store.votes[name] = "?";
+app.delete("/api/vote", (request, response) => {
+	for (const id of Object.keys(store.votes)) {
+		store.votes[id].vote = "?";
 	}
 
 	publish(store);
+	response.sendStatus(200);
 });
 
-app.post("/name", (request, response) => {
-	const { currentName, newName } = request.body;
-	store.votes[newName] = store.votes[currentName];
-	delete store.votes[currentName];
+app.post("/api/:id/name", (request, response) => {
+	const { newName } = request.body;
+	const id = request.params.id;
+	store.votes[id].name = newName;
 	publish(store);
 
 	response.send({ newName });
 });
 
-app.get("/events/:name", (request, response) => {
+app.get("/api/events/:id/:name", (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",
 		Connection: "keep-alive",
@@ -55,14 +54,15 @@ app.get("/events/:name", (request, response) => {
 
 	const unsubscribe = observable.subscribe(func);
 
-	store.votes[request.params.name] = "?";
+	const id = request.params.id;
+	store.votes[id] = { name: request.params.name, vote: "?" };
 	publish(store);
 
 	console.log("Connection established");
 
 	request.on("close", () => {
 		unsubscribe();
-		delete store.votes[request.params.name];
+		delete store.votes[id];
 		publish(store);
 		console.log("Connection closed");
 	});

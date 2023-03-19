@@ -7,7 +7,7 @@ export function getName() {
 }
 
 async function changeName(newName) {
-	const response = await editName(name, newName);
+	const response = await editName(newName);
 	({ newName: name } = await response.json());
 }
 
