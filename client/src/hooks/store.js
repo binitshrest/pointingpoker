@@ -2,15 +2,15 @@ import { useSyncExternalStore } from "react";
 import { id } from "../utils/id.js";
 import { getName } from "./name.js";
 
-let data = { votes: {} };
+let store = { votes: {} };
 
 const eventSource = new EventSource(
 	`${import.meta.env.VITE_SERVER_BASE_URL}/api/events/${id}/${getName()}`
 );
 
 eventSource.addEventListener("message", (event) => {
-	data = JSON.parse(event.data);
-	console.log("new data", data);
+	store = JSON.parse(event.data);
+	console.log("new data", store);
 });
 
 function subscribe(callback) {
@@ -19,10 +19,10 @@ function subscribe(callback) {
 	return () => eventSource.removeEventListener("message", callback);
 }
 
-function getSnapshot() {
-	return data;
+export function getStore() {
+	return store;
 }
 
 export function useStore() {
-	return useSyncExternalStore(subscribe, getSnapshot);
+	return useSyncExternalStore(subscribe, getStore);
 }

@@ -26,7 +26,7 @@ https://pointingpoker.onrender.com/
 - [x] Edit name with input field
 - [x] schema based on player id
 - [x] Retain name in local storage
-- [ ] validation for unique name
+- [x] validation for unique name
 - [ ] Ability to remove player
 - [ ] hide votes in payload
 - [ ] Persist state in backend

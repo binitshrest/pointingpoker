@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
-import { useName } from "../hooks/name.js";
+import { useState } from "react";
+import classNames from "classnames";
+import { useName, validateName } from "../hooks/name.js";
+import { useToggle } from "../hooks/toggle.js";
 
 const StyledName = styled.div`
 	grid-column: 2;
@@ -18,15 +20,16 @@ const StyledInput = styled.input`
 
 export function Name({ children }) {
 	const { name, setName } = useName();
-	const [inputMode, setInputMode] = useState(false);
-	const inputRef = useRef(null);
+	const [inputMode, toggleInputMode] = useToggle();
+	const [input, setInput] = useState(children);
 
-	const handleChange = () => {
-		setInputMode(false);
-		const newName = inputRef.current?.value?.trim?.();
-		if (newName && newName !== name) {
-			setName(inputRef.current.value);
-		}
+	const handleChange = (event) => {
+		event.preventDefault();
+		if (!validateName(input.trim())) return;
+
+		toggleInputMode();
+		setName(input.trim());
+		setInput(input.trim());
 	};
 
 	const editable = children === name;
@@ -34,16 +37,18 @@ export function Name({ children }) {
 	return (
 		<StyledName editable={editable}>
 			{inputMode && editable ? (
-				<form onSubmit={handleChange} onBlur={handleChange}>
+				<form onSubmit={handleChange} onBlur={toggleInputMode}>
 					<StyledInput
-						ref={inputRef}
 						autoFocus
-						className="nes-input"
-						defaultValue={children}
+						className={classNames("nes-input", {
+							"is-error": !validateName(input.trim()),
+						})}
+						value={input}
+						onChange={(event) => setInput(event.target.value)}
 					/>
 				</form>
 			) : (
-				<div onClick={() => setInputMode(true)}>{children}</div>
+				<div onClick={toggleInputMode}>{children}</div>
 			)}
 		</StyledName>
 	);

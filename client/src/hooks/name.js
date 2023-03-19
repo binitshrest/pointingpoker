@@ -1,6 +1,7 @@
 import { setName as setNameInStore } from "../utils/api.js";
+import { getStore } from "./store.js";
 
-let name = localStorage.getItem("name") ?? createName();
+let playerName = localStorage.getItem("name") ?? createName();
 
 function createName() {
 	const createdName = `player${Math.floor(Math.random() * 100)}`;
@@ -9,19 +10,33 @@ function createName() {
 }
 
 export function getName() {
-	return name;
+	return playerName;
 }
 
 async function setName(newName) {
 	try {
+		if (playerName === newName) return;
+
 		const response = await setNameInStore(newName);
-		({ newName: name } = await response.json());
+		({ newName: playerName } = await response.json());
 		localStorage.setItem("name", newName);
 	} catch (error) {
 		console.error("Error while changing name", error);
 	}
 }
 
+export function validateName(name) {
+	if (!name) return false;
+
+	if (name === playerName) return true;
+
+	const { votes } = getStore();
+	const allNames = Object.values(votes).map(({ name }) => name);
+	if (allNames.includes(name)) return false;
+
+	return true;
+}
+
 export function useName() {
-	return { name, setName };
+	return { name: playerName, setName };
 }
