@@ -9,6 +9,7 @@
     "build": "cd client && npm run build",
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "preview": "npm run lint && npm run build && nodemon index.js",
     "lint": "xo --fix",
     "prepare": "husky install"
   },
