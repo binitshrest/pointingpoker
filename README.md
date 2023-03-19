@@ -27,7 +27,8 @@ https://pointingpoker.onrender.com/
 - [x] schema based on player id
 - [x] Retain name in local storage
 - [x] validation for unique name
-- [ ] Ability to remove player
+- [x] Ability to remove player - UI
+- [ ] Ability to remove player - API
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options
