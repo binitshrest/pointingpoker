@@ -29,6 +29,7 @@ https://pointingpoker.onrender.com/
 - [x] validation for unique name
 - [x] Ability to remove player - UI
 - [x] Ability to remove player - API
+- [x] caution dialog before removing player
 - [ ] hide votes in payload
 - [ ] Persist state in backend
 - [ ] Create custom vote options

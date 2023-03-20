@@ -4,9 +4,13 @@ const StyledButton = styled.button`
 	margin: 8px;
 `;
 
-export function Button({ children, onClick }) {
+export function Button({ children, onClick, className = "" }) {
 	return (
-		<StyledButton type="button" className="nes-btn" onClick={onClick}>
+		<StyledButton
+			type="button"
+			className={`nes-btn ${className}`}
+			onClick={onClick}
+		>
 			{children}
 		</StyledButton>
 	);

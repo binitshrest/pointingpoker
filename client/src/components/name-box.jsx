@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { useHover } from "react-use";
-import { removePlayer } from "../utils/api.js";
+import { useRef } from "react";
+import { RemovePlayerDialog } from "./remove-player-dialog.jsx";
 
 const cursorPointerStyle = css`
 	cursor: ${({ $pointer }) =>
@@ -19,6 +20,8 @@ const StyledIcon = styled.i`
 `;
 
 export function NameBox({ children, onClick, editable }) {
+	const dialogRef = useRef();
+
 	function NameBoxWithRemoveButton(hovered) {
 		return (
 			<div>
@@ -30,9 +33,10 @@ export function NameBox({ children, onClick, editable }) {
 					$display={hovered}
 					className="nes-icon close is-small"
 					onClick={() => {
-						removePlayer(children);
+						dialogRef.current?.showModal();
 					}}
 				/>
+				<RemovePlayerDialog ref={dialogRef} playerName={children} />
 			</div>
 		);
 	}
