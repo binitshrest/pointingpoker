@@ -1,7 +1,7 @@
 import process from "node:process";
 import express from "express";
 import cors from "cors";
-import { observable, publish } from "./observable.js";
+import { observable, publish } from "./utils/observable.js";
 
 const store = { votes: {} };
 
