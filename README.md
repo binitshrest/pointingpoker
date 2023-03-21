@@ -30,16 +30,18 @@ https://pointingpoker.onrender.com/
 - [x] Ability to remove player - UI
 - [x] Ability to remove player - API
 - [x] caution dialog before removing player
-- [ ] hide votes in payload
+- [x] hide votes in payload
+- [ ] Cursor progress state for all loading
 - [ ] Persist state in backend
 - [ ] Create custom vote options
-- [ ] Timer for voting session
 - [ ] Most people voted stat
-- [ ] Error handling for connection close
+- [ ] Timer for voting session
+- [ ] Error handling for all async functions
+- [ ] Error handling for connection error
 - [ ] Cron job to minimize cold start
-- [ ] Rooms for different teams
-- [ ] dark theme
 - [ ] github repo link
 - [ ] link preview and robots.txt
+- [ ] Rooms for different teams
+- [ ] dark theme
 - [ ] fix UI flicker on vote stats display
 - [ ] ? support multiple tabs

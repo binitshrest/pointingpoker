@@ -2,6 +2,7 @@ import process from "node:process";
 import express from "express";
 import cors from "cors";
 import { observable, publish } from "./utils/observable.js";
+import { publicKey, deriveSecretKey, encrypt } from "./utils/crypto.js";
 
 const store = { votes: {} };
 
@@ -50,7 +51,7 @@ app.delete("/api/:name", (request, response) => {
 	response.sendStatus(200);
 });
 
-app.get("/api/events/:id/:name", (request, response) => {
+app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",
 		Connection: "keep-alive",
@@ -59,8 +60,14 @@ app.get("/api/events/:id/:name", (request, response) => {
 
 	response.write("retry: 10000\n\n");
 
-	const func = (data) => {
-		response.write(`data: ${data}\n\n`);
+	response.write(`event:key\ndata: ${JSON.stringify(publicKey)}\n\n`);
+
+	const clientPublicKey = request.params.clientPublicKey;
+	const secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
+
+	const func = async (data) => {
+		const encryptedData = await encrypt(secretKey, data);
+		response.write(`data: ${encryptedData}\n\n`);
 	};
 
 	const unsubscribe = observable.subscribe(func);
