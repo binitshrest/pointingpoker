@@ -6,6 +6,7 @@ import { VoteButtons } from "./components/vote-buttons.jsx";
 import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
 import { useVotes } from "./hooks/votes.js";
+import { useLoading } from "./hooks/loading.js";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -15,6 +16,10 @@ const GlobalStyle = createGlobalStyle`
 		min-width: 320px;
 		min-height: 100vh;
 	}
+
+* {
+	${({ $loading }) => $loading && "cursor: progress !important;"}
+}
 
 	#root {
 		max-width: 576px;
@@ -35,10 +40,11 @@ const AppContainer = styled.div`
 export function App() {
 	const { width, height } = useWindowSize();
 	const { consensus } = useVotes();
+	const loading = useLoading();
 
 	return (
 		<AppContainer>
-			<GlobalStyle />
+			<GlobalStyle $loading={loading} />
 			<h1>Pointing Poker</h1>
 			<VoteButtons />
 			<VoteActions />

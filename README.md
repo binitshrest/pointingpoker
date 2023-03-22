@@ -31,7 +31,7 @@ https://pointingpoker.onrender.com/
 - [x] Ability to remove player - API
 - [x] caution dialog before removing player
 - [x] hide votes in payload
-- [ ] Cursor progress state for all loading
+- [x] Cursor progress state for all loading
 - [ ] Persist state in backend
 - [ ] Create custom vote options
 - [ ] Most people voted stat

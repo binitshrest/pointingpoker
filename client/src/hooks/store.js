@@ -3,8 +3,9 @@ import PQueue from "p-queue";
 import { id } from "../utils/id.js";
 import { decrypt, deriveSecretKey, publicKey } from "../../../utils/crypto.js";
 import { getName } from "./name.js";
+import { asyncQueue } from "./loading.js";
 
-const queue = new PQueue({ concurrency: 1 });
+const storeUpdateQueue = new PQueue({ concurrency: 1 });
 
 let store = { votes: {} };
 let secretKey;
@@ -19,8 +20,8 @@ eventSource.addEventListener(
 	"key",
 	(event) => {
 		const serverPublicKey = event.data;
-		queue.add(async () => {
-			secretKey = await deriveSecretKey(serverPublicKey);
+		storeUpdateQueue.add(async () => {
+			secretKey = await asyncQueue.add(() => deriveSecretKey(serverPublicKey));
 		});
 	},
 	{ once: true }
@@ -28,8 +29,8 @@ eventSource.addEventListener(
 
 eventSource.addEventListener("message", (event) => {
 	const encryptedMessage = JSON.parse(event.data);
-	queue.add(async () => {
-		store = await decrypt(secretKey, encryptedMessage);
+	storeUpdateQueue.add(async () => {
+		store = await asyncQueue.add(() => decrypt(secretKey, encryptedMessage));
 		const storeUpdateEvent = new Event("store-update");
 		eventSource.dispatchEvent(storeUpdateEvent);
 	});
