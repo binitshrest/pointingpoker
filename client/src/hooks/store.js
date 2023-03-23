@@ -31,7 +31,7 @@ eventSource.addEventListener("message", (event) => {
 	const encryptedMessage = JSON.parse(event.data);
 	storeUpdateQueue.add(async () => {
 		store = await asyncQueue.add(() => decrypt(secretKey, encryptedMessage));
-		const storeUpdateEvent = new Event("store-update");
+		const storeUpdateEvent = new CustomEvent("store-update");
 		eventSource.dispatchEvent(storeUpdateEvent);
 	});
 });
