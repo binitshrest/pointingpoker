@@ -17,9 +17,9 @@ const GlobalStyle = createGlobalStyle`
 		min-height: 100vh;
 	}
 
-* {
-	${({ $loading }) => $loading && "cursor: progress !important;"}
-}
+	* {
+		${({ $loading }) => $loading && "cursor: progress !important;"}
+	}
 
 	#root {
 		max-width: 576px;
