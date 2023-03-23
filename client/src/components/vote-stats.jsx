@@ -7,17 +7,19 @@ const StatRow = styled.div`
 `;
 
 export function VoteStats() {
-	const { display, averageVote, consensus } = useVotes();
+	const { display, averageVote, modeVote, consensus } = useVotes();
 
 	if (display) {
 		return (
 			<div className="nes-container with-title is-centered">
 				<p className="title">Stats</p>
 				<StatRow>Average vote is {averageVote}</StatRow>
-				{consensus && (
+				{consensus ? (
 					<StatRow>
 						Consensus! <Emoji>🎉</Emoji>
 					</StatRow>
+				) : (
+					modeVote && <StatRow>Most people voted {modeVote}</StatRow>
 				)}
 			</div>
 		);

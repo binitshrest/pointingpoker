@@ -33,7 +33,7 @@ https://pointingpoker.onrender.com/
 - [x] hide votes in payload
 - [x] Cursor progress state for all loading
 - [x] Show player's own vote
-- [ ] Most people voted stat
+- [x] Most people voted stat
 - [ ] Timer for voting session
 - [ ] Cron job to minimize cold start
 - [ ] Error handling for all async functions
@@ -48,3 +48,4 @@ https://pointingpoker.onrender.com/
 - [ ] ? make no confetti on revote from consensus
 - [ ] ? fix UI flicker on vote stats display
 - [ ] ? support multiple tabs
+- [ ] ? history
