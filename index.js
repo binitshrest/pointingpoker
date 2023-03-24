@@ -1,9 +1,10 @@
 import process from "node:process";
 import express from "express";
+import { isEmpty } from "lodash-es";
 import { observable, publish } from "./utils/observable.js";
 import { publicKey, deriveSecretKey, encrypt } from "./utils/crypto.js";
 
-const store = { votes: {} };
+const store = { votes: {}, startTime: 0, timeTaken: 0 };
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,11 @@ app.post("/api/:id/vote", (request, response) => {
 	const { vote } = request.body;
 	const id = request.params.id;
 	store.votes[id].vote = vote;
+
+	if (Object.values(store.votes).every(({ vote }) => vote !== "?")) {
+		store.timeTaken = new Date(Date.now() - store.startTime).setMilliseconds(0);
+	}
+
 	publish(store);
 	response.sendStatus(200);
 });
@@ -26,6 +32,9 @@ app.delete("/api/vote", (request, response) => {
 	for (const id of Object.keys(store.votes)) {
 		store.votes[id].vote = "?";
 	}
+
+	store.startTime = Date.now();
+	store.timeTaken = 0;
 
 	publish(store);
 	response.sendStatus(200);
@@ -71,6 +80,11 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	};
 
 	const unsubscribe = observable.subscribe(func);
+
+	if (isEmpty(store.votes)) {
+		store.startTime = Date.now();
+		store.timeTaken = 0;
+	}
 
 	const id = request.params.id;
 	store.votes[id] = { name: request.params.name, vote: "?" };

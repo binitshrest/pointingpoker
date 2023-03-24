@@ -5,6 +5,7 @@ import { VoteActions } from "./components/vote-actions.jsx";
 import { VoteButtons } from "./components/vote-buttons.jsx";
 import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
+import { VoteTimer } from "./components/vote-timer.jsx";
 import { useVotes } from "./hooks/votes.js";
 import { useLoading } from "./hooks/loading.js";
 
@@ -39,7 +40,7 @@ const AppContainer = styled.div`
 
 export function App() {
 	const { width, height } = useWindowSize();
-	const { consensus } = useVotes();
+	const { consensus, display } = useVotes();
 	const loading = useLoading();
 
 	return (
@@ -49,6 +50,7 @@ export function App() {
 			<VoteButtons />
 			<VoteActions />
 			<Votes />
+			{!display && <VoteTimer />}
 			<VoteStats />
 			<Confetti
 				width={width}

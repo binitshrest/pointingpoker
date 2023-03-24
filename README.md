@@ -34,14 +34,15 @@ https://pointingpoker.onrender.com/
 - [x] Cursor progress state for all loading
 - [x] Show player's own vote
 - [x] Most people voted stat
-- [ ] Timer for voting session
-- [ ] Cron job to minimize cold start
+- [x] Timer for voting session
+- [x] Cron job to minimize cold start
 - [ ] Error handling for all async functions
 - [ ] Error handling for connection error
 - [ ] github repo link
 - [ ] link preview and robots.txt
 - [ ] Rooms for different teams
 - [ ] Create custom vote options
+- [ ] bundle server with esbuild
 - [ ] Persist state in backend
 - [ ] dark theme
 - [ ] ? increase font size
