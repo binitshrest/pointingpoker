@@ -1,6 +1,5 @@
 import process from "node:process";
 import express from "express";
-import cors from "cors";
 import { observable, publish } from "./utils/observable.js";
 import { publicKey, deriveSecretKey, encrypt } from "./utils/crypto.js";
 
@@ -11,6 +10,7 @@ app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 if (process.env.NODE_ENV === "dev") {
+	const { default: cors } = await import("cors");
 	app.use(cors());
 }
 
