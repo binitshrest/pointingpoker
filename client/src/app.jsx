@@ -6,6 +6,7 @@ import { VoteButtons } from "./components/vote-buttons.jsx";
 import { VoteStats } from "./components/vote-stats.jsx";
 import { Votes } from "./components/votes.jsx";
 import { VoteTimer } from "./components/vote-timer.jsx";
+import { GitHubIcon } from "./components/github-icon.jsx";
 import { useVotes } from "./hooks/votes.js";
 import { useLoading } from "./hooks/loading.js";
 
@@ -60,6 +61,7 @@ export function App() {
 		<>
 			<AppContainer>
 				<GlobalStyle $loading={loading} />
+				<GitHubIcon />
 				<h1>Pointing Poker</h1>
 				<VoteButtons />
 				<VoteActions />

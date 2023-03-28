@@ -37,13 +37,13 @@ https://pointingpoker.onrender.com/
 - [x] Timer for voting session
 - [x] Cron job to minimize cold start
 - [x] increase font size
-- [ ] github repo link
+- [x] github repo link
 - [ ] link preview and robots.txt
 - [ ] Error handling for all async functions
 - [ ] Error handling for connection error
 - [ ] Create custom vote options
 - [ ] Rooms for different teams
-- [ ] bundle server with esbuild
+- [ ] ? bundle server with esbuild
 - [ ] ? Persist state in backend
 - [ ] ? dark theme
 - [ ] ? make no confetti on revote from consensus
