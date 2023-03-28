@@ -36,16 +36,16 @@ https://pointingpoker.onrender.com/
 - [x] Most people voted stat
 - [x] Timer for voting session
 - [x] Cron job to minimize cold start
-- [ ] Error handling for all async functions
-- [ ] Error handling for connection error
+- [x] increase font size
 - [ ] github repo link
 - [ ] link preview and robots.txt
-- [ ] Rooms for different teams
+- [ ] Error handling for all async functions
+- [ ] Error handling for connection error
 - [ ] Create custom vote options
+- [ ] Rooms for different teams
 - [ ] bundle server with esbuild
-- [ ] Persist state in backend
-- [ ] dark theme
-- [ ] ? increase font size
+- [ ] ? Persist state in backend
+- [ ] ? dark theme
 - [ ] ? make no confetti on revote from consensus
 - [ ] ? fix UI flicker on vote stats display
 - [ ] ? support multiple tabs

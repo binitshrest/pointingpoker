@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
 		place-items: center;
 		min-width: 320px;
 		min-height: 100vh;
+		overflow: hidden;
 	}
 
 	* {
@@ -27,8 +28,25 @@ const GlobalStyle = createGlobalStyle`
 		margin: 16px;
 	}
 
+	@media (min-width: 768px) {
+		#root {
+			transform: scale(125%);
+		}
+	}
+
+	@media (min-width: 992px) {
+		#root {
+			transform: scale(150%);
+		}
+	}
+
+
 	h1 {
 		margin-bottom: 0;
+	}
+
+	.nes-btn {
+		border-image-repeat: stretch ;
 	}
 `;
 
