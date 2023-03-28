@@ -12,10 +12,6 @@ import { useLoading } from "./hooks/loading.js";
 const GlobalStyle = createGlobalStyle`
 	body {
 		margin: 0;
-		display: grid;
-		place-items: center;
-		min-width: 320px;
-		min-height: 100vh;
 		overflow: hidden;
 	}
 
@@ -24,22 +20,11 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	#root {
-		max-width: 576px;
-		margin: 16px;
+		min-width: 320px;
+		min-height: 100vh;
+		display: grid;
+		place-items: center;
 	}
-
-	@media (min-width: 768px) {
-		#root {
-			transform: scale(125%);
-		}
-	}
-
-	@media (min-width: 992px) {
-		#root {
-			transform: scale(150%);
-		}
-	}
-
 
 	h1 {
 		margin-bottom: 0;
@@ -52,8 +37,18 @@ const GlobalStyle = createGlobalStyle`
 
 const AppContainer = styled.div`
 	display: flex;
-	gap: 1rem;
+	gap: 24px;
 	flex-direction: column;
+	max-width: min(576px, calc(100vw - 32px));
+	margin: 16px;
+
+	@media (min-width: 768px) {
+		transform: scale(125%);
+	}
+
+	@media (min-width: 992px) {
+		transform: scale(150%);
+	}
 `;
 
 export function App() {
@@ -62,14 +57,16 @@ export function App() {
 	const loading = useLoading();
 
 	return (
-		<AppContainer>
-			<GlobalStyle $loading={loading} />
-			<h1>Pointing Poker</h1>
-			<VoteButtons />
-			<VoteActions />
-			<Votes />
-			{!display && <VoteTimer />}
-			<VoteStats />
+		<>
+			<AppContainer>
+				<GlobalStyle $loading={loading} />
+				<h1>Pointing Poker</h1>
+				<VoteButtons />
+				<VoteActions />
+				<Votes />
+				{!display && <VoteTimer />}
+				<VoteStats />
+			</AppContainer>
 			<Confetti
 				width={width}
 				height={height}
@@ -77,6 +74,6 @@ export function App() {
 				numberOfPieces={consensus ? 500 : 0}
 				onConfettiComplete={(confetti) => confetti.reset()}
 			/>
-		</AppContainer>
+		</>
 	);
 }
