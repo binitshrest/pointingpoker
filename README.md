@@ -38,7 +38,8 @@ https://pointingpoker.onrender.com/
 - [x] Cron job to minimize cold start
 - [x] increase font size
 - [x] github repo link
-- [ ] link preview and robots.txt
+- [x] link preview
+- [ ] robots.txt
 - [ ] Error handling for all async functions
 - [ ] Error handling for connection error
 - [ ] Create custom vote options
