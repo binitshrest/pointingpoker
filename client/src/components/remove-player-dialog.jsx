@@ -1,6 +1,14 @@
 import { forwardRef } from "react";
+import styled from "styled-components";
 import { removePlayer } from "../utils/api.js";
 import { Button } from "./button.jsx";
+
+const ButtonContainer = styled.div`
+	display: flex;
+	gap: 48px;
+	justify-content: end;
+	padding-top: 10px;
+`;
 
 export const RemovePlayerDialog = forwardRef(function ({ playerName }, ref) {
 	return (
@@ -9,9 +17,10 @@ export const RemovePlayerDialog = forwardRef(function ({ playerName }, ref) {
 				<p className="title">Caution</p>
 				<p>
 					Are you sure you want to remove player{" "}
-					<span className="nes-text is-primary">{playerName}</span> ?
+					<span className="nes-text is-primary">{playerName}</span> from the
+					session?
 				</p>
-				<div>
+				<ButtonContainer>
 					<Button
 						onClick={() => {
 							ref.current.close();
@@ -27,7 +36,7 @@ export const RemovePlayerDialog = forwardRef(function ({ playerName }, ref) {
 					>
 						Confirm
 					</Button>
-				</div>
+				</ButtonContainer>
 			</form>
 		</dialog>
 	);
