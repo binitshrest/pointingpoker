@@ -46,10 +46,6 @@ const AppContainer = styled.div`
 	@media (min-width: 768px) {
 		transform: scale(125%);
 	}
-
-	@media (min-width: 992px) {
-		transform: scale(150%);
-	}
 `;
 
 export function App() {
