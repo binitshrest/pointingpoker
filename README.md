@@ -43,7 +43,8 @@ https://pointingpoker.onrender.com/
 - [x] Console log Error handling for all async functions
 - [x] Fix scale and overflow
 - [ ] improve ux for entering name
-- [ ] highest lowest stats
+- [x] highest lowest stats
+- [ ] close connection when removing player
 - [ ] Console log Error handling for connection error
 - [ ] Find a good log management service
 - [ ] Replace console logs with custom logger

@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import styled from "styled-components";
 import { removePlayer } from "../utils/api.js";
 import { Button } from "./button.jsx";
+import { Highlight } from "./highlight.jsx";
 
 const ButtonContainer = styled.div`
 	display: flex;
@@ -17,8 +18,7 @@ export const RemovePlayerDialog = forwardRef(function ({ playerName }, ref) {
 				<p className="title">Caution</p>
 				<p>
 					Are you sure you want to remove player{" "}
-					<span className="nes-text is-primary">{playerName}</span> from the
-					session?
+					<Highlight>{playerName}</Highlight> from the session?
 				</p>
 				<ButtonContainer>
 					<Button

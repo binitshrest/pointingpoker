@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import { Duration } from "luxon";
 import { useStore } from "../hooks/store.js";
-import { useVotes } from "../hooks/votes.js";
+import { useVoteStats } from "../hooks/vote-stats.js";
 import { Emoji } from "./emoji.jsx";
+import { Highlight } from "./highlight.jsx";
 
 const StatRow = styled.div`
 	margin-bottom: 8px;
 `;
 
 export function VoteStats() {
-	const { display, averageVote, modeVote, consensus } = useVotes();
+	const {
+		averageVote,
+		modeVote,
+		consensus,
+		minMaxVote: { minVote, minVoters, maxVote, maxVoters },
+	} = useVoteStats();
 	const { timeTaken } = useStore();
 
-	if (display) {
+	if (averageVote) {
 		return (
 			<div className="nes-container with-title is-centered">
 				<p className="title">Stats</p>
@@ -23,26 +29,32 @@ export function VoteStats() {
 				) : (
 					<>
 						<StatRow>
-							Average vote is{" "}
-							<span className="nes-text is-primary">{averageVote}</span>
+							Average vote is <Highlight>{averageVote}</Highlight>
+						</StatRow>
+						<StatRow>
+							<Highlight>{minVoters}</Highlight> voted the lowest:{" "}
+							<Highlight>{minVote}</Highlight>
+						</StatRow>
+						<StatRow>
+							<Highlight>{maxVoters}</Highlight> voted the highest:{" "}
+							<Highlight>{maxVote}</Highlight>
 						</StatRow>
 						{modeVote && (
 							<StatRow>
-								Most people voted{" "}
-								<span className="nes-text is-primary">{modeVote}</span>
+								Most people voted <Highlight>{modeVote}</Highlight>
 							</StatRow>
 						)}
 					</>
 				)}
 				{timeTaken && (
 					<StatRow>
-						<span className="nes-text is-primary">
+						<Highlight>
 							{Duration.fromMillis(timeTaken).rescale().toHuman({
 								unitDisplay: "short",
 								listStyle: "short",
 								maximumFractionDigits: 0,
 							})}
-						</span>{" "}
+						</Highlight>{" "}
 						for all to vote
 					</StatRow>
 				)}

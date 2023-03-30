@@ -9,6 +9,7 @@ import { VoteTimer } from "./components/vote-timer.jsx";
 import { GitHubIcon } from "./components/github-icon.jsx";
 import { useVotes } from "./hooks/votes.js";
 import { useLoading } from "./hooks/loading.js";
+import { useVoteStats } from "./hooks/vote-stats.js";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -50,7 +51,8 @@ const AppContainer = styled.div`
 
 export function App() {
 	const { width, height } = useWindowSize();
-	const { consensus, display } = useVotes();
+	const { display } = useVotes();
+	const { consensus } = useVoteStats();
 	const loading = useLoading();
 
 	return (
