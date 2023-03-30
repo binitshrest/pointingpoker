@@ -111,16 +111,17 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	}
 
 	const id = request.params.id;
-	store.votes[id] = { name: request.params.name, vote: "?" };
+	const name = request.params.name;
+	store.votes[id] = { name, vote: "?" };
 	publish(store);
 
-	console.log("Connection established");
+	console.log(`Connection established to ${name}`);
 
 	request.on("close", () => {
 		unsubscribe();
 		delete store.votes[id];
 		publish(store);
-		console.log("Connection closed");
+		console.log(`Connection closed to ${name}`);
 	});
 });
 
