@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "dev") {
 		const { default: cors } = await import("cors");
 		app.use(cors());
 	} catch (error) {
-		console.error("Error while importing cors", error);
+		console.log("Error while importing cors", error);
 		throw error;
 	}
 }
@@ -82,7 +82,7 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	try {
 		secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
 	} catch (error) {
-		console.error("Error while subscribing to event stream", error);
+		console.log("Error while subscribing to event stream", error);
 		response.sendStatus(500);
 		response.destroy();
 		throw error;
@@ -93,7 +93,7 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 			const encryptedData = await encrypt(secretKey, data);
 			response.write(`data: ${encryptedData}\n\n`);
 		} catch (error) {
-			console.error("Error while writing data to event stream", error);
+			console.log("Error while writing data to event stream", error);
 			unsubscribe();
 			delete store.votes[id];
 			publish(store);
