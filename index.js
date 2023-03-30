@@ -11,8 +11,13 @@ app.use(express.json());
 app.use(express.static(new URL("client/dist", import.meta.url).pathname));
 
 if (process.env.NODE_ENV === "dev") {
-	const { default: cors } = await import("cors");
-	app.use(cors());
+	try {
+		const { default: cors } = await import("cors");
+		app.use(cors());
+	} catch (error) {
+		console.error("Error while importing cors", error);
+		throw error;
+	}
 }
 
 app.post("/api/:id/vote", (request, response) => {
@@ -72,11 +77,30 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	response.write(`event:key\ndata: ${JSON.stringify(publicKey)}\n\n`);
 
 	const clientPublicKey = request.params.clientPublicKey;
-	const secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
+	let secretKey;
+
+	try {
+		secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
+	} catch (error) {
+		console.error("Error while subscribing to event stream", error);
+		response.sendStatus(500);
+		response.destroy();
+		throw error;
+	}
 
 	const func = async (data) => {
-		const encryptedData = await encrypt(secretKey, data);
-		response.write(`data: ${encryptedData}\n\n`);
+		try {
+			const encryptedData = await encrypt(secretKey, data);
+			response.write(`data: ${encryptedData}\n\n`);
+		} catch (error) {
+			console.error("Error while writing data to event stream", error);
+			unsubscribe();
+			delete store.votes[id];
+			publish(store);
+			response.sendStatus(500);
+			response.destroy();
+			throw error;
+		}
 	};
 
 	const unsubscribe = observable.subscribe(func);

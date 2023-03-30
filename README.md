@@ -40,8 +40,10 @@ https://pointingpoker.onrender.com/
 - [x] github repo link
 - [x] link preview
 - [ ] robots.txt
-- [ ] Error handling for all async functions
-- [ ] Error handling for connection error
+- [x] Console log Error handling for all async functions
+- [ ] Console log Error handling for connection error
+- [ ] Find a good log management service
+- [ ] Replace console logs
 - [ ] Create custom vote options
 - [ ] Rooms for different teams
 - [ ] ? bundle server with esbuild

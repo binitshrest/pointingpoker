@@ -1,5 +1,4 @@
 import { setName as setNameInStore } from "../utils/api.js";
-import { asyncQueue } from "./loading.js";
 import { getStore } from "./store.js";
 
 let playerName = localStorage.getItem("name") ?? createName();
@@ -14,18 +13,17 @@ export function getName() {
 	return playerName;
 }
 
-function setName(newName) {
-	asyncQueue.add(async () => {
-		try {
-			if (playerName === newName) return;
+async function setName(newName) {
+	try {
+		if (playerName === newName) return;
 
-			const response = await setNameInStore(newName);
-			({ newName: playerName } = await response.json());
-			localStorage.setItem("name", newName);
-		} catch (error) {
-			console.error("Error while changing name", error);
-		}
-	});
+		const response = await setNameInStore(newName);
+		({ newName: playerName } = response);
+		localStorage.setItem("name", newName);
+	} catch (error) {
+		console.error("Error while changing name", error);
+		throw error;
+	}
 }
 
 export function validateName(name) {

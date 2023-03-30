@@ -18,20 +18,36 @@ eventSource.addEventListener(
 	"key",
 	async (event) => {
 		const serverPublicKey = event.data;
-		secretKey = await asyncQueue.add(() => deriveSecretKey(serverPublicKey));
+		try {
+			secretKey = await asyncQueue.add(() => deriveSecretKey(serverPublicKey));
+		} catch (error) {
+			console.error("Error in key event listener", error);
+			throw error;
+		}
 	},
 	{ once: true }
 );
 
 eventSource.addEventListener("message", async (event) => {
-	const encryptedMessage = JSON.parse(event.data);
+	try {
+		const encryptedMessage = JSON.parse(event.data);
 
-	// Wait for secret key to be derived before decrypting message
-	await pWaitFor(() => Boolean(secretKey));
+		try {
+			// Wait for secret key to be derived before decrypting message
+			await pWaitFor(() => Boolean(secretKey));
+		} catch (error) {
+			console.error("Error while waiting for secret key", error);
+			throw error;
+		}
 
-	store = await asyncQueue.add(() => decrypt(secretKey, encryptedMessage));
-	const storeUpdateEvent = new CustomEvent("store-update");
-	eventSource.dispatchEvent(storeUpdateEvent);
+		store = await asyncQueue.add(() => decrypt(secretKey, encryptedMessage));
+
+		const storeUpdateEvent = new CustomEvent("store-update");
+		eventSource.dispatchEvent(storeUpdateEvent);
+	} catch (error) {
+		console.error("Error in message event listener", error);
+		throw error;
+	}
 });
 
 function subscribe(callback) {
