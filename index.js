@@ -124,6 +124,12 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	});
 });
 
+app.get("/robots.txt", (request, response) => {
+	response.sendFile(
+		new URL("client/dist/robots.txt", import.meta.url).pathname
+	);
+});
+
 app.get("*", (request, response) => {
 	response.sendFile(
 		new URL("client/dist/index.html", import.meta.url).pathname

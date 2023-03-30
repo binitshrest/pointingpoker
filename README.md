@@ -39,7 +39,7 @@ https://pointingpoker.onrender.com/
 - [x] increase font size
 - [x] github repo link
 - [x] link preview
-- [ ] robots.txt
+- [x] robots.txt
 - [x] Console log Error handling for all async functions
 - [ ] Console log Error handling for connection error
 - [ ] Find a good log management service
