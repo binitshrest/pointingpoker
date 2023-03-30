@@ -41,9 +41,12 @@ https://pointingpoker.onrender.com/
 - [x] link preview
 - [x] robots.txt
 - [x] Console log Error handling for all async functions
+- [x] Fix scale and overflow
+- [ ] improve ux for entering name
+- [ ] highest lowest stats
 - [ ] Console log Error handling for connection error
 - [ ] Find a good log management service
-- [ ] Replace console logs
+- [ ] Replace console logs with custom logger
 - [ ] Create custom vote options
 - [ ] Rooms for different teams
 - [ ] ? bundle server with esbuild

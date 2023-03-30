@@ -13,7 +13,7 @@ import { useLoading } from "./hooks/loading.js";
 const GlobalStyle = createGlobalStyle`
 	body {
 		margin: 0;
-		overflow: hidden;
+		overflow-x: hidden;
 	}
 
 	* {
@@ -41,10 +41,10 @@ const AppContainer = styled.div`
 	gap: 24px;
 	flex-direction: column;
 	max-width: min(576px, calc(100vw - 32px));
-	margin: 16px;
+	margin: 32px 16px;
 
 	@media (min-width: 768px) {
-		transform: scale(125%);
+		transform: scale(110%);
 	}
 `;
 
