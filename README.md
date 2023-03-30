@@ -42,7 +42,7 @@ https://pointingpoker.onrender.com/
 - [x] robots.txt
 - [x] Console log Error handling for all async functions
 - [x] Fix scale and overflow
-- [ ] improve ux for entering name
+- [x] improve ux for entering name
 - [x] highest lowest stats
 - [ ] close connection when removing player
 - [ ] Console log Error handling for connection error

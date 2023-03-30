@@ -10,8 +10,8 @@ const StyledInput = styled.input`
 `;
 
 export function NameForm({ initialValue, toggleInput }) {
-	const [input, setInput] = useState(initialValue);
-	const { setName } = useName();
+	const { setName, newPlayer } = useName();
+	const [input, setInput] = useState(newPlayer ? "" : initialValue);
 
 	const handleChange = (event) => {
 		event.preventDefault();
@@ -23,9 +23,10 @@ export function NameForm({ initialValue, toggleInput }) {
 	};
 
 	return (
-		<form onSubmit={handleChange} onBlur={toggleInput}>
+		<form onSubmit={handleChange} onBlur={handleChange}>
 			<StyledInput
 				autoFocus
+				placeholder={newPlayer ? "Enter name" : ""}
 				className={classNames("nes-input", {
 					"is-error": !validateName(input.trim()),
 				})}

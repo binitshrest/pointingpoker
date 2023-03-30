@@ -10,10 +10,11 @@ const NameContainer = styled.div`
 `;
 
 export function Name({ children }) {
-	const { name } = useName();
-	const [input, toggleInput] = useToggle();
+	const { name, newPlayer } = useName();
 
 	const editable = children === name;
+
+	const [input, toggleInput] = useToggle(newPlayer);
 
 	return (
 		<NameContainer>
