@@ -5,7 +5,7 @@ import { decrypt, deriveSecretKey, publicKey } from "../../../utils/crypto.js";
 import { getName } from "./name.js";
 import { asyncQueue } from "./loading.js";
 
-let store = { votes: {} };
+let store = { votes: {}, startTime: 0, timeTaken: 0, error: false };
 let secretKey;
 
 const eventSource = new EventSource(
@@ -13,6 +13,12 @@ const eventSource = new EventSource(
 		import.meta.env.VITE_SERVER_BASE_URL
 	}/api/events/${id}/${getName()}/${encodeURI(JSON.stringify(publicKey))}`
 );
+
+eventSource.addEventListener("error", (event) => {
+	console.log("Error in event source", event);
+	eventSource.close();
+	store.error = true;
+});
 
 eventSource.addEventListener(
 	"key",
