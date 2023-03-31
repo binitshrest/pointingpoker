@@ -4,7 +4,16 @@ import { isEmpty } from "lodash-es";
 import { observable, publish } from "./utils/observable.js";
 import { publicKey, deriveSecretKey, encrypt } from "./utils/crypto.js";
 
-const store = { votes: {}, startTime: 0, timeTaken: 0 };
+const store = {
+	votes: {},
+	startTime: 0,
+	timeTaken: 0,
+	closeConnection: {},
+	toJSON() {
+		const { closeConnection, ...storeCopy } = this;
+		return storeCopy;
+	},
+};
 
 const app = express();
 app.use(express.json());
@@ -59,8 +68,7 @@ app.delete("/api/:name", (request, response) => {
 	const id = Object.keys(store.votes).find(
 		(playerId) => store.votes[playerId].name === name
 	);
-	delete store.votes[id];
-	publish(store);
+	store.closeConnection[id]();
 
 	response.sendStatus(200);
 });
@@ -88,22 +96,17 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 		throw error;
 	}
 
-	const func = async (data) => {
+	const sendEvent = async (data) => {
 		try {
 			const encryptedData = await encrypt(secretKey, data);
 			response.write(`data: ${encryptedData}\n\n`);
 		} catch (error) {
 			console.log("Error while writing data to event stream", error);
-			unsubscribe();
-			delete store.votes[id];
-			publish(store);
-			response.sendStatus(500);
-			response.destroy();
-			throw error;
+			response.end();
 		}
 	};
 
-	const unsubscribe = observable.subscribe(func);
+	const unsubscribe = observable.subscribe(sendEvent);
 
 	if (isEmpty(store.votes)) {
 		store.startTime = Date.now();
@@ -113,15 +116,16 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	const id = request.params.id;
 	const name = request.params.name;
 	store.votes[id] = { name, vote: "?" };
+	store.closeConnection[id] = () => response.end();
 	publish(store);
 
-	console.log(`Connection established to ${name}`);
+	console.log(`Connection established to ${id} ${name}`);
 
 	request.on("close", () => {
 		unsubscribe();
 		delete store.votes[id];
 		publish(store);
-		console.log(`Connection closed to ${name}`);
+		console.log(`Connection closed to ${id} ${name}`);
 	});
 });
 

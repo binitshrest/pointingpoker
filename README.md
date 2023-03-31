@@ -44,7 +44,7 @@ https://pointingpoker.onrender.com/
 - [x] Fix scale and overflow
 - [x] improve ux for entering name
 - [x] highest lowest stats
-- [ ] close connection when removing player
+- [x] close connection when removing player
 - [x] Console log Error handling for connection error
 - [ ] network error dialog on connection close/error
 - [ ] Find a good log management service
