@@ -10,6 +10,7 @@ import { GitHubIcon } from "./components/github-icon.jsx";
 import { useVotes } from "./hooks/votes.js";
 import { useLoading } from "./hooks/loading.js";
 import { useVoteStats } from "./hooks/vote-stats.js";
+import { ConnectionErrorDialog } from "./components/connection-error-dialog.jsx";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -74,6 +75,7 @@ export function App() {
 				numberOfPieces={consensus ? 500 : 0}
 				onConfettiComplete={(confetti) => confetti.reset()}
 			/>
+			<ConnectionErrorDialog />
 		</>
 	);
 }

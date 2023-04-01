@@ -31,6 +31,7 @@ export const RemovePlayerDialog = forwardRef(function ({ playerName }, ref) {
 					<Button
 						className="is-primary"
 						onClick={() => {
+							ref.current.close();
 							removePlayer(playerName);
 						}}
 					>

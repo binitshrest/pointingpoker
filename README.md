@@ -46,7 +46,7 @@ https://pointingpoker.onrender.com/
 - [x] highest lowest stats
 - [x] close connection when removing player
 - [x] Console log Error handling for connection error
-- [ ] network error dialog on connection close/error
+- [x] network error dialog on connection close/error
 - [ ] Find a good log management service
 - [ ] Replace console logs with custom logger
 - [ ] Create custom vote options
