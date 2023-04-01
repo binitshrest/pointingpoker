@@ -91,8 +91,7 @@ app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 		secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
 	} catch (error) {
 		console.log("Error while subscribing to event stream", error);
-		response.sendStatus(500);
-		response.destroy();
+		response.end();
 		throw error;
 	}
 
