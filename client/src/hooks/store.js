@@ -5,7 +5,8 @@ import { decrypt, deriveSecretKey, publicKey } from "../../../utils/crypto.js";
 import { getName } from "./name.js";
 import { asyncQueue } from "./loading.js";
 
-let store = { votes: {}, startTime: 0, timeTaken: 0, error: false };
+let store = { votes: {}, startTime: 0, timeTaken: 0, connected: true };
+const storeUpdateEvent = new CustomEvent("store-update");
 let secretKey;
 
 const eventSource = new EventSource(
@@ -15,9 +16,10 @@ const eventSource = new EventSource(
 );
 
 eventSource.addEventListener("error", (event) => {
-	console.log("Error in event source", event);
+	console.error("Error in event source", event);
 	eventSource.close();
-	store.error = true;
+	store = { ...store, connected: false };
+	eventSource.dispatchEvent(storeUpdateEvent);
 });
 
 eventSource.addEventListener(
@@ -46,9 +48,11 @@ eventSource.addEventListener("message", async (event) => {
 			throw error;
 		}
 
-		store = await asyncQueue.add(() => decrypt(secretKey, encryptedMessage));
+		store = {
+			...store,
+			...(await asyncQueue.add(() => decrypt(secretKey, encryptedMessage))),
+		};
 
-		const storeUpdateEvent = new CustomEvent("store-update");
 		eventSource.dispatchEvent(storeUpdateEvent);
 	} catch (error) {
 		console.error("Error in message event listener", error);
