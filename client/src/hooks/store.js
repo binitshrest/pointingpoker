@@ -5,7 +5,14 @@ import { decrypt, deriveSecretKey, publicKey } from "../../../utils/crypto.js";
 import { getName } from "./name.js";
 import { asyncQueue } from "./loading.js";
 
-let store = { votes: {}, startTime: 0, timeTaken: 0, connected: true };
+let store = {
+	votes: {},
+	startTime: 0,
+	timeTaken: 0,
+	voteOptions: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+	selectedVoteOptionsIndex: 0,
+	connected: true,
+};
 const storeUpdateEvent = new CustomEvent("store-update");
 let secretKey;
 

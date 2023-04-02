@@ -8,6 +8,11 @@ const store = {
 	votes: {},
 	startTime: 0,
 	timeTaken: 0,
+	voteOptions: [
+		[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+		[0.5, 1, 2, 3, 5, 8, 13, 21],
+	],
+	selectedVoteOptionsIndex: 0,
 	closeConnection: {},
 	toJSON() {
 		const { closeConnection, ...storeCopy } = this;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useStore } from "../hooks/store.js";
 import { vote } from "../utils/api.js";
 import { Button } from "./button.jsx";
 
@@ -9,9 +10,11 @@ const Container = styled.div`
 `;
 
 export function VoteButtons() {
+	const { voteOptions, selectedVoteOptionsIndex } = useStore();
+
 	return (
 		<Container>
-			{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+			{voteOptions[selectedVoteOptionsIndex].map((number) => (
 				<Button
 					key={number}
 					onClick={() => {
