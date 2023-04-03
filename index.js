@@ -78,6 +78,14 @@ app.delete("/api/:name", (request, response) => {
 	response.sendStatus(200);
 });
 
+app.post("/api/vote-options-index", (request, response) => {
+	const { selectedVoteOptionsIndex } = request.body;
+	store.selectedVoteOptionsIndex = selectedVoteOptionsIndex;
+	publish(store);
+
+	response.send({ selectedVoteOptionsIndex });
+});
+
 app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
 	response.writeHead(200, {
 		"Content-Type": "text/event-stream",

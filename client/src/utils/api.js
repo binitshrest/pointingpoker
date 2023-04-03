@@ -11,9 +11,7 @@ export async function vote(vote) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					vote,
-				}),
+				body: JSON.stringify({ vote }),
 			})
 		);
 	} catch (error) {
@@ -43,9 +41,7 @@ export async function setName(newName) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					newName,
-				}),
+				body: JSON.stringify({ newName }),
 			});
 			const json = await response.json();
 			return json;
@@ -66,6 +62,23 @@ export async function removePlayer(name) {
 		);
 	} catch (error) {
 		console.error("Error in removePlayer api", error);
+		throw error;
+	}
+}
+
+export async function selectVoteOption(selectedVoteOptionsIndex) {
+	try {
+		await asyncQueue.add(() =>
+			fetch(`${BASE_URL}/vote-options-index`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ selectedVoteOptionsIndex }),
+			})
+		);
+	} catch (error) {
+		console.error("Error in selectVoteOption api", error);
 		throw error;
 	}
 }

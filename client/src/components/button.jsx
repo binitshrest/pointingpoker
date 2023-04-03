@@ -1,6 +1,10 @@
-export function Button({ children, onClick, className = "" }) {
+export function Button({ children, onClick, className = "", submit = false }) {
 	return (
-		<button type="button" className={`nes-btn ${className}`} onClick={onClick}>
+		<button
+			type={submit ? "submit" : "button"}
+			className={`nes-btn ${className}`}
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	);
