@@ -33,20 +33,17 @@ export async function clearVotes() {
 	}
 }
 
-export async function setName(newName) {
+export async function setName(name) {
 	try {
-		const taskResult = await asyncQueue.add(async () => {
-			const response = await fetch(`${BASE_URL}/${id}/name`, {
+		await asyncQueue.add(async () =>
+			fetch(`${BASE_URL}/${id}/name`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ newName }),
-			});
-			const json = await response.json();
-			return json;
-		});
-		return taskResult;
+				body: JSON.stringify({ name }),
+			})
+		);
 	} catch (error) {
 		console.error("Error in setName api", error);
 		throw error;

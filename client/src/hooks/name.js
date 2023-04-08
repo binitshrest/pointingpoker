@@ -15,13 +15,13 @@ export function getName() {
 	return playerName;
 }
 
-async function setName(newName) {
+async function setName(name) {
 	try {
-		if (playerName === newName) return;
+		if (playerName === name) return;
 
-		const response = await setNameInStore(newName);
-		({ newName: playerName } = response);
-		localStorage.setItem("name", newName);
+		await setNameInStore(name);
+		playerName = name;
+		localStorage.setItem("name", name);
 
 		newPlayer = false;
 	} catch (error) {

@@ -60,12 +60,12 @@ app.delete("/api/vote", (request, response) => {
 });
 
 app.post("/api/:id/name", (request, response) => {
-	const { newName } = request.body;
+	const { name } = request.body;
 	const id = request.params.id;
-	store.votes[id].name = newName;
+	store.votes[id].name = name;
 	publish(store);
 
-	response.send({ newName });
+	response.sendStatus(200);
 });
 
 app.delete("/api/:name", (request, response) => {
