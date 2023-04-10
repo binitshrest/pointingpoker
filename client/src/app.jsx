@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
 	body {
 		margin: 0;
 		overflow-x: hidden;
+
+		@media (min-width: 768px) {
+			transform: scale(110%);
+			margin-top: 64px;
+		}
 	}
 
 	* {
@@ -44,10 +49,6 @@ const AppContainer = styled.div`
 	flex-direction: column;
 	max-width: min(576px, calc(100vw - 32px));
 	margin: 32px 16px;
-
-	@media (min-width: 768px) {
-		transform: scale(110%);
-	}
 `;
 
 export function App() {
