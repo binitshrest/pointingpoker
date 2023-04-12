@@ -16,11 +16,6 @@ const GlobalStyle = createGlobalStyle`
 	body {
 		margin: 0;
 		overflow-x: hidden;
-
-		@media (min-width: 768px) {
-			transform: scale(110%);
-			margin-top: 64px;
-		}
 	}
 
 	* {
