@@ -1,24 +1,23 @@
 import process from "node:process";
 import express from "express";
-import { isEmpty } from "lodash-es";
-import { observable, publish } from "./utils/observable.js";
+import { cloneDeep, isEmpty } from "lodash-es";
+import { Observable } from "./utils/observable.js";
 import { publicKey, deriveSecretKey, encrypt } from "./utils/crypto.js";
 
-const store = {
+const roomTemplate = {
 	votes: {},
 	startTime: 0,
 	timeTaken: 0,
 	voteOptions: [
+		[0.5, 1, 2, 3, 5, 8, 13, 20, 40],
 		[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-		[0.5, 1, 2, 3, 5, 8, 13, 21],
 	],
 	selectedVoteOptionsIndex: 0,
-	closeConnection: {},
-	toJSON() {
-		const { closeConnection, ...storeCopy } = this;
-		return storeCopy;
-	},
 };
+
+const observables = {};
+const store = {};
+const closeConnection = {};
 
 const app = express();
 app.use(express.json());
@@ -34,112 +33,122 @@ if (process.env.NODE_ENV === "dev") {
 	}
 }
 
-app.post("/api/:id/vote", (request, response) => {
+app.post("/api/:roomId/:id/vote", (request, response) => {
 	const { vote } = request.body;
-	const id = request.params.id;
-	store.votes[id].vote = vote;
+	const { id, roomId } = request.params;
+	store[roomId].votes[id].vote = vote;
 
-	if (Object.values(store.votes).every(({ vote }) => vote !== "?")) {
-		store.timeTaken = new Date(Date.now() - store.startTime).setMilliseconds(0);
+	if (Object.values(store[roomId].votes).every(({ vote }) => vote !== "?")) {
+		store[roomId].timeTaken = new Date(
+			Date.now() - store[roomId].startTime
+		).setMilliseconds(0);
 	}
 
-	publish(store);
+	observables[roomId].publish(store[roomId]);
 	response.sendStatus(200);
 });
 
-app.delete("/api/vote", (request, response) => {
-	for (const id of Object.keys(store.votes)) {
-		store.votes[id].vote = "?";
+app.delete("/api/:roomId/vote", (request, response) => {
+	const { roomId } = request.params;
+	for (const id of Object.keys(store[roomId].votes)) {
+		store[roomId].votes[id].vote = "?";
 	}
 
-	store.startTime = Date.now();
-	store.timeTaken = 0;
+	store[roomId].startTime = Date.now();
+	store[roomId].timeTaken = 0;
 
-	publish(store);
+	observables[roomId].publish(store[roomId]);
 	response.sendStatus(200);
 });
 
-app.post("/api/:id/name", (request, response) => {
+app.post("/api/:roomId/:id/name", (request, response) => {
 	const { name } = request.body;
-	const id = request.params.id;
-	store.votes[id].name = name;
-	publish(store);
+	const { id, roomId } = request.params;
+	store[roomId].votes[id].name = name;
+	observables[roomId].publish(store[roomId]);
 
 	response.sendStatus(200);
 });
 
-app.delete("/api/:name", (request, response) => {
-	const name = request.params.name;
-	const id = Object.keys(store.votes).find(
-		(playerId) => store.votes[playerId].name === name
+app.delete("/api/:roomId/:name", (request, response) => {
+	const { name, roomId } = request.params;
+	const id = Object.keys(store[roomId].votes).find(
+		(playerId) => store[roomId].votes[playerId].name === name
 	);
-	store.closeConnection[id]();
+	closeConnection[id]();
 
 	response.sendStatus(200);
 });
 
-app.post("/api/vote-options-index", (request, response) => {
+app.post("/api/:roomId/vote-options-index", (request, response) => {
+	const { roomId } = request.params;
 	const { selectedVoteOptionsIndex } = request.body;
-	store.selectedVoteOptionsIndex = selectedVoteOptionsIndex;
-	publish(store);
+	store[roomId].selectedVoteOptionsIndex = selectedVoteOptionsIndex;
+	observables[roomId].publish(store[roomId]);
 
 	response.send({ selectedVoteOptionsIndex });
 });
 
-app.get("/api/events/:id/:name/:clientPublicKey", async (request, response) => {
-	response.writeHead(200, {
-		"Content-Type": "text/event-stream",
-		Connection: "keep-alive",
-		"Cache-Control": "no-cache",
-	});
+app.get(
+	"/api/events/:roomId/:id/:name/:clientPublicKey",
+	async (request, response) => {
+		response.writeHead(200, {
+			"Content-Type": "text/event-stream",
+			Connection: "keep-alive",
+			"Cache-Control": "no-cache",
+		});
 
-	response.write("retry: 10000\n\n");
+		response.write("retry: 10000\n\n");
 
-	response.write(`event:key\ndata: ${JSON.stringify(publicKey)}\n\n`);
+		response.write(`event:key\ndata: ${JSON.stringify(publicKey)}\n\n`);
 
-	const clientPublicKey = request.params.clientPublicKey;
-	let secretKey;
+		const { id, name, roomId, clientPublicKey } = request.params;
+		let secretKey;
 
-	try {
-		secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
-	} catch (error) {
-		console.log("Error while subscribing to event stream", error);
-		response.end();
-		throw error;
-	}
-
-	const sendEvent = async (data) => {
 		try {
-			const encryptedData = await encrypt(secretKey, data);
-			response.write(`data: ${encryptedData}\n\n`);
+			secretKey = await deriveSecretKey(decodeURI(clientPublicKey));
 		} catch (error) {
-			console.log("Error while writing data to event stream", error);
+			console.log("Error while subscribing to event stream", error);
 			response.end();
+			throw error;
 		}
-	};
 
-	const unsubscribe = observable.subscribe(sendEvent);
+		const sendEvent = async (data) => {
+			try {
+				const encryptedData = await encrypt(secretKey, data);
+				response.write(`data: ${encryptedData}\n\n`);
+			} catch (error) {
+				console.log("Error while writing data to event stream", error);
+				response.end();
+			}
+		};
 
-	if (isEmpty(store.votes)) {
-		store.startTime = Date.now();
-		store.timeTaken = 0;
+		if (isEmpty(observables[roomId])) {
+			observables[roomId] = new Observable();
+			store[roomId] = cloneDeep(roomTemplate);
+		}
+
+		const unsubscribe = observables[roomId].subscribe(sendEvent);
+
+		if (isEmpty(store[roomId].votes)) {
+			store[roomId].startTime = Date.now();
+			store[roomId].timeTaken = 0;
+		}
+
+		store[roomId].votes[id] = { name, vote: "?" };
+		closeConnection[id] = () => response.end();
+		observables[roomId].publish(store[roomId]);
+
+		console.log(`Connection established to ${id} ${name}`);
+
+		request.on("close", () => {
+			unsubscribe();
+			delete store[roomId].votes[id];
+			observables[roomId].publish(store[roomId]);
+			console.log(`Connection closed to ${id} ${name}`);
+		});
 	}
-
-	const id = request.params.id;
-	const name = request.params.name;
-	store.votes[id] = { name, vote: "?" };
-	store.closeConnection[id] = () => response.end();
-	publish(store);
-
-	console.log(`Connection established to ${id} ${name}`);
-
-	request.on("close", () => {
-		unsubscribe();
-		delete store.votes[id];
-		publish(store);
-		console.log(`Connection closed to ${id} ${name}`);
-	});
-});
+);
 
 app.get("*", (request, response) => {
 	response.sendFile(

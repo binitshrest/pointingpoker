@@ -1,4 +1,4 @@
-class Observable {
+export class Observable {
 	constructor() {
 		this.observers = new Set();
 	}
@@ -12,14 +12,9 @@ class Observable {
 	}
 
 	publish(data) {
+		const stringifiedData = JSON.stringify(data);
 		for (const func of this.observers) {
-			func(data);
+			func(stringifiedData);
 		}
 	}
-}
-
-export const observable = new Observable();
-
-export function publish(data) {
-	observable.publish(JSON.stringify(data));
 }

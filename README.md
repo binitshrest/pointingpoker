@@ -50,7 +50,7 @@ https://pointingpoker.onrender.com/
 - [ ] Find a good log management service
 - [ ] Replace console logs with custom logger
 - [ ] Create custom vote options
-- [ ] Rooms for different teams
+- [x] Rooms for different teams
 - [ ] ? bundle server with esbuild
 - [ ] ? Persist state in backend
 - [ ] ? dark theme

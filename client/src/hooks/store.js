@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import pWaitFor from "p-wait-for";
 import { id } from "../utils/id.js";
+import { roomId } from "../utils/room-id.js";
 import { decrypt, deriveSecretKey, publicKey } from "../../../utils/crypto.js";
 import { getName } from "./name.js";
 import { asyncQueue } from "./loading.js";
@@ -19,11 +20,13 @@ let secretKey;
 const eventSource = new EventSource(
 	`${
 		import.meta.env.VITE_SERVER_BASE_URL
-	}/api/events/${id}/${getName()}/${encodeURI(JSON.stringify(publicKey))}`
+	}/api/events/${roomId}/${id}/${getName()}/${encodeURI(
+		JSON.stringify(publicKey)
+	)}`
 );
 
 eventSource.addEventListener("error", (event) => {
-	console.error("Error in event source", event);
+	console.warn("Disconnected/Error in event source", event);
 	eventSource.close();
 	store = { ...store, connected: false };
 	eventSource.dispatchEvent(storeUpdateEvent);

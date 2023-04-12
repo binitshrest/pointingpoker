@@ -1,7 +1,8 @@
 import { asyncQueue } from "../hooks/loading.js";
 import { id } from "../utils/id.js";
+import { roomId } from "./room-id.js";
 
-const BASE_URL = `${import.meta.env.VITE_SERVER_BASE_URL}/api`;
+const BASE_URL = `${import.meta.env.VITE_SERVER_BASE_URL}/api/${roomId}`;
 
 export async function vote(vote) {
 	try {
