@@ -47,14 +47,14 @@ https://pointingpoker.onrender.com/
 - [x] close connection when removing player
 - [x] Console log Error handling for connection error
 - [x] network error dialog on connection close/error
-- [ ] Find a good log management service
-- [ ] Replace console logs with custom logger
-- [ ] Create custom vote options
+- [x] Create custom vote options API
+- [ ] Validate data in post api
+- [ ] Create custom vote options UI
+- [ ] handle non-200 status codes via fetch util
 - [x] Rooms for different teams
 - [ ] ? bundle server with esbuild
 - [ ] ? Persist state in backend
 - [ ] ? dark theme
 - [ ] ? make no confetti on revote from consensus
-- [ ] ? fix UI flicker on vote stats display
 - [ ] ? support multiple tabs
 - [ ] ? history

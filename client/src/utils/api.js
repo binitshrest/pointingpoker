@@ -64,6 +64,23 @@ export async function removePlayer(name) {
 	}
 }
 
+export async function createVoteOptions(voteOptions) {
+	try {
+		await asyncQueue.add(() =>
+			fetch(`${BASE_URL}/vote-options`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ voteOptions }),
+			})
+		);
+	} catch (error) {
+		console.error("Error in createVoteOptions api", error);
+		throw error;
+	}
+}
+
 export async function selectVoteOption(selectedVoteOptionsIndex) {
 	try {
 		await asyncQueue.add(() =>

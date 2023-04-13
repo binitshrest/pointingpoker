@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === "dev") {
 	}
 }
 
+function publish(roomId) {
+	observables[roomId].publish(store[roomId]);
+}
+
 app.post("/api/:roomId/:id/vote", (request, response) => {
 	const { vote } = request.body;
 	const { id, roomId } = request.params;
@@ -44,7 +48,7 @@ app.post("/api/:roomId/:id/vote", (request, response) => {
 		).setMilliseconds(0);
 	}
 
-	observables[roomId].publish(store[roomId]);
+	publish(roomId);
 	response.sendStatus(200);
 });
 
@@ -57,7 +61,7 @@ app.delete("/api/:roomId/vote", (request, response) => {
 	store[roomId].startTime = Date.now();
 	store[roomId].timeTaken = 0;
 
-	observables[roomId].publish(store[roomId]);
+	publish(roomId);
 	response.sendStatus(200);
 });
 
@@ -65,7 +69,7 @@ app.post("/api/:roomId/:id/name", (request, response) => {
 	const { name } = request.body;
 	const { id, roomId } = request.params;
 	store[roomId].votes[id].name = name;
-	observables[roomId].publish(store[roomId]);
+	publish(roomId);
 
 	response.sendStatus(200);
 });
@@ -80,11 +84,20 @@ app.delete("/api/:roomId/:name", (request, response) => {
 	response.sendStatus(200);
 });
 
+app.post("/api/:roomId/vote-options", (request, response) => {
+	const { roomId } = request.params;
+	const { voteOptions } = request.body;
+	store[roomId].voteOptions.push(voteOptions);
+	publish(roomId);
+
+	response.sendStatus(200);
+});
+
 app.post("/api/:roomId/vote-options-index", (request, response) => {
 	const { roomId } = request.params;
 	const { selectedVoteOptionsIndex } = request.body;
 	store[roomId].selectedVoteOptionsIndex = selectedVoteOptionsIndex;
-	observables[roomId].publish(store[roomId]);
+	publish(roomId);
 
 	response.send({ selectedVoteOptionsIndex });
 });
@@ -137,14 +150,14 @@ app.get(
 
 		store[roomId].votes[id] = { name, vote: "?" };
 		closeConnection[id] = () => response.end();
-		observables[roomId].publish(store[roomId]);
+		publish(roomId);
 
 		console.log(`Connection established to ${id} ${name}`);
 
 		request.on("close", () => {
 			unsubscribe();
 			delete store[roomId].votes[id];
-			observables[roomId].publish(store[roomId]);
+			publish(roomId);
 			console.log(`Connection closed to ${id} ${name}`);
 		});
 	}
