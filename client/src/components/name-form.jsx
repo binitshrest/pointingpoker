@@ -12,10 +12,11 @@ const StyledInput = styled.input`
 export function NameForm({ initialValue, toggleInput }) {
 	const { setName, newPlayer } = useName();
 	const [input, setInput] = useState(newPlayer ? "" : initialValue);
+	const [formError, setFormError] = useState(false);
 
 	const handleChange = (event) => {
 		event.preventDefault();
-		if (!validateName(input.trim())) return;
+		if (formError) return;
 
 		toggleInput();
 		setName(input.trim());
@@ -28,10 +29,13 @@ export function NameForm({ initialValue, toggleInput }) {
 				autoFocus
 				placeholder={newPlayer ? "Enter name" : ""}
 				className={classNames("nes-input", {
-					"is-error": !validateName(input.trim()),
+					"is-error": formError,
 				})}
 				value={input}
-				onChange={(event) => setInput(event.target.value)}
+				onChange={(event) => {
+					setInput(event.target.value);
+					setFormError(!validateName(event.target.value.trim()));
+				}}
 			/>
 		</form>
 	);
