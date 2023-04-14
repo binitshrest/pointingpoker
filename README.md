@@ -48,9 +48,9 @@ https://pointingpoker.onrender.com/
 - [x] Console log Error handling for connection error
 - [x] network error dialog on connection close/error
 - [x] Create custom vote options API
-- [ ] Validate data in post api
+- [ ] Validate custom vote options
 - [ ] Create custom vote options UI
-- [ ] handle non-200 status codes via fetch util
+- [x] handle non-200 status codes via fetch util
 - [x] Rooms for different teams
 - [ ] ? bundle server with esbuild
 - [ ] ? Persist state in backend

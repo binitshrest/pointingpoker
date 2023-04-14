@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "classnames": "^2.3.2",
+    "ky": "^0.33.3",
     "luxon": "^3.3.0",
     "nanoid": "^4.0.1",
     "p-queue": "^7.3.4",
