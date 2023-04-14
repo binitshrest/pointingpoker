@@ -1,5 +1,5 @@
 import { useState } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import styled from "styled-components";
 import { useName, validateName } from "../hooks/name.js";
 
@@ -28,7 +28,7 @@ export function NameForm({ initialValue, toggleInput }) {
 			<StyledInput
 				autoFocus
 				placeholder={newPlayer ? "Enter name" : ""}
-				className={classNames("nes-input", {
+				className={clsx("nes-input", {
 					"is-error": formError,
 				})}
 				value={input}
