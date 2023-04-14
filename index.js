@@ -37,6 +37,15 @@ function publish(roomId) {
 	observables[roomId].publish(store[roomId]);
 }
 
+function clearVotes(roomId) {
+	for (const id of Object.keys(store[roomId].votes)) {
+		store[roomId].votes[id].vote = "?";
+	}
+
+	store[roomId].startTime = Date.now();
+	store[roomId].timeTaken = 0;
+}
+
 app.post("/api/:roomId/:id/vote", (request, response) => {
 	const { vote } = request.body;
 	const { id, roomId } = request.params;
@@ -54,12 +63,7 @@ app.post("/api/:roomId/:id/vote", (request, response) => {
 
 app.delete("/api/:roomId/vote", (request, response) => {
 	const { roomId } = request.params;
-	for (const id of Object.keys(store[roomId].votes)) {
-		store[roomId].votes[id].vote = "?";
-	}
-
-	store[roomId].startTime = Date.now();
-	store[roomId].timeTaken = 0;
+	clearVotes(roomId);
 
 	publish(roomId);
 	response.sendStatus(200);
@@ -88,6 +92,7 @@ app.post("/api/:roomId/vote-options", (request, response) => {
 	const { roomId } = request.params;
 	const { voteOptions } = request.body;
 	store[roomId].voteOptions.push(voteOptions);
+	clearVotes(roomId);
 	publish(roomId);
 
 	response.sendStatus(200);
@@ -97,6 +102,7 @@ app.post("/api/:roomId/vote-options-index", (request, response) => {
 	const { roomId } = request.params;
 	const { selectedVoteOptionsIndex } = request.body;
 	store[roomId].selectedVoteOptionsIndex = selectedVoteOptionsIndex;
+	clearVotes(roomId);
 	publish(roomId);
 
 	response.send({ selectedVoteOptionsIndex });
