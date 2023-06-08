@@ -36,15 +36,6 @@ export async function setName(name) {
 	}
 }
 
-export async function removePlayer(name) {
-	try {
-		await asyncQueue.add(() => ky.delete(`${BASE_URL}/${name}`));
-	} catch (error) {
-		console.error("Error in removePlayer api", error);
-		throw error;
-	}
-}
-
 export async function createVoteOptions(voteOptions) {
 	try {
 		await asyncQueue.add(() =>

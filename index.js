@@ -78,16 +78,6 @@ app.post("/api/:roomId/:id/name", (request, response) => {
 	response.sendStatus(200);
 });
 
-app.delete("/api/:roomId/:name", (request, response) => {
-	const { name, roomId } = request.params;
-	const id = Object.keys(store[roomId].votes).find(
-		(playerId) => store[roomId].votes[playerId].name === name
-	);
-	closeConnection[id]();
-
-	response.sendStatus(200);
-});
-
 app.post("/api/:roomId/vote-options", (request, response) => {
 	const { roomId } = request.params;
 	const { voteOptions } = request.body;
