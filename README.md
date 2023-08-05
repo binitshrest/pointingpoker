@@ -1,4 +1,4 @@
 # Pointing Poker
-Pointing poker web app implemented with React 18 and server sent events using a express backend
+Pointing poker web app implemented with React 18 and firebase realtime database
 
-https://pointingpoker.onrender.com/
+https://pointingpoker.pages.dev/
