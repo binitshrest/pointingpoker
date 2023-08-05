@@ -25,7 +25,7 @@ export const VoteOptionsDialog = forwardRef(function (props, ref) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    await selectVoteOptions(voteOptionsList[formData.get("voteOptions")]);
+    await selectVoteOptions(formData.get("voteOptions"));
     ref.current.close();
   };
 
