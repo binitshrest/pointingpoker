@@ -1,46 +1,56 @@
 {
-  "name": "pointing-poker-sse-server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "pointing-poker",
+  "version": "0.0.0",
   "type": "module",
-  "exports": "./index.js",
   "scripts": {
+    "dev": "vite",
+    "emulate": "firebase emulators:start",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "xo",
-    "build": "cd client && npm run build",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "preview": "npm run lint && npm run build && nodemon index.js",
     "lint": "xo --fix",
     "prepare": "husky install"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "lodash-es": "^4.17.21"
+    "clsx": "^1.2.1",
+    "firebase": "^10.1.0",
+    "ky": "^0.33.3",
+    "lodash-es": "^4.17.21",
+    "luxon": "^3.3.0",
+    "nanoid": "^4.0.1",
+    "p-queue": "^7.3.4",
+    "react": "^18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
     "eslint-config-xo": "^0.43.1",
     "eslint-config-xo-react": "^0.27.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "firebase-tools": "^12.4.6",
     "husky": "^8.0.3",
-    "nodemon": "^2.0.20",
     "prettier": "^2.8.4",
+    "vite": "^4.1.0",
     "xo": "^0.53.1"
   },
   "xo": {
     "extends": "xo-react",
     "envs": [
-      "node",
       "browser"
     ],
     "prettier": true,
     "rules": {
       "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off"
-    }
+      "react/prop-types": "off",
+      "unicorn/expiring-todo-comments": "off"
+    },
+    "space": true
   },
   "lint-staged": {
     "*": "npm run lint"

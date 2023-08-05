@@ -1,7 +1,0 @@
-{
-  "exec": "NODE_ENV=dev node",
-  "ignore": [
-    "client"
-  ],
-  "verbose": true
-}
