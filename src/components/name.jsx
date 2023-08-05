@@ -1,30 +1,39 @@
 import styled from "styled-components";
-import { useName } from "../hooks/name.js";
 import { useToggle } from "../hooks/toggle.js";
+import { auth, currentUserId } from "../utils/firebase.js";
 import { NameForm } from "./name-form.jsx";
 import { NameBox } from "./name-box.jsx";
 
 const NameContainer = styled.div`
-	grid-column: 2;
-	text-align: left;
+  grid-column: 2;
+  text-align: left;
 `;
 
+const isNewPlayer = () =>
+  auth.currentUser.displayName === `player ${currentUserId.slice(0, 3)}`;
+
 export function Name({ children }) {
-	const { name, newPlayer } = useName();
+  const editable = children === auth.currentUser.displayName;
 
-	const editable = children === name;
+  const [input, toggleInput] = useToggle(isNewPlayer());
 
-	const [input, toggleInput] = useToggle(newPlayer);
-
-	return (
-		<NameContainer>
-			{input && editable ? (
-				<NameForm initialValue={children} toggleInput={toggleInput} />
-			) : (
-				<NameBox editable={editable} onClick={toggleInput}>
-					{children}
-				</NameBox>
-			)}
-		</NameContainer>
-	);
+  return (
+    <NameContainer>
+      {input && editable ? (
+        <NameForm
+          initialValue={children}
+          toggleInput={toggleInput}
+          isNewPlayer={isNewPlayer()}
+        />
+      ) : (
+        <NameBox
+          editable={editable}
+          isNewPlayer={isNewPlayer()}
+          onClick={toggleInput}
+        >
+          {children}
+        </NameBox>
+      )}
+    </NameContainer>
+  );
 }

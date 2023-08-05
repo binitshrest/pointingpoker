@@ -39,39 +39,39 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppContainer = styled.div`
-	display: flex;
-	gap: 24px;
-	flex-direction: column;
-	max-width: min(576px, calc(100vw - 32px));
-	margin: 32px 16px;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  max-width: min(576px, calc(100vw - 32px));
+  margin: 32px 16px;
 `;
 
 export function App() {
-	const { width, height } = useWindowSize();
-	const { display } = useVotes();
-	const { consensus } = useVoteStats();
-	const loading = useLoading();
+  const { width, height } = useWindowSize();
+  const { display } = useVotes();
+  const { consensus } = useVoteStats();
+  const loading = useLoading();
 
-	return (
-		<>
-			<AppContainer>
-				<GlobalStyle $loading={loading} />
-				<GitHubIcon />
-				<h1>Pointing Poker</h1>
-				<VoteButtons />
-				<VoteActions />
-				<Votes />
-				{!display && <VoteTimer />}
-				<VoteStats />
-			</AppContainer>
-			<Confetti
-				width={width}
-				height={height}
-				recycle={false}
-				numberOfPieces={consensus ? 500 : 0}
-				onConfettiComplete={(confetti) => confetti.reset()}
-			/>
-			<DisconnectedDialog />
-		</>
-	);
+  return (
+    <>
+      <AppContainer>
+        <GlobalStyle $loading={loading} />
+        <GitHubIcon />
+        <h1>Pointing Poker</h1>
+        <VoteButtons />
+        <VoteActions />
+        <Votes />
+        {!display && <VoteTimer />}
+        <VoteStats />
+      </AppContainer>
+      <Confetti
+        width={width}
+        height={height}
+        recycle={false}
+        numberOfPieces={consensus ? 500 : 0}
+        onConfettiComplete={(confetti) => confetti.reset()}
+      />
+      <DisconnectedDialog />
+    </>
+  );
 }

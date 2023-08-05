@@ -1,42 +1,55 @@
 import { useState } from "react";
 import clsx from "clsx";
 import styled from "styled-components";
-import { useName, validateName } from "../hooks/name.js";
+import { getStore } from "../hooks/store.js";
+import { auth } from "../utils/firebase.js";
+import { setName } from "../utils/rtdb.js";
 
 const StyledInput = styled.input`
-	width: 100%;
-	max-width: 180px;
-	padding: 0;
+  width: 100%;
+  max-width: 180px;
+  padding: 0;
 `;
 
-export function NameForm({ initialValue, toggleInput }) {
-	const { setName, newPlayer } = useName();
-	const [input, setInput] = useState(newPlayer ? "" : initialValue);
-	const [formError, setFormError] = useState(false);
+function validateName(name) {
+  if (!name) return false;
 
-	const handleChange = (event) => {
-		event.preventDefault();
-		if (formError) return;
+  if (name === auth.currentUser.displayName) return true;
 
-		toggleInput();
-		setName(input.trim());
-		setInput(input.trim());
-	};
+  const { users } = getStore();
+  const allNames = Object.values(users).map(({ name }) => name);
+  if (allNames.includes(name)) return false;
 
-	return (
-		<form onSubmit={handleChange} onBlur={handleChange}>
-			<StyledInput
-				autoFocus
-				placeholder={newPlayer ? "Enter name" : ""}
-				className={clsx("nes-input", {
-					"is-error": formError,
-				})}
-				value={input}
-				onChange={(event) => {
-					setInput(event.target.value);
-					setFormError(!validateName(event.target.value.trim()));
-				}}
-			/>
-		</form>
-	);
+  return true;
+}
+
+export function NameForm({ initialValue, toggleInput, isNewPlayer }) {
+  const [input, setInput] = useState(isNewPlayer ? "" : initialValue);
+  const [formError, setFormError] = useState(false);
+
+  const handleChange = async (event) => {
+    event.preventDefault();
+    if (formError) return;
+
+    toggleInput();
+    setInput(input.trim());
+    await setName(input.trim());
+  };
+
+  return (
+    <form onSubmit={handleChange} onBlur={handleChange}>
+      <StyledInput
+        autoFocus
+        placeholder={isNewPlayer ? "Enter name" : ""}
+        className={clsx("nes-input", {
+          "is-error": formError,
+        })}
+        value={input}
+        onChange={(event) => {
+          setInput(event.target.value);
+          setFormError(!validateName(event.target.value.trim()));
+        }}
+      />
+    </form>
+  );
 }
