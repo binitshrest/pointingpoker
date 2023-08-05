@@ -1,6 +1,45 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    "rooms": {
+      "$room_id": {
+        ".read": "auth !== null",
+        ".write": "auth !== null",
+        "selectedVoteOptionsKey": {
+          ".validate": "newData.isString()"
+        },
+        "startTime": {
+          ".validate": "newData.isNumber()"
+        },
+        "timeTaken": {
+          ".validate": "newData.isNumber()"
+        },
+        "voteOptionsList": {
+          "$optionsId": {
+            "$optionId": {
+              ".validate": "newData.isNumber()"
+            }
+          }
+        },
+        "users": {
+          "$uid": {
+            "name": {
+              ".validate": "$uid === auth.uid && newData.isString() && newData.val().length <= 16"
+            },
+            "hasVoted": {
+              ".validate": "$uid === auth.uid || newData.val() === false"
+            },
+            "vote": {
+              ".validate": "$uid === auth.uid"
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "$other": {
+      ".validate": false
+    }
   }
 }

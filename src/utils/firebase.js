@@ -18,7 +18,6 @@ import { has } from "lodash-es";
 import { asyncQueue } from "../hooks/loading.js";
 import { roomId } from "./room-id.js";
 
-// [ ]: update db security rules
 const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
 
 const app = initializeApp(firebaseConfig);
