@@ -16,6 +16,8 @@ function validateName(name) {
 
   if (name === auth.currentUser.displayName) return true;
 
+  if (name.length > 16) return false;
+
   const { users } = getStore();
   const allNames = Object.values(users).map(({ name }) => name);
   if (allNames.includes(name)) return false;
