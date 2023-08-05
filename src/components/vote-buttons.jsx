@@ -14,7 +14,7 @@ export function VoteButtons() {
 
   return (
     <Container>
-      {voteOptionsList[selectedVoteOptionsKey].map((number) => (
+      {Object.values(voteOptionsList[selectedVoteOptionsKey]).map((number) => (
         <Button
           key={number}
           onClick={() => {

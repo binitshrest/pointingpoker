@@ -31,7 +31,7 @@ function validateVoteOptions(voteOptionsList) {
     voteOptionsList.every((option) => Number.isFinite(option)) &&
     voteOptionsList.length === uniq(voteOptionsList).length &&
     !Object.values(storedVoteOptionsList).some((storedVoteOptions) =>
-      isEqual(storedVoteOptions, voteOptionsList)
+      isEqual(Object.values(storedVoteOptions), voteOptionsList)
     )
   );
 }
@@ -44,7 +44,7 @@ export const CustomVoteOptionsDialog = forwardRef(function (props, ref) {
     event.preventDefault();
     if (formError) return;
 
-    await createVoteOptions(parseInput(input));
+    await createVoteOptions({ ...parseInput(input) });
     setInput("");
     ref.current.close();
   };

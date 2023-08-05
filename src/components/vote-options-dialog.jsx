@@ -43,7 +43,7 @@ export const VoteOptionsDialog = forwardRef(function (props, ref) {
                 value={key}
                 defaultChecked={key === selectedVoteOptionsKey}
               />
-              <span>{options.join(", ")}</span>
+              <span>{Object.values(options).join(", ")}</span>
             </StyledLabel>
           ))}
           <ButtonContainer>
