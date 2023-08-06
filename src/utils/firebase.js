@@ -57,7 +57,7 @@ try {
   if (!roomSnapshot.exists()) {
     // Initializing room
     updates = {
-      timeTaken: 0,
+      endTime: 0,
       voteOptionsList: {
         0: { ...[0.5, 1, 2, 3, 5, 8, 13, 20] },
         1: { ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },

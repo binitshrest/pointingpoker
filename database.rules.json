@@ -10,7 +10,7 @@
         "startTime": {
           ".validate": "newData.isNumber()"
         },
-        "timeTaken": {
+        "endTime": {
           ".validate": "newData.isNumber()"
         },
         "voteOptionsList": {

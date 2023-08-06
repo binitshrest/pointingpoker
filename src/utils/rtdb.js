@@ -20,7 +20,7 @@ export async function vote(selectedOption) {
 
     const updates = {
       [`users/${currentUserId}/hasVoted`]: true,
-      timeTaken: serverTimestamp(),
+      endTime: serverTimestamp(),
     };
     await updateDb(updates);
   } catch (error) {
@@ -80,7 +80,7 @@ export async function setName(name) {
 }
 
 function getClearVotesUpdates() {
-  const updates = { startTime: serverTimestamp(), timeTaken: 0 };
+  const updates = { startTime: serverTimestamp(), endTime: 0 };
   for (const id of Object.keys(getStore().users)) {
     updates[`users/${id}/hasVoted`] = false;
   }

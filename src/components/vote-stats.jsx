@@ -16,7 +16,7 @@ export function VoteStats() {
     consensus,
     minMaxVote: { minVote, minVoters, maxVote, maxVoters },
   } = useVoteStats();
-  const { timeTaken } = useStore();
+  const { startTime, endTime } = useStore();
 
   if (averageVote) {
     return (
@@ -46,14 +46,18 @@ export function VoteStats() {
             )}
           </>
         )}
-        {timeTaken && (
+        {endTime && (
           <StatRow>
             <Highlight>
-              {Duration.fromMillis(timeTaken).rescale().toHuman({
-                unitDisplay: "short",
-                listStyle: "short",
-                maximumFractionDigits: 0,
-              })}
+              {Duration.fromMillis(endTime - startTime)
+                .rescale()
+                .set({ milliseconds: 0 })
+                .rescale()
+                .toHuman({
+                  unitDisplay: "narrow",
+                  listStyle: "short",
+                  maximumFractionDigits: 0,
+                })}
             </Highlight>{" "}
             for all to vote
           </StatRow>
