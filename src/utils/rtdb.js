@@ -40,7 +40,9 @@ export async function clearVotes() {
 
 export async function selectVoteOptions(selectedVoteOptionsKey) {
   try {
-    await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() });
+    if (getStore().selectedVoteOptionsKey !== selectedVoteOptionsKey) {
+      await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() });
+    }
   } catch (error) {
     console.error("Error in selecting vote options", error);
     throw error;

@@ -9,7 +9,13 @@ const StyledLabel = styled.label`
   display: block;
 `;
 
-const ButtonContainer = styled.div`
+const ButtonContainer1 = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+`;
+
+const ButtonContainer2 = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
@@ -54,18 +60,27 @@ export const VoteOptionsDialog = forwardRef(function (props, ref) {
               <span>{Object.values(options).join(", ")}</span>
             </StyledLabel>
           ))}
-          <ButtonContainer>
+          <ButtonContainer1>
             <Button
               onClick={() => {
                 customVoteOptionsDialogRef.current?.showModal();
               }}
             >
-              Create New
+              Create options
+            </Button>
+          </ButtonContainer1>
+          <ButtonContainer2>
+            <Button
+              onClick={() => {
+                ref.current.close();
+              }}
+            >
+              Cancel
             </Button>
             <Button submit className="is-primary">
               Select
             </Button>
-          </ButtonContainer>
+          </ButtonContainer2>
         </form>
       </dialog>
       <CustomVoteOptionsDialog ref={customVoteOptionsDialogRef} />
