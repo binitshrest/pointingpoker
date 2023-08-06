@@ -36,6 +36,16 @@ const GlobalStyle = createGlobalStyle`
 	.nes-btn {
 		border-image-repeat: stretch ;
 	}
+
+  .nes-dialog {
+    padding: 0;
+    border-width: 0;
+  }
+  
+  .nes-dialog>:last-child {
+    padding: 1.5rem 2rem;
+    border: 4px solid;
+  }
 `;
 
 const AppContainer = styled.div`

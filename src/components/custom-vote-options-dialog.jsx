@@ -50,7 +50,15 @@ export const CustomVoteOptionsDialog = forwardRef(function (props, ref) {
   };
 
   return (
-    <dialog ref={ref} className="nes-dialog">
+    <dialog
+      ref={ref}
+      className="nes-dialog"
+      onClick={(event) => {
+        if (event.target.tagName === "DIALOG") {
+          ref.current.close();
+        }
+      }}
+    >
       <form method="dialog" onSubmit={handleSubmit}>
         <p className="title">Create new vote options</p>
         <input
