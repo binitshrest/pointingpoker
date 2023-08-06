@@ -7,11 +7,10 @@ export function useTimer(startTime) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer(
-        DateTime.now().setZone("UTC").minus(startTime).toLocaleString({
-          hour: "2-digit",
-          minute: "numeric",
-          second: "2-digit",
-        })
+        DateTime.now()
+          .setZone("UTC")
+          .minus(startTime)
+          .toLocaleString(DateTime.TIME_24_WITH_SECONDS)
       );
     }, 1000);
 
