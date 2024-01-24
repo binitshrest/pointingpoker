@@ -52,5 +52,9 @@
   },
   "lint-staged": {
     "*": "npm run lint"
+  },
+  "volta": {
+    "node": "18.19.0",
+    "npm": "10.3.0"
   }
 }
