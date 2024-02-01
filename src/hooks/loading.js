@@ -1,5 +1,6 @@
 import PQueue from "p-queue";
 import { useSyncExternalStore } from "react";
+import { Bugfender } from "@bugfender/sdk";
 
 let loading = false;
 
@@ -16,7 +17,7 @@ asyncQueue.addListener("idle", () => {
 });
 
 asyncQueue.addListener("error", (error) => {
-  console.error("Error while executing function in async queue", error);
+  Bugfender.error("Error while executing function in async queue", error);
 });
 
 function subscribe(callback) {

@@ -15,6 +15,7 @@ import {
   updateProfile,
 } from "@firebase/auth";
 import { has } from "lodash-es";
+import { Bugfender } from "@bugfender/sdk";
 import { asyncQueue } from "../hooks/loading.js";
 import { roomId } from "./room-id.js";
 
@@ -39,7 +40,7 @@ try {
     );
   }
 } catch (error) {
-  console.error("Error while signing in anonymously", error);
+  Bugfender.error("Error while signing in anonymously", error);
   throw error;
 }
 
@@ -80,7 +81,7 @@ try {
 
   await asyncQueue.add(() => update(roomRef, updates));
 } catch (error) {
-  console.error("Error while setting up room", error);
+  Bugfender.error("Error while setting up room", error);
   throw error;
 }
 

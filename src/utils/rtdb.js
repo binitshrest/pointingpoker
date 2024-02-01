@@ -6,6 +6,7 @@ import {
   onDisconnect,
 } from "@firebase/database";
 import { updateProfile } from "@firebase/auth";
+import { Bugfender } from "@bugfender/sdk";
 import { asyncQueue } from "../hooks/loading.js";
 import { deferUpdate, getStore, setCurrentVote } from "../hooks/store.js";
 import { auth, currentUserId, db, roomRef } from "./firebase.js";
@@ -24,7 +25,7 @@ export async function vote(selectedOption) {
     };
     await updateDb(updates);
   } catch (error) {
-    console.error("Error in voting", error);
+    Bugfender.error("Error in voting", error);
     throw error;
   }
 }
@@ -33,7 +34,7 @@ export async function clearVotes() {
   try {
     await updateDb(getClearVotesUpdates());
   } catch (error) {
-    console.error("Error in clearing votes", error);
+    Bugfender.error("Error in clearing votes", error);
     throw error;
   }
 }
@@ -44,7 +45,7 @@ export async function selectVoteOptions(selectedVoteOptionsKey) {
       await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() });
     }
   } catch (error) {
-    console.error("Error in selecting vote options", error);
+    Bugfender.error("Error in selecting vote options", error);
     throw error;
   }
 }
@@ -55,7 +56,7 @@ export async function createVoteOptions(newVoteOptions) {
       update(push(ref(db, `rooms/${roomId}/voteOptionsList`)), newVoteOptions)
     );
   } catch (error) {
-    console.error("Error in creating vote options", error);
+    Bugfender.error("Error in creating vote options", error);
     throw error;
   }
 }
@@ -66,6 +67,7 @@ export async function setName(name) {
       return;
     }
 
+    Bugfender.setDeviceKey("name", name);
     await asyncQueue.addAll([
       () =>
         updateProfile(auth.currentUser, {
@@ -74,7 +76,7 @@ export async function setName(name) {
       () => update(roomRef, { [`users/${currentUserId}/name`]: name }),
     ]);
   } catch (error) {
-    console.error("Error while setting name", error);
+    Bugfender.error("Error while setting name", error);
     throw error;
   }
 }
@@ -106,7 +108,7 @@ export async function setupReconnection() {
       ref(db, `rooms/${roomId}/users/${currentUserId}`)
     ).remove();
   } catch (error) {
-    console.error("Error while setting up reconnection", error);
+    Bugfender.error("Error while setting up reconnection", error);
     throw error;
   }
 }

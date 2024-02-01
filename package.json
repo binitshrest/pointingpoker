@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@bugfender/sdk": "^2.2.4",
     "clsx": "^1.2.1",
     "firebase": "^10.1.0",
     "lodash-es": "^4.17.21",
