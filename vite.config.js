@@ -6,5 +6,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: "es2022",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          bugfender: ["@bugfender/sdk"],
+          firebase: ["@firebase/database", "@firebase/auth", "@firebase/app"],
+        },
+      },
+    },
   },
 });
