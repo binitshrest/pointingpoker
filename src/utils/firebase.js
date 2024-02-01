@@ -66,7 +66,7 @@ try {
     };
   }
 
-  if (has(roomSnapshot.val(), "users")) {
+  if (!has(roomSnapshot.val(), "users")) {
     // Set startTime if first user to join
     updates.startTime = serverTimestamp();
   }
