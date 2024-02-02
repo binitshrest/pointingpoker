@@ -1,16 +1,16 @@
-import styled, { createGlobalStyle } from "styled-components";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
-import { VoteActions } from "./components/vote-actions.jsx";
-import { VoteButtons } from "./components/vote-buttons.jsx";
-import { VoteStats } from "./components/vote-stats.jsx";
-import { Votes } from "./components/votes.jsx";
-import { VoteTimer } from "./components/vote-timer.jsx";
-import { GitHubIcon } from "./components/github-icon.jsx";
-import { DisconnectedDialog } from "./components/disconnected-dialog.jsx";
-import { useVotes } from "./hooks/votes.js";
-import { useLoading } from "./hooks/loading.js";
-import { useVoteStats } from "./hooks/vote-stats.js";
+import styled, { createGlobalStyle } from "styled-components"
+import Confetti from "react-confetti"
+import { useWindowSize } from "react-use"
+import { VoteActions } from "./components/vote-actions.jsx"
+import { VoteButtons } from "./components/vote-buttons.jsx"
+import { VoteStats } from "./components/vote-stats.jsx"
+import { Votes } from "./components/votes.jsx"
+import { VoteTimer } from "./components/vote-timer.jsx"
+import { GitHubIcon } from "./components/github-icon.jsx"
+import { DisconnectedDialog } from "./components/disconnected-dialog.jsx"
+import { useVotes } from "./hooks/votes.js"
+import { useLoading } from "./hooks/loading.js"
+import { useVoteStats } from "./hooks/vote-stats.js"
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 1.5rem 2rem;
     border: 4px solid;
   }
-`;
+`
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ const Container = styled.div`
   flex-direction: column;
   max-width: min(576px, calc(100vw - 32px));
   margin: 32px 16px;
-`;
+`
 
 const Header = styled.div`
   padding: 16px;
@@ -64,13 +64,13 @@ const Header = styled.div`
   h2 {
     padding-right: 32px;
   }
-`;
+`
 
 export function App() {
-  const { width, height } = useWindowSize();
-  const { display } = useVotes();
-  const { consensus } = useVoteStats();
-  const loading = useLoading();
+  const { width, height } = useWindowSize()
+  const { display } = useVotes()
+  const { consensus } = useVoteStats()
+  const loading = useLoading()
 
   return (
     <>
@@ -95,5 +95,5 @@ export function App() {
       />
       <DisconnectedDialog />
     </>
-  );
+  )
 }

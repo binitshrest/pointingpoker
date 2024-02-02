@@ -7,5 +7,5 @@ export function Button({ children, onClick, className = "", submit = false }) {
     >
       {children}
     </button>
-  );
+  )
 }

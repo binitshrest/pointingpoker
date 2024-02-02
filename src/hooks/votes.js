@@ -1,10 +1,10 @@
-import { useStore } from "./store.js";
+import { useStore } from "./store.js"
 
 export function useVotes() {
-  const { users } = useStore();
+  const { users } = useStore()
 
-  const voteValues = Object.values(users).map(({ vote }) => vote);
-  const display = Object.values(users).every(({ hasVoted }) => hasVoted);
+  const voteValues = Object.values(users).map(({ vote }) => vote)
+  const display = Object.values(users).every(({ hasVoted }) => hasVoted)
 
-  return { users, display, voteValues };
+  return { users, display, voteValues }
 }

@@ -1,10 +1,10 @@
-import { getCurrentVote } from "../hooks/store.js";
-import { useVotes } from "../hooks/votes.js";
-import { currentUserId } from "../utils/firebase.js";
-import { VoteRow } from "./vote-row.jsx";
+import { getCurrentVote } from "../hooks/store.js"
+import { useVotes } from "../hooks/votes.js"
+import { currentUserId } from "../utils/firebase.js"
+import { VoteRow } from "./vote-row.jsx"
 
 export function Votes() {
-  const { users, display } = useVotes();
+  const { users, display } = useVotes()
 
   return (
     <div className="nes-container with-title is-centered">
@@ -20,5 +20,5 @@ export function Votes() {
         />
       ))}
     </div>
-  );
+  )
 }

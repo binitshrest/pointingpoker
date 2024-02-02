@@ -4,94 +4,94 @@ import {
   update,
   push,
   onDisconnect,
-} from "@firebase/database";
-import { updateProfile } from "@firebase/auth";
-import { Bugfender } from "@bugfender/sdk";
-import { asyncQueue } from "../hooks/loading.js";
-import { deferUpdate, getStore, setCurrentVote } from "../hooks/store.js";
-import { auth, currentUserId, db, roomRef } from "./firebase.js";
-import { roomId } from "./room-id.js";
+} from "@firebase/database"
+import { updateProfile } from "@firebase/auth"
+import { Bugfender } from "@bugfender/sdk"
+import { asyncQueue } from "../hooks/loading.js"
+import { deferUpdate, getStore, setCurrentVote } from "../hooks/store.js"
+import { auth, currentUserId, db, roomRef } from "./firebase.js"
+import { roomId } from "./room-id.js"
 
 export async function vote(selectedOption) {
   try {
     // To defer vote update until everyone has voted
-    deferUpdate(`users/${currentUserId}/vote`, selectedOption);
+    deferUpdate(`users/${currentUserId}/vote`, selectedOption)
     // To show the current user their vote
-    setCurrentVote(selectedOption);
+    setCurrentVote(selectedOption)
 
     const updates = {
       [`users/${currentUserId}/hasVoted`]: true,
       endTime: serverTimestamp(),
-    };
-    await updateDb(updates);
+    }
+    await updateDb(updates)
   } catch (error) {
-    Bugfender.error("Error in voting", error);
-    throw error;
+    Bugfender.error("Error in voting", error)
+    throw error
   }
 }
 
 export async function clearVotes() {
   try {
-    await updateDb(getClearVotesUpdates());
+    await updateDb(getClearVotesUpdates())
   } catch (error) {
-    Bugfender.error("Error in clearing votes", error);
-    throw error;
+    Bugfender.error("Error in clearing votes", error)
+    throw error
   }
 }
 
 export async function selectVoteOptions(selectedVoteOptionsKey) {
   try {
     if (getStore().selectedVoteOptionsKey !== selectedVoteOptionsKey) {
-      await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() });
+      await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() })
     }
   } catch (error) {
-    Bugfender.error("Error in selecting vote options", error);
-    throw error;
+    Bugfender.error("Error in selecting vote options", error)
+    throw error
   }
 }
 
 export async function createVoteOptions(newVoteOptions) {
   try {
     await asyncQueue.add(() =>
-      update(push(ref(db, `rooms/${roomId}/voteOptionsList`)), newVoteOptions)
-    );
+      update(push(ref(db, `rooms/${roomId}/voteOptionsList`)), newVoteOptions),
+    )
   } catch (error) {
-    Bugfender.error("Error in creating vote options", error);
-    throw error;
+    Bugfender.error("Error in creating vote options", error)
+    throw error
   }
 }
 
 export async function setName(name) {
   try {
     if (!name || name === auth.currentUser.displayName) {
-      return;
+      return
     }
 
-    Bugfender.setDeviceKey("name", name);
+    Bugfender.setDeviceKey("name", name)
     await asyncQueue.addAll([
       () =>
         updateProfile(auth.currentUser, {
           displayName: name,
         }),
       () => update(roomRef, { [`users/${currentUserId}/name`]: name }),
-    ]);
+    ])
   } catch (error) {
-    Bugfender.error("Error while setting name", error);
-    throw error;
+    Bugfender.error("Error while setting name", error)
+    throw error
   }
 }
 
 function getClearVotesUpdates() {
-  const updates = { startTime: serverTimestamp(), endTime: 0 };
+  const updates = { startTime: serverTimestamp(), endTime: 0 }
   for (const id of Object.keys(getStore().users)) {
-    updates[`users/${id}/hasVoted`] = false;
+    updates[`users/${id}/hasVoted`] = false
   }
 
-  return updates;
+  return updates
 }
 
 export async function updateDb(updates) {
-  await asyncQueue.add(() => update(roomRef, updates));
+  await asyncQueue.add(() => update(roomRef, updates))
 }
 
 export async function setupReconnection() {
@@ -102,13 +102,13 @@ export async function setupReconnection() {
         hasVoted: false,
         name: auth.currentUser.displayName,
       },
-    });
+    })
     // Delete user from db on disconnect
     await onDisconnect(
-      ref(db, `rooms/${roomId}/users/${currentUserId}`)
-    ).remove();
+      ref(db, `rooms/${roomId}/users/${currentUserId}`),
+    ).remove()
   } catch (error) {
-    Bugfender.error("Error while setting up reconnection", error);
-    throw error;
+    Bugfender.error("Error while setting up reconnection", error)
+    throw error
   }
 }

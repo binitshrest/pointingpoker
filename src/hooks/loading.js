@@ -1,40 +1,40 @@
-import PQueue from "p-queue";
-import { useSyncExternalStore } from "react";
-import { Bugfender } from "@bugfender/sdk";
+import PQueue from "p-queue"
+import { useSyncExternalStore } from "react"
+import { Bugfender } from "@bugfender/sdk"
 
-let loading = false;
+let loading = false
 
 // Used for global loading indicator on all async code
 // asyncQueue has Infinity concurrency
-export const asyncQueue = new PQueue();
+export const asyncQueue = new PQueue()
 
 asyncQueue.addListener("add", () => {
-  loading = true;
-});
+  loading = true
+})
 
 asyncQueue.addListener("idle", () => {
-  loading = false;
-});
+  loading = false
+})
 
 asyncQueue.addListener("error", (error) => {
-  Bugfender.error("Error while executing function in async queue", error);
-});
+  Bugfender.error("Error while executing function in async queue", error)
+})
 
 function subscribe(callback) {
-  asyncQueue.addListener("add", callback);
+  asyncQueue.addListener("add", callback)
 
-  asyncQueue.addListener("idle", callback);
+  asyncQueue.addListener("idle", callback)
 
   return () => {
-    asyncQueue.removeListener("add", callback);
-    asyncQueue.removeListener("idle", callback);
-  };
+    asyncQueue.removeListener("add", callback)
+    asyncQueue.removeListener("idle", callback)
+  }
 }
 
 function getLoading() {
-  return loading;
+  return loading
 }
 
 export function useLoading() {
-  return useSyncExternalStore(subscribe, getLoading);
+  return useSyncExternalStore(subscribe, getLoading)
 }

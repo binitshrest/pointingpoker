@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import { Duration } from "luxon";
-import { useStore } from "../hooks/store.js";
-import { useVoteStats } from "../hooks/vote-stats.js";
-import { Emoji } from "./emoji.jsx";
-import { Highlight } from "./highlight.jsx";
+import styled from "styled-components"
+import { Duration } from "luxon"
+import { useStore } from "../hooks/store.js"
+import { useVoteStats } from "../hooks/vote-stats.js"
+import { Emoji } from "./emoji.jsx"
+import { Highlight } from "./highlight.jsx"
 
 const StatRow = styled.div`
   margin-bottom: 8px;
-`;
+`
 
 export function VoteStats() {
   const {
@@ -15,8 +15,8 @@ export function VoteStats() {
     modeVote,
     consensus,
     minMaxVote: { minVote, minVoters, maxVote, maxVoters },
-  } = useVoteStats();
-  const { startTime, endTime } = useStore();
+  } = useVoteStats()
+  const { startTime, endTime } = useStore()
 
   if (averageVote) {
     return (
@@ -63,8 +63,8 @@ export function VoteStats() {
           </StatRow>
         )}
       </div>
-    );
+    )
   }
 
-  return null;
+  return null
 }
