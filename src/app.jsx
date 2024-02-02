@@ -27,10 +27,7 @@ const GlobalStyle = createGlobalStyle`
 		min-height: 100vh;
 		display: grid;
 		place-items: center;
-	}
-
-	h1 {
-		margin-bottom: 0;
+    grid-template-rows: auto 1fr;
 	}
 
 	.nes-btn {
@@ -48,12 +45,25 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppContainer = styled.div`
+const Container = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
   max-width: min(576px, calc(100vw - 32px));
   margin: 32px 16px;
+`;
+
+const Header = styled.div`
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1536px;
+  flex-wrap: wrap;
+
+  h2 {
+    padding-right: 32px;
+  }
 `;
 
 export function App() {
@@ -64,16 +74,18 @@ export function App() {
 
   return (
     <>
-      <AppContainer>
-        <GlobalStyle $loading={loading} />
+      <Header>
+        <h2>Pointing Poker</h2>
         <GitHubIcon />
-        <h1>Pointing Poker</h1>
+      </Header>
+      <Container>
+        <GlobalStyle $loading={loading} />
         <VoteButtons />
         <VoteActions />
         <Votes />
         {!display && <VoteTimer />}
         <VoteStats />
-      </AppContainer>
+      </Container>
       <Confetti
         width={width}
         height={height}
