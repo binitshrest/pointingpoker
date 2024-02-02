@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "vite",
     "emulate": "firebase emulators:start",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "xo",
-    "lint": "xo --fix",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -25,32 +24,18 @@
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@vitejs/plugin-react": "^3.1.0",
-    "eslint-config-xo": "^0.43.1",
-    "eslint-config-xo-react": "^0.27.0",
-    "eslint-plugin-react": "^7.32.2",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
     "firebase-tools": "^12.4.6",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.1",
-    "prettier": "^2.8.4",
-    "vite": "^4.1.0",
-    "xo": "^0.53.1"
-  },
-  "xo": {
-    "extends": "xo-react",
-    "envs": [
-      "browser"
-    ],
-    "prettier": true,
-    "rules": {
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "unicorn/expiring-todo-comments": "off"
-    },
-    "space": true
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
   },
   "lint-staged": {
     "*": "npm run lint"

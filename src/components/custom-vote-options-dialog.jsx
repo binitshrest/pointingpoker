@@ -36,58 +36,60 @@ function validateVoteOptions(voteOptionsList) {
   );
 }
 
-export const CustomVoteOptionsDialog = forwardRef(function (props, ref) {
-  const [input, setInput] = useState("");
-  const [formError, setFormError] = useState(true);
+export const CustomVoteOptionsDialog = forwardRef(
+  function CustomVoteOptionsDialog(props, ref) {
+    const [input, setInput] = useState("");
+    const [formError, setFormError] = useState(true);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (formError) return;
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if (formError) return;
 
-    await createVoteOptions({ ...parseInput(input) });
-    setInput("");
-    ref.current.close();
-  };
+      await createVoteOptions({ ...parseInput(input) });
+      setInput("");
+      ref.current.close();
+    };
 
-  return (
-    <dialog
-      ref={ref}
-      className="nes-dialog"
-      onClick={(event) => {
-        if (event.target.tagName === "DIALOG") {
-          ref.current.close();
-        }
-      }}
-    >
-      <form method="dialog" onSubmit={handleSubmit}>
-        <p className="title">Create new vote options</p>
-        <input
-          autoFocus
-          placeholder="1, 2, 3, 4..."
-          className={clsx("nes-input", {
-            "is-error": formError,
-          })}
-          value={input}
-          onChange={(event) => {
-            setInput(event.target.value);
-            setFormError(
-              !validateVoteOptions(parseInput(event.target.value.trim()))
-            );
-          }}
-        />
-        <ButtonContainer>
-          <Button
-            onClick={() => {
-              ref.current.close();
+    return (
+      <dialog
+        ref={ref}
+        className="nes-dialog"
+        onClick={(event) => {
+          if (event.target.tagName === "DIALOG") {
+            ref.current.close();
+          }
+        }}
+      >
+        <form method="dialog" onSubmit={handleSubmit}>
+          <p className="title">Create new vote options</p>
+          <input
+            autoFocus
+            placeholder="1, 2, 3, 4..."
+            className={clsx("nes-input", {
+              "is-error": formError,
+            })}
+            value={input}
+            onChange={(event) => {
+              setInput(event.target.value);
+              setFormError(
+                !validateVoteOptions(parseInput(event.target.value.trim()))
+              );
             }}
-          >
-            Cancel
-          </Button>
-          <Button submit className="is-primary">
-            Create
-          </Button>
-        </ButtonContainer>
-      </form>
-    </dialog>
-  );
-});
+          />
+          <ButtonContainer>
+            <Button
+              onClick={() => {
+                ref.current.close();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button submit className="is-primary">
+              Create
+            </Button>
+          </ButtonContainer>
+        </form>
+      </dialog>
+    );
+  }
+);

@@ -23,7 +23,10 @@ const ButtonContainer2 = styled.div`
   padding-top: 10px;
 `;
 
-export const VoteOptionsDialog = forwardRef(function (props, ref) {
+export const VoteOptionsDialog = forwardRef(function VoteOptionsDialog(
+  props,
+  ref
+) {
   const { voteOptionsList, selectedVoteOptionsKey } = useStore();
   const customVoteOptionsDialogRef = useRef();
 
