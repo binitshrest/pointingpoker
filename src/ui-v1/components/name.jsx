@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { useToggle } from "../hooks/toggle.js"
-import { auth, currentUserId } from "../utils/firebase.js"
+import { useToggle } from "../../hooks/toggle.js"
+import { auth, currentUserId } from "../../utils/firebase.js"
 import { NameForm } from "./name-form.jsx"
 import { NameBox } from "./name-box.jsx"
 

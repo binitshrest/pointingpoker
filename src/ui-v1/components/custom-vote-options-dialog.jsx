@@ -2,8 +2,8 @@ import clsx from "clsx"
 import { isEmpty, isEqual, uniq } from "lodash-es"
 import { forwardRef, useState } from "react"
 import styled from "styled-components"
-import { getStore } from "../hooks/store.js"
-import { createVoteOptions } from "../utils/rtdb.js"
+import { getStore } from "../../hooks/store.js"
+import { createVoteOptions } from "../../utils/rtdb.js"
 import { Button } from "./button.jsx"
 
 const ButtonContainer = styled.div`

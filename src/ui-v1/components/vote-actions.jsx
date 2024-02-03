@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import styled from "styled-components"
-import { clearVotes } from "../utils/rtdb.js"
+import { clearVotes } from "../../utils/rtdb.js"
 import { Button } from "./button.jsx"
 import { VoteOptionsDialog } from "./vote-options-dialog.jsx"
 

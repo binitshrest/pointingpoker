@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { ref, onValue } from "@firebase/database"
-import { db } from "../utils/firebase.js"
-import { setupReconnection } from "../utils/rtdb.js"
+import { db } from "../../utils/firebase.js"
+import { setupReconnection } from "../../utils/rtdb.js"
 
 const connectedRef = ref(db, ".info/connected")
 
@@ -27,8 +27,9 @@ export function DisconnectedDialog() {
 
   return (
     <dialog ref={dialogRef} className="nes-dialog">
-      <p className="title">Disconnected</p>
-      <p>Refreshing can help sometimes :)</p>
+      <div>
+        <p className="title nes-text is-error">Disconnected</p>Refreshing can help sometimes :)
+      </div>
     </dialog>
   )
 }

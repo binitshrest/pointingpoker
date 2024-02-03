@@ -1,6 +1,6 @@
-import { getCurrentVote } from "../hooks/store.js"
-import { useVotes } from "../hooks/votes.js"
-import { currentUserId } from "../utils/firebase.js"
+import { getCurrentVote } from "../../hooks/store.js"
+import { useVotes } from "../../hooks/votes.js"
+import { currentUserId } from "../../utils/firebase.js"
 import { VoteRow } from "./vote-row.jsx"
 
 export function Votes() {

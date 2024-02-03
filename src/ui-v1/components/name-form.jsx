@@ -1,9 +1,9 @@
 import { useState } from "react"
 import clsx from "clsx"
 import styled from "styled-components"
-import { getStore } from "../hooks/store.js"
-import { auth } from "../utils/firebase.js"
-import { setName } from "../utils/rtdb.js"
+import { getStore } from "../../hooks/store.js"
+import { auth } from "../../utils/firebase.js"
+import { setName } from "../../utils/rtdb.js"
 
 const StyledInput = styled.input`
   width: 100%;

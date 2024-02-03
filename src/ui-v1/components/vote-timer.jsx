@@ -1,5 +1,5 @@
-import { useStore } from "../hooks/store.js"
-import { useTimer } from "../hooks/timer.js"
+import { useStore } from "../../hooks/store.js"
+import { useTimer } from "../../hooks/timer.js"
 
 export function VoteTimer() {
   const { startTime } = useStore()
