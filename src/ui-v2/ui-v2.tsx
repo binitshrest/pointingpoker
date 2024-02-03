@@ -1,4 +1,5 @@
 import { useUI } from "@/hooks/ui";
+import "@/ui-v2/styles/globals.css"
 
 export default function UIV2() {
     const [, setUIVersion] = useUI();
