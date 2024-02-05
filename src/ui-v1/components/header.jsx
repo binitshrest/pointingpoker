@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { BoxIconButton } from "./box-icon-button.jsx"
+import { GradientIconButton } from "./gradient-icon-button.jsx"
 import { GitHubIcon } from "./github-icon.jsx"
 import { toggleUI } from "../../utils/ui"
 
@@ -13,12 +13,15 @@ const HeaderContainer = styled.div`
 
   h2 {
     padding-right: 32px;
+    margin: 4px 0;
   }
 `
 
 const HeaderButtonGroup = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-content: center;
 `
 
 export function Header() {
@@ -26,7 +29,7 @@ export function Header() {
     <HeaderContainer>
       <h2>Pointing Poker</h2>
       <HeaderButtonGroup>
-        <BoxIconButton onClick={toggleUI} />
+        <GradientIconButton onClick={toggleUI} />
         <GitHubIcon />
       </HeaderButtonGroup>
     </HeaderContainer>
