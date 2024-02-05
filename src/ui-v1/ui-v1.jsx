@@ -14,21 +14,19 @@ import { useLoading } from "../hooks/loading.js"
 import { useVoteStats } from "../hooks/vote-stats.js"
 
 const GlobalStyle = createGlobalStyle`
-	body {
-		margin: 0;
-		overflow-x: hidden;
-	}
-
 	* {
 		${({ $loading }) => $loading && "cursor: progress !important;"}
 	}
 
-	#root {
+	#host-ui-v1 {
 		min-width: 320px;
 		min-height: 100vh;
 		display: grid;
 		place-items: center;
     grid-template-rows: auto 1fr;
+    font-family: "Press Start 2P", monospace;
+    line-height: 1.5;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=),auto;
 	}
 
 	.nes-btn {
@@ -62,6 +60,11 @@ export function UIV1() {
 
   return (
     <>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css"
+        crossOrigin="anonymous"
+      />
       <Header />
       <Container>
         <GlobalStyle $loading={loading} />

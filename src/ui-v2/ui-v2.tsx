@@ -1,13 +1,11 @@
-import { useUI } from "@/hooks/ui";
-import "@/ui-v2/styles/globals.css"
+import { toggleUI } from "@/utils/ui";
+import "./styles/globals.css"
 
-export default function UIV2() {
-    const [, setUIVersion] = useUI();
-
+export function UIV2() {
     return (
         <>
             <h1>Hello world!</h1>
-            <button onClick={() => setUIVersion("v1")}>toggle UI</button>
+            <button onClick={toggleUI}>toggle UI</button>
         </>
     );
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { BoxIconButton } from "./box-icon-button.jsx"
 import { GitHubIcon } from "./github-icon.jsx"
-import { useUI } from "../../hooks/ui"
+import { toggleUI } from "../../utils/ui"
 
 const HeaderContainer = styled.div`
   padding: 16px;
@@ -22,12 +22,11 @@ const HeaderButtonGroup = styled.div`
 `
 
 export function Header() {
-  const [, setUIVersion] = useUI();
   return (
     <HeaderContainer>
       <h2>Pointing Poker</h2>
       <HeaderButtonGroup>
-        <BoxIconButton onClick={() => setUIVersion("v2")} />
+        <BoxIconButton onClick={toggleUI} />
         <GitHubIcon />
       </HeaderButtonGroup>
     </HeaderContainer>
