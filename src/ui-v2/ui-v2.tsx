@@ -1,11 +1,11 @@
-import { toggleUI } from "@/utils/ui";
+import { Nav } from "./components/nav"
 import "./styles/globals.css"
 
 export function UIV2() {
-    return (
-        <>
-            <h1>Hello world!</h1>
-            <button onClick={toggleUI}>toggle UI</button>
-        </>
-    );
+  return (
+    <div className="grid grid-rows-[auto_1fr] place-items-center h-screen">
+      <Nav />
+      <div className="flex flex-col">Hello!</div>
+    </div>
+  )
 }
