@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { DateTime } from "luxon"
 
-export function useTimer(startTime) {
+const ONE_SECOND: number = 1000 * 1
+
+export function useTimer(startTime: number): string {
   const [timer, setTimer] = useState("00:00:00")
 
   useEffect(() => {
@@ -12,7 +14,7 @@ export function useTimer(startTime) {
           .minus(startTime)
           .toLocaleString(DateTime.TIME_24_WITH_SECONDS),
       )
-    }, 1000)
+    }, ONE_SECOND)
 
     return () => {
       clearInterval(intervalId)

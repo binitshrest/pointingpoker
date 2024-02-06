@@ -7,22 +7,22 @@ import {
 } from "@firebase/database"
 import { updateProfile } from "@firebase/auth"
 import { Bugfender } from "@bugfender/sdk"
-import { asyncQueue } from "../hooks/loading.js"
-import { deferUpdate, getStore, setCurrentVote } from "../hooks/store.js"
-import { auth, currentUserId, db, roomRef } from "./firebase.js"
-import { roomId } from "./room-id.js"
+import { asyncQueue } from "../hooks/loading"
+import { deferVoteUpdate, getStore, setCurrentVote } from "../hooks/store"
+import { currentUser, currentUserId, db, roomRef } from "./firebase"
+import { roomId } from "./room-id"
 
-export async function vote(selectedOption) {
+export async function vote(selectedOption: number): Promise<void> {
   try {
     // To defer vote update until everyone has voted
-    deferUpdate(`users/${currentUserId}/vote`, selectedOption)
+    deferVoteUpdate(`users/${currentUserId}/vote`, selectedOption)
     // To show the current user their vote
     setCurrentVote(selectedOption)
 
-    const updates = {
-      [`users/${currentUserId}/hasVoted`]: true,
+    const updates: RoomUpdates = {
       endTime: serverTimestamp(),
     }
+    updates[`users/${currentUserId}/hasVoted`] = true
     await updateDb(updates)
   } catch (error) {
     Bugfender.error("Error in voting", error)
@@ -30,7 +30,7 @@ export async function vote(selectedOption) {
   }
 }
 
-export async function clearVotes() {
+export async function clearVotes(): Promise<void> {
   try {
     await updateDb(getClearVotesUpdates())
   } catch (error) {
@@ -39,7 +39,9 @@ export async function clearVotes() {
   }
 }
 
-export async function selectVoteOptions(selectedVoteOptionsKey) {
+export async function selectVoteOptions(
+  selectedVoteOptionsKey: string,
+): Promise<void> {
   try {
     if (getStore().selectedVoteOptionsKey !== selectedVoteOptionsKey) {
       await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() })
@@ -50,7 +52,9 @@ export async function selectVoteOptions(selectedVoteOptionsKey) {
   }
 }
 
-export async function createVoteOptions(newVoteOptions) {
+export async function createVoteOptions(newVoteOptions: {
+  [key: number]: number
+}): Promise<void> {
   try {
     await asyncQueue.add(() =>
       update(push(ref(db, `rooms/${roomId}/voteOptionsList`)), newVoteOptions),
@@ -61,16 +65,16 @@ export async function createVoteOptions(newVoteOptions) {
   }
 }
 
-export async function setName(name) {
+export async function setName(name: string): Promise<void> {
   try {
-    if (!name || name === auth.currentUser.displayName) {
+    if (!name || name === currentUser.displayName) {
       return
     }
 
     Bugfender.setDeviceKey("name", name)
     await asyncQueue.addAll([
       () =>
-        updateProfile(auth.currentUser, {
+        updateProfile(currentUser, {
           displayName: name,
         }),
       () => update(roomRef, { [`users/${currentUserId}/name`]: name }),
@@ -81,8 +85,8 @@ export async function setName(name) {
   }
 }
 
-function getClearVotesUpdates() {
-  const updates = { startTime: serverTimestamp(), endTime: 0 }
+function getClearVotesUpdates(): RoomUpdates {
+  const updates: RoomUpdates = { startTime: serverTimestamp(), endTime: 0 }
   for (const id of Object.keys(getStore().users)) {
     updates[`users/${id}/hasVoted`] = false
   }
@@ -90,19 +94,17 @@ function getClearVotesUpdates() {
   return updates
 }
 
-export async function updateDb(updates) {
+export async function updateDb(updates: RoomUpdates): Promise<void> {
   await asyncQueue.add(() => update(roomRef, updates))
 }
 
-export async function setupReconnection() {
+export async function setupReconnection(): Promise<void> {
   try {
-    await updateDb({
-      [`users/${currentUserId}`]: {
-        vote: 0,
-        hasVoted: false,
-        name: auth.currentUser.displayName,
-      },
-    })
+    const updates: RoomUpdates = {}
+    updates[`users/${currentUserId}/name`] = currentUser.displayName as string
+    updates[`users/${currentUserId}/hasVoted`] = false
+    updates[`users/${currentUserId}/vote`] = 0
+    await updateDb(updates)
     // Delete user from db on disconnect
     await onDisconnect(
       ref(db, `rooms/${roomId}/users/${currentUserId}`),

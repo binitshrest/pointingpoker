@@ -1,9 +1,9 @@
 import { useState } from "react"
 import clsx from "clsx"
 import styled from "styled-components"
-import { getStore } from "../../hooks/store.js"
-import { auth } from "../../utils/firebase.js"
-import { setName } from "../../utils/rtdb.js"
+import { getStore } from "../../hooks/store"
+import { currentUser } from "../../utils/firebase"
+import { setName } from "../../utils/rtdb"
 
 const StyledInput = styled.input`
   width: 100%;
@@ -14,7 +14,7 @@ const StyledInput = styled.input`
 function validateName(name) {
   if (!name) return false
 
-  if (name === auth.currentUser.displayName) return true
+  if (name === currentUser.displayName) return true
 
   if (name.length > 16) return false
 

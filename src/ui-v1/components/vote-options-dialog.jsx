@@ -1,7 +1,7 @@
 import { forwardRef, useRef } from "react"
 import styled from "styled-components"
-import { useStore } from "../../hooks/store.js"
-import { selectVoteOptions } from "../../utils/rtdb.js"
+import { useStore } from "../../hooks/store"
+import { selectVoteOptions } from "../../utils/rtdb"
 import { Button } from "./button.jsx"
 import { CustomVoteOptionsDialog } from "./custom-vote-options-dialog.jsx"
 

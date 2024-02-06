@@ -9,9 +9,9 @@ import { Votes } from "./components/votes.jsx"
 import { VoteTimer } from "./components/vote-timer.jsx"
 import { DisconnectedDialog } from "./components/disconnected-dialog.jsx"
 import { Header } from "./components/header.jsx"
-import { useVotes } from "../hooks/votes.js"
-import { useLoading } from "../hooks/loading.js"
-import { useVoteStats } from "../hooks/vote-stats.js"
+import { useVotes } from "../hooks/votes"
+import { useLoading } from "../hooks/loading"
+import { useVoteStats } from "../hooks/vote-stats"
 
 const GlobalStyle = createGlobalStyle`
 	* {

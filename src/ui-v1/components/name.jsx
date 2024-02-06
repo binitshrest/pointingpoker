@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { useToggle } from "../../hooks/toggle.js"
-import { auth, currentUserId } from "../../utils/firebase.js"
+import { useToggle } from "../../hooks/toggle"
+import { currentUser, currentUserId } from "../../utils/firebase"
 import { NameForm } from "./name-form.jsx"
 import { NameBox } from "./name-box.jsx"
 
@@ -10,10 +10,10 @@ const NameContainer = styled.div`
 `
 
 const isNewPlayer = () =>
-  auth.currentUser.displayName === `player ${currentUserId.slice(0, 3)}`
+  currentUser.displayName === `player ${currentUserId.slice(0, 3)}`
 
 export function Name({ children }) {
-  const editable = children === auth.currentUser.displayName
+  const editable = children === currentUser.displayName
 
   const [input, toggleInput] = useToggle(isNewPlayer())
 

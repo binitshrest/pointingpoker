@@ -13,11 +13,12 @@ import {
   getAuth,
   signInAnonymously,
   updateProfile,
+  User,
 } from "@firebase/auth"
 import { has } from "lodash-es"
 import { Bugfender } from "@bugfender/sdk"
-import { asyncQueue } from "../hooks/loading.js"
-import { roomId } from "./room-id.js"
+import { asyncQueue } from "../hooks/loading"
+import { roomId } from "./room-id"
 
 const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG)
 
@@ -30,12 +31,15 @@ if (import.meta.env.DEV) {
   connectDatabaseEmulator(db, "127.0.0.1", 9001)
 }
 
+let currentUser: User
+
 try {
   await asyncQueue.add(() => signInAnonymously(auth))
-  if (!auth.currentUser.displayName) {
+  currentUser = auth.currentUser as User
+  if (!currentUser.displayName) {
     await asyncQueue.add(() =>
-      updateProfile(auth.currentUser, {
-        displayName: `player ${auth.currentUser.uid.slice(0, 3)}`,
+      updateProfile(currentUser, {
+        displayName: `player ${currentUser.uid.slice(0, 3)}`,
       }),
     )
   }
@@ -44,7 +48,7 @@ try {
   throw error
 }
 
-const currentUserId = auth.currentUser.uid
+const currentUserId = currentUser.uid
 
 const roomRef = ref(db, `rooms/${roomId}`)
 
@@ -54,8 +58,8 @@ try {
     get(child(ref(db), `rooms/${roomId}`)),
   )
 
-  let updates = {}
-  if (!roomSnapshot.exists()) {
+  let updates: RoomUpdates = {}
+  if (!roomSnapshot?.exists()) {
     // Initializing room
     updates = {
       endTime: 0,
@@ -67,17 +71,15 @@ try {
     }
   }
 
-  if (!has(roomSnapshot.val(), "users")) {
+  if (!has(roomSnapshot?.val(), "users")) {
     // Set startTime if first user to join
     updates.startTime = serverTimestamp()
   }
 
   // Add current user
-  updates[`users/${currentUserId}`] = {
-    vote: 0,
-    hasVoted: false,
-    name: auth.currentUser.displayName,
-  }
+  updates[`users/${currentUserId}/name`] = currentUser.displayName as string
+  updates[`users/${currentUserId}/hasVoted`] = false
+  updates[`users/${currentUserId}/vote`] = 0
 
   await asyncQueue.add(() => update(roomRef, updates))
 } catch (error) {
@@ -85,4 +87,4 @@ try {
   throw error
 }
 
-export { auth, db, currentUserId, roomRef }
+export { db, currentUser, currentUserId, roomRef }

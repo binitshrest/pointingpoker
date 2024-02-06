@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Duration } from "luxon"
-import { useStore } from "../../hooks/store.js"
-import { useVoteStats } from "../../hooks/vote-stats.js"
+import { useStore } from "../../hooks/store"
+import { useVoteStats } from "../../hooks/vote-stats"
 import { Emoji } from "./emoji.jsx"
 import { Highlight } from "./highlight.jsx"
 
@@ -14,7 +14,7 @@ export function VoteStats() {
     averageVote,
     modeVote,
     consensus,
-    minMaxVote: { minVote, minVoters, maxVote, maxVoters },
+    minMaxVotes: { minVote, minVoters, maxVote, maxVoters },
   } = useVoteStats()
   const { startTime, endTime } = useStore()
 

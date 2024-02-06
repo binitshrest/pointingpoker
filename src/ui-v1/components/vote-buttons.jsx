@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { useStore } from "../../hooks/store.js"
-import { vote } from "../../utils/rtdb.js"
+import { useStore } from "../../hooks/store"
+import { vote } from "../../utils/rtdb"
 import { Button } from "./button.jsx"
 
 const Container = styled.div`

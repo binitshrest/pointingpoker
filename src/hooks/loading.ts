@@ -20,9 +20,8 @@ asyncQueue.addListener("error", (error) => {
   Bugfender.error("Error while executing function in async queue", error)
 })
 
-function subscribe(callback) {
+function subscribe(callback: () => void): () => void {
   asyncQueue.addListener("add", callback)
-
   asyncQueue.addListener("idle", callback)
 
   return () => {
@@ -31,10 +30,10 @@ function subscribe(callback) {
   }
 }
 
-function getLoading() {
+function getLoading(): boolean {
   return loading
 }
 
-export function useLoading() {
+export function useLoading(): boolean {
   return useSyncExternalStore(subscribe, getLoading)
 }

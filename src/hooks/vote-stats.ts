@@ -1,24 +1,36 @@
-import { useVotes } from "./votes.js"
+import { useVotes } from "./votes"
 
-export function useVoteStats() {
+type MinMaxVotes = {
+  minVote: number
+  minVoters: string
+  maxVote: number
+  maxVoters: string
+}
+
+export function useVoteStats(): {
+  averageVote: number | false
+  modeVote: string | false
+  consensus: boolean
+  minMaxVotes: MinMaxVotes | false
+} {
   const { voteValues, display, users } = useVotes()
 
-  let averageVote
-  let modeVote = []
+  let averageVote: number | false = false
+  let modeVote: string | false = false
   let consensus = false
-  let minMaxVote = {}
+  let minMaxVotes: MinMaxVotes | false = false
 
   if (display && voteValues.length > 1) {
     averageVote = getAverage(voteValues)
     modeVote = transformMode(getMode(voteValues), voteValues.length)
     consensus = isAllEqual(voteValues)
-    minMaxVote = getMinMaxVote(users)
+    minMaxVotes = getMinMaxVotes(users)
   }
 
-  return { averageVote, modeVote, consensus, minMaxVote }
+  return { averageVote, modeVote, consensus, minMaxVotes }
 }
 
-function getAverage(numbers) {
+function getAverage(numbers: number[]): number {
   return Number(
     (
       numbers.reduce((total, number) => total + number, 0) / numbers.length
@@ -26,9 +38,9 @@ function getAverage(numbers) {
   )
 }
 
-function getMode(numbers) {
-  let mode = []
-  const frequencyMap = {}
+function getMode(numbers: number[]): number[] {
+  let mode: number[] = []
+  const frequencyMap: { [key: number]: number } = {}
   let maxFrequency = 0
 
   for (const number of numbers) {
@@ -44,24 +56,24 @@ function getMode(numbers) {
   return mode
 }
 
-function transformMode(mode, numberOfVotes) {
+function transformMode(mode: number[], numberOfVotes: number): string {
   // When every one votes uniquely
   if (numberOfVotes === mode.length) {
     return ""
   }
 
-  return transformArrayToString(mode)
+  return transformListToString(mode)
 }
 
-function isAllEqual(list) {
-  return list.every((number) => number === list[0])
+function isAllEqual(numbers: number[]): boolean {
+  return numbers.every((number) => number === numbers[0])
 }
 
-function getMinMaxVote(users) {
+function getMinMaxVotes(users: Room["users"]): MinMaxVotes {
   let minVote = Number.POSITIVE_INFINITY
-  let minVoters = []
+  let minVoters: string[] | string = []
   let maxVote = Number.NEGATIVE_INFINITY
-  let maxVoters = []
+  let maxVoters: string[] | string = []
 
   for (const { vote, name } of Object.values(users)) {
     if (vote <= minVote) {
@@ -83,12 +95,12 @@ function getMinMaxVote(users) {
     }
   }
 
-  minVoters = transformArrayToString(minVoters)
-  maxVoters = transformArrayToString(maxVoters)
+  minVoters = transformListToString(minVoters)
+  maxVoters = transformListToString(maxVoters)
 
   return { minVote, minVoters, maxVote, maxVoters }
 }
 
-function transformArrayToString(array) {
-  return array.join(", ").replace(/,([^,]+)$/, " and $1")
+function transformListToString(list: number[] | string[]): string {
+  return list.join(", ").replace(/,([^,]+)$/, " and $1")
 }
