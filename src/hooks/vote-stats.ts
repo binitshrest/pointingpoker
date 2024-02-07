@@ -11,14 +11,14 @@ export function useVoteStats(): {
   averageVote: number | false
   modeVote: string | false
   consensus: boolean
-  minMaxVotes: MinMaxVotes | false
+  minMaxVotes: MinMaxVotes
 } {
   const { voteValues, display, users } = useVotes()
 
   let averageVote: number | false = false
   let modeVote: string | false = false
   let consensus = false
-  let minMaxVotes: MinMaxVotes | false = false
+  let minMaxVotes = {} as MinMaxVotes
 
   if (display && voteValues.length > 1) {
     averageVote = getAverage(voteValues)

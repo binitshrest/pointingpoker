@@ -48,7 +48,7 @@ const Container = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
-  max-width: min(576px, calc(100vw - 32px));
+  max-width: min(576px, calc(100vw - 32px)); // [ ]: required in ui v2?
   margin: 32px 16px;
 `
 
@@ -56,7 +56,7 @@ export function UIV1() {
   const { width, height } = useWindowSize()
   const { display } = useVotes()
   const { consensus } = useVoteStats()
-  const loading = useLoading()
+  const loading = useLoading() // [ ]: add loading to ui v2
 
   return (
     <>

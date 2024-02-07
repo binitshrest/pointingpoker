@@ -2,7 +2,7 @@ import { Bugfender } from "@bugfender/sdk"
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
 import { StyleSheetManager } from "styled-components"
-import { UIV2 } from "./ui-v2/ui-v2"
+import { UIV2 } from "./ui-v2/ui-v2" // [ ]: lazy load both UI comps
 import { UIV1 } from "./ui-v1/ui-v1"
 import { initUI } from "./utils/ui"
 

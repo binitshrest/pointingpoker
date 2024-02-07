@@ -15,7 +15,7 @@ export function toggleUI() {
   localStorage.setItem("ui", nextVersion)
 }
 
-function setUIDisplay(version: UIVersion, displayMode: DisplayModes) {
+function setUIDisplay(version: UIVersion, displayMode: DisplayModes) { // [ ]: unmount and render instead
   ;(
     document.querySelector(`#root-ui-${version}`) as HTMLDivElement
   ).style.display = displayMode
