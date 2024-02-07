@@ -19,7 +19,7 @@ export async function vote(selectedOption: number): Promise<void> {
     // To show the current user their vote
     setCurrentVote(selectedOption)
 
-    const updates: RoomUpdates = {
+    const updates: Partial<RoomUpdates> = {
       endTime: serverTimestamp(),
     }
     updates[`users/${currentUserId}/hasVoted`] = true
@@ -85,8 +85,8 @@ export async function setName(name: string): Promise<void> {
   }
 }
 
-function getClearVotesUpdates(): RoomUpdates {
-  const updates: RoomUpdates = { startTime: serverTimestamp(), endTime: 0 }
+function getClearVotesUpdates(): Partial<RoomUpdates> {
+  const updates: Partial<RoomUpdates> = { startTime: serverTimestamp(), endTime: 0 }
   for (const id of Object.keys(getStore().users)) {
     updates[`users/${id}/hasVoted`] = false
   }
@@ -94,13 +94,13 @@ function getClearVotesUpdates(): RoomUpdates {
   return updates
 }
 
-export async function updateDb(updates: RoomUpdates): Promise<void> {
+export async function updateDb(updates: Partial<RoomUpdates>): Promise<void> {
   await asyncQueue.add(() => update(roomRef, updates))
 }
 
 export async function setupReconnection(): Promise<void> {
   try {
-    const updates: RoomUpdates = {}
+    const updates: Partial<RoomUpdates> = {}
     updates[`users/${currentUserId}/name`] = currentUser.displayName as string
     updates[`users/${currentUserId}/hasVoted`] = false
     updates[`users/${currentUserId}/vote`] = 0

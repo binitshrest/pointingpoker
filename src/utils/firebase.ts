@@ -58,7 +58,7 @@ try {
     get(child(ref(db), `rooms/${roomId}`)),
   )
 
-  let updates: RoomUpdates = {}
+  let updates: Partial<RoomUpdates> = {}
   if (!roomSnapshot?.exists()) {
     // Initializing room
     updates = {

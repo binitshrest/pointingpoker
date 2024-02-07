@@ -1,8 +1,8 @@
 declare interface RoomPrimitive {
-  startTime?: number | object // To handle firebase db serverTimestamp
-  endTime?: number | object
-  selectedVoteOptionsKey?: string
-  voteOptionsList?: {
+  startTime: number | object // To handle firebase db serverTimestamp
+  endTime: number | object
+  selectedVoteOptionsKey: string
+  voteOptionsList: {
     [key: number]: {
       [key: number]: number
     }
