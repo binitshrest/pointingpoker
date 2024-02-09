@@ -2,6 +2,7 @@ import { useVotes } from "@/hooks/votes"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { currentUserId } from "@/utils/firebase"
 import { getCurrentVote } from "@/hooks/store"
+import { Name } from "./name"
 
 export function Votes() {
   const { users, display } = useVotes()
@@ -20,8 +21,7 @@ export function Votes() {
                 🟢 {/* [ ]: better alternative maybe? */}
               </span>
             )}
-            <div className="col-start-2 text-left">{users[id].name}</div>
-            {/* [ ]: editable name component */}
+            <Name>{users[id].name}</Name>
             <div>{getVote(display, id, users)}</div>
           </div>
         ))}
@@ -34,7 +34,7 @@ function getVote(
   display: boolean,
   id: string,
   users: Room["users"],
-): string | number {
+): "?" | number {
   if (display) return users[id].vote
 
   if (users[id].hasVoted && id === currentUserId) return getCurrentVote()
