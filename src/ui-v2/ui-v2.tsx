@@ -12,7 +12,7 @@ import { VoteTimer } from "./components/vote-timer"
 import { VoteStats } from "./components/vote-stats"
 import "./styles/globals.css"
 
-export function UIV2() {
+export default function UIV2() {
   const { display } = useVotes()
   const { width, height } = useWindowSize()
   const { consensus } = useVoteStats()
@@ -48,3 +48,4 @@ export function UIV2() {
 
 // [ ]: Dialog stuff
 // [ ]: option for feedback
+// [ ]: dark mode

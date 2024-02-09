@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components"
+import styled, { StyleSheetManager, createGlobalStyle } from "styled-components"
 import Confetti from "react-confetti"
 import { useWindowSize } from "react-use"
 
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 		${({ $loading }) => $loading && "cursor: progress !important;"}
 	}
 
-	#host-ui-v1 {
+	#host {
 		min-width: 320px;
 		min-height: 100vh;
 		display: grid;
@@ -52,36 +52,38 @@ const Container = styled.div`
   margin: 32px 16px;
 `
 
-export function UIV1() {
+export default function UIV1({ styleSheetTarget }) {
   const { width, height } = useWindowSize()
   const { display } = useVotes()
   const { consensus } = useVoteStats()
   const loading = useLoading()
 
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css"
-        crossOrigin="anonymous"
-      />
-      <Header />
-      <Container>
-        <GlobalStyle $loading={loading} />
-        <VoteButtons />
-        <VoteActions />
-        <Votes />
-        {!display && <VoteTimer />}
-        <VoteStats />
-      </Container>
-      <Confetti
-        width={width}
-        height={height}
-        recycle={false}
-        numberOfPieces={consensus ? 500 : 0}
-        onConfettiComplete={(confetti) => confetti.reset()}
-      />
-      <DisconnectedDialog />
-    </>
+    <StyleSheetManager target={styleSheetTarget}>
+      <>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css"
+          crossOrigin="anonymous"
+        />
+        <Header />
+        <Container>
+          <GlobalStyle $loading={loading} />
+          <VoteButtons />
+          <VoteActions />
+          <Votes />
+          {!display && <VoteTimer />}
+          <VoteStats />
+        </Container>
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={consensus ? 500 : 0}
+          onConfettiComplete={(confetti) => confetti.reset()}
+        />
+        <DisconnectedDialog />
+      </>
+    </StyleSheetManager>
   )
 }

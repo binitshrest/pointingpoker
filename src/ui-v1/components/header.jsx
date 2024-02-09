@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { GradientIconButton } from "./gradient-icon-button.jsx"
 import { GitHubIcon } from "./github-icon.jsx"
-import { toggleUI } from "../../utils/ui"
+import { renderV2 } from "../../utils/ui-v2"
 
 const HeaderContainer = styled.div`
   padding: 16px;
@@ -29,7 +29,7 @@ export function Header() {
     <HeaderContainer>
       <h2>Pointing Poker</h2>
       <HeaderButtonGroup>
-        <GradientIconButton onClick={toggleUI} />
+        <GradientIconButton onClick={renderV2} />
         <GitHubIcon />
       </HeaderButtonGroup>
     </HeaderContainer>

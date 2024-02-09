@@ -1,6 +1,6 @@
 import { Button } from "./ui/button"
 import { Gamepad, Github } from "lucide-react"
-import { toggleUI } from "@/utils/ui"
+import { renderV1 } from "@/utils/ui-v1"
 import { Separator } from "./ui/separator"
 
 export function Nav() {
@@ -10,7 +10,7 @@ export function Nav() {
         Pointing Poker
       </h1>
       <div className="flex gap-2">
-        <Button onClick={toggleUI} size="icon" variant="ghost">
+        <Button onClick={renderV1} size="icon" variant="ghost">
           <Gamepad className="h-7 w-7" />
         </Button>
         <Button
