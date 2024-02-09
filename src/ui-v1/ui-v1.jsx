@@ -56,7 +56,7 @@ export function UIV1() {
   const { width, height } = useWindowSize()
   const { display } = useVotes()
   const { consensus } = useVoteStats()
-  const loading = useLoading() // [ ]: add loading to ui v2
+  const loading = useLoading()
 
   return (
     <>
