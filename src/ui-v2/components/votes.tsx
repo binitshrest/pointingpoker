@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { currentUserId } from "@/utils/firebase"
 import { getCurrentVote } from "@/hooks/store"
 import { Name } from "./name"
+import { Check } from "lucide-react"
 
 export function Votes() {
   const { users, display } = useVotes()
@@ -17,9 +18,9 @@ export function Votes() {
           <div key={id} className="grid mb-2 grid-cols-[15%_2fr_1fr]">
             {/* [ ]: adjust alignment and typography */}
             {users[id].hasVoted && (
-              <span className="inline-block self-center text-right mr-4">
-                🟢 {/* [ ]: better alternative maybe? */}
-              </span>
+              <div className="mr-4 flex justify-center">
+                <Check />
+              </div>
             )}
             <Name>{users[id].name}</Name>
             <div>{getVote(display, id, users)}</div>
