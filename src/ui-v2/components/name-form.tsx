@@ -5,7 +5,15 @@ import { currentUser } from "@/utils/firebase"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isNewPlayer } from "@/utils/misc"
 import { setName } from "@/utils/rtdb"
-import { Form, FormControl, FormField, FormItem } from "./ui/form"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form"
 import { Input } from "./ui/input"
 
 type NameFormProps = {
@@ -17,16 +25,27 @@ const formSchema = z.object({
   username: z
     .string()
     .trim()
-    .min(1)
-    .max(15)
-    .refine((val) => {
-      if (val === currentUser.displayName) return true
+    .min(1, {
+      message:
+        "Hold on, your username field seems oddly… invisible! Enter one so we can see you!",
+    })
+    .max(15, {
+      message:
+        "Looks like you wrote an epic saga in your username field. While impressive, choose something mortals can remember, brave adventurer.",
+    })
+    .refine(
+      (val) => {
+        if (val === currentUser.displayName) return true
 
-      const { users } = getStore()
-      return !Object.values(users)
-        .map(({ name }) => name)
-        .includes(val)
-    }),
+        const { users } = getStore()
+        return !Object.values(users)
+          .map(({ name }) => name)
+          .includes(val)
+      },
+      (val) => ({
+        message: `${val} has already been claimed by a mythical creature, possibly a unicorn. Choose another, brave adventurer!`,
+      }),
+    ),
 })
 
 export function NameForm({ initialValue, toggleInputDisplay }: NameFormProps) {
@@ -50,9 +69,14 @@ export function NameForm({ initialValue, toggleInputDisplay }: NameFormProps) {
           name="username"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input placeholder="Your username" {...field} />
               </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -61,5 +85,4 @@ export function NameForm({ initialValue, toggleInputDisplay }: NameFormProps) {
   )
 }
 
-// [ ]: error ui
 // [ ]: edit input size when changing typography
