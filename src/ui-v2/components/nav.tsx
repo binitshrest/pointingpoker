@@ -3,6 +3,33 @@ import { Gamepad, Github, Moon, Sun, SunMoon } from "lucide-react"
 import { renderV1 } from "@/utils/ui-v1"
 import { Separator } from "./ui/separator"
 import { useTheme } from "./theme-provider"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip"
+
+type NavButtonProps = {
+  children: React.ReactNode
+  onClick: () => void
+  tooltipContent: string
+}
+
+function NavButton({ children, onClick, tooltipContent }: NavButtonProps) {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button size="icon" variant="ghost" onClick={onClick}>
+            {children}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{tooltipContent}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
 
 export function Nav() {
   const { theme, setNextTheme } = useTheme()
@@ -13,23 +40,22 @@ export function Nav() {
         Pointing Poker
       </h1>
       <div className="flex gap-2">
-        <Button onClick={setNextTheme} size="icon" variant="ghost">
+        <NavButton onClick={setNextTheme} tooltipContent="Toggle theme">
           {theme === "light" && <Sun />}
           {theme === "dark" && <Moon />}
           {theme === "system" && <SunMoon />}
-        </Button>
-        <Button onClick={renderV1} size="icon" variant="ghost">
+        </NavButton>
+        <NavButton onClick={renderV1} tooltipContent="Switch to old UI">
           <Gamepad className="h-7 w-7" />
-        </Button>
-        <Button
+        </NavButton>
+        <NavButton
           onClick={() =>
             window.open("https://github.com/abizek/pointingpoker", "_blank")
           }
-          size="icon"
-          variant="ghost"
+          tooltipContent="View source code"
         >
           <Github className="h-7 w-7" />
-        </Button>
+        </NavButton>
       </div>
       <Separator className="mt-1" />
     </nav>
