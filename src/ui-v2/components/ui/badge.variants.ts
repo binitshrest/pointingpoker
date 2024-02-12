@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-full border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
@@ -13,9 +13,14 @@ export const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
       },
+      size: {
+        default: "px-2.5 py-0.5 text-xs font-semibold",
+        lg: "text-lg px-6 py-2 font-semibold"
+      }
     },
     defaultVariants: {
       variant: "default",
+      size: "default"
     },
   },
 )
