@@ -9,6 +9,7 @@ import { VoteButtons } from "./components/vote-buttons"
 import { Votes } from "./components/votes"
 import { VoteTimer } from "./components/vote-timer"
 import { VoteStats } from "./components/vote-stats"
+import { ThemeProvider } from "./components/theme-provider"
 import "./styles/globals.css"
 
 export default function UIV2() {
@@ -18,7 +19,7 @@ export default function UIV2() {
   const loading = useLoading()
 
   return (
-    <>
+    <ThemeProvider>
       <div
         className={cn(
           "grid grid-rows-[auto_1fr] place-items-center h-screen",
@@ -40,7 +41,7 @@ export default function UIV2() {
         numberOfPieces={consensus ? 500 : 0}
         onConfettiComplete={(confetti) => confetti?.reset()}
       />
-    </>
+    </ThemeProvider>
   )
 }
 
