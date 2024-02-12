@@ -5,7 +5,6 @@ import { useVoteStats } from "@/hooks/vote-stats"
 import { useLoading } from "@/hooks/loading"
 import { cn } from "@/utils/cn"
 import { Nav } from "./components/nav"
-import { VoteActions } from "./components/vote-actions"
 import { VoteButtons } from "./components/vote-buttons"
 import { Votes } from "./components/votes"
 import { VoteTimer } from "./components/vote-timer"
@@ -29,7 +28,6 @@ export default function UIV2() {
         <Nav />
         <div className="flex flex-col gap-6 my-8 mx-4">
           <VoteButtons />
-          <VoteActions />
           <Votes />
           {!display && <VoteTimer />}
           <VoteStats />
