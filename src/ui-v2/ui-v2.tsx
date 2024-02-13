@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import Confetti from "react-confetti"
 import { useWindowSize } from "react-use"
 import { useVotes } from "@/hooks/votes"
@@ -18,6 +19,21 @@ export default function UIV2() {
   const { width, height } = useWindowSize()
   const { consensus } = useVoteStats()
   const loading = useLoading()
+  const [isConfettiVisible, setIsConfettiVisible] = useState(false)
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+    if (consensus) {
+      setIsConfettiVisible(true)
+      timer = setTimeout(() => {
+        setIsConfettiVisible(false)
+      }, 1000 * 10)
+    }
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [consensus])
 
   return (
     <ThemeProvider>
@@ -35,13 +51,13 @@ export default function UIV2() {
           <VoteStats />
         </div>
       </div>
-      <Confetti
-        width={width}
-        height={height}
-        recycle={false}
-        numberOfPieces={consensus ? 500 : 0}
-        onConfettiComplete={(confetti) => confetti?.reset()}
-      />
+      {isConfettiVisible && (
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+        />
+      )}
       <DisconnectedDialog />
     </ThemeProvider>
   )
