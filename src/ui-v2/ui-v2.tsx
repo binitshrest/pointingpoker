@@ -10,6 +10,7 @@ import { Votes } from "./components/votes"
 import { VoteTimer } from "./components/vote-timer"
 import { VoteStats } from "./components/vote-stats"
 import { ThemeProvider } from "./components/theme-provider"
+import { DisconnectedDialog } from "./components/disconnected-dialog"
 import "./styles/globals.css"
 
 export default function UIV2() {
@@ -41,6 +42,7 @@ export default function UIV2() {
         numberOfPieces={consensus ? 500 : 0}
         onConfettiComplete={(confetti) => confetti?.reset()}
       />
+      <DisconnectedDialog />
     </ThemeProvider>
   )
 }
