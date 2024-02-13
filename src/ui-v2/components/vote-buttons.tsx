@@ -1,7 +1,7 @@
 import { useStore } from "@/hooks/store"
 import { Button } from "./ui/button"
 import { vote } from "@/utils/rtdb"
-import { MoreOptions } from "./more-options"
+import { MoreDropdownMenu } from "./more-dropdown-menu"
 import { Separator } from "./ui/separator"
 
 export function VoteButtons() {
@@ -27,7 +27,7 @@ export function VoteButtons() {
         )}
       </div>
       <Separator orientation="vertical" className="h-[inherit] ml-5" />
-      <MoreOptions />
+      <MoreDropdownMenu />
     </div>
   )
 }

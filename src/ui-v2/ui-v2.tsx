@@ -12,6 +12,7 @@ import { VoteTimer } from "./components/vote-timer"
 import { VoteStats } from "./components/vote-stats"
 import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDialog } from "./components/disconnected-dialog"
+import { EditNameDialog } from "./components/edit-name-dialog"
 import "./styles/globals.css"
 
 export default function UIV2() {
@@ -52,13 +53,10 @@ export default function UIV2() {
         </div>
       </div>
       {isConfettiVisible && (
-        <Confetti
-          width={width}
-          height={height}
-          recycle={false}
-        />
+        <Confetti width={width} height={height} recycle={false} />
       )}
       <DisconnectedDialog />
+      <EditNameDialog />
     </ThemeProvider>
   )
 }

@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useSyncExternalStore } from "react"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { getStore } from "@/hooks/store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { currentUser } from "@/utils/firebase"
 import { setName } from "@/utils/rtdb"
+import { createExternalStore } from "@/utils/create-external-store"
 import {
   Form,
   FormControl,
@@ -22,14 +23,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./ui/dialog"
 import { Button } from "./ui/button"
-import { DropdownMenuItem } from "./ui/dropdown-menu"
-
-type EditNameDialogProps = {
-  setDropdownMenuOpen: (open: boolean) => void
-}
+import { isNewPlayer } from "@/utils/misc"
 
 const formSchema = z.object({
   username: z
@@ -58,7 +54,12 @@ const formSchema = z.object({
     ),
 })
 
-export function EditNameDialog({ setDropdownMenuOpen }: EditNameDialogProps) {
+const [subscribe, getSnapshot, setOpen] =
+  createExternalStore<boolean>(isNewPlayer())
+
+export const setEditNameDialogOpen = setOpen
+
+export function EditNameDialog() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,25 +67,15 @@ export function EditNameDialog({ setDropdownMenuOpen }: EditNameDialogProps) {
     },
   })
 
-  const [open, setOpen] = useState(false)
+  const open = useSyncExternalStore(subscribe, getSnapshot)
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await setName(values.username)
     setOpen(false)
-    setDropdownMenuOpen(false)
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <DropdownMenuItem
-          onSelect={(event) => {
-            event.preventDefault()
-          }}
-        >
-          Edit Username
-        </DropdownMenuItem>
-      </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Edit Username</DialogTitle>

@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { MoreVertical } from "lucide-react"
 import { Button } from "./ui/button"
 import {
@@ -8,13 +7,11 @@ import {
   DropdownMenuItem,
 } from "./ui/dropdown-menu"
 import { clearVotes } from "@/utils/rtdb"
-import { EditNameDialog } from "./edit-name-dialog"
+import { setEditNameDialogOpen } from "./edit-name-dialog"
 
-export function MoreOptions() {
-  const [open, setOpen] = useState(false)
-
+export function MoreDropdownMenu() {
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <MoreVertical />
@@ -23,7 +20,13 @@ export function MoreOptions() {
       <DropdownMenuContent>
         <DropdownMenuItem onClick={clearVotes}>Clear Votes</DropdownMenuItem>
         <DropdownMenuItem>Change Vote Options</DropdownMenuItem>
-        <EditNameDialog setDropdownMenuOpen={setOpen} />
+        <DropdownMenuItem
+          onClick={() => {
+            setEditNameDialogOpen(true)
+          }}
+        >
+          Edit Username
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
