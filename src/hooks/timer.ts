@@ -5,7 +5,7 @@ const ONE_SECOND: number = 1 * 1000
 const ONE_HOUR = 1 * 60 * 60 * 1000
 
 export function useTimer(startTime: number): string {
-  const [timer, setTimer] = useState("00:00:00")
+  const [timer, setTimer] = useState("00:00")
 
   useEffect(() => {
     const intervalId = setInterval(() => {
