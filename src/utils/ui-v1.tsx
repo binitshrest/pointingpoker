@@ -5,6 +5,7 @@ import { cleanUp, createRootElement, setCleanUp } from "./ui"
 export function renderV1() {
   cleanUp?.()
 
+  window.document.documentElement.classList.remove("light", "dark")
   const rootElement = createRootElement()
   const shadowRoot = rootElement.attachShadow({ mode: "open" })
   const host = document.createElement("div")
