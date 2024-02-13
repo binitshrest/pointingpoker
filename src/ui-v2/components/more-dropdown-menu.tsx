@@ -8,6 +8,7 @@ import {
 } from "./ui/dropdown-menu"
 import { clearVotes } from "@/utils/rtdb"
 import { setEditNameDialogOpen } from "./edit-name-dialog"
+import { setChangeVoteOptionsDialogOpen } from "./change-vote-options-dialog"
 
 export function MoreDropdownMenu() {
   return (
@@ -19,7 +20,13 @@ export function MoreDropdownMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={clearVotes}>Clear Votes</DropdownMenuItem>
-        <DropdownMenuItem>Change Vote Options</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setChangeVoteOptionsDialogOpen(true)
+          }}
+        >
+          Change Vote Options
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             setEditNameDialogOpen(true)

@@ -54,8 +54,7 @@ const formSchema = z.object({
     ),
 })
 
-const [subscribe, getSnapshot, setOpen] =
-  createExternalStore<boolean>(isNewPlayer())
+const [subscribe, getSnapshot, setOpen] = createExternalStore(isNewPlayer())
 
 export const setEditNameDialogOpen = setOpen
 

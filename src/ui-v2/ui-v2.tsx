@@ -14,6 +14,7 @@ import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDialog } from "./components/disconnected-dialog"
 import { EditNameDialog } from "./components/edit-name-dialog"
 import "./styles/globals.css"
+import { ChangeVoteOptionsDialog } from "./components/change-vote-options-dialog"
 
 export default function UIV2() {
   const { display } = useVotes()
@@ -57,6 +58,7 @@ export default function UIV2() {
       )}
       <DisconnectedDialog />
       <EditNameDialog />
+      <ChangeVoteOptionsDialog />
     </ThemeProvider>
   )
 }
