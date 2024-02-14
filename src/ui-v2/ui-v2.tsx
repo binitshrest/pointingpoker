@@ -30,6 +30,8 @@ export default function UIV2() {
       timer = setTimeout(() => {
         setIsConfettiVisible(false)
       }, 1000 * 10)
+    } else {
+      setIsConfettiVisible(false)
     }
 
     return () => {
@@ -54,7 +56,12 @@ export default function UIV2() {
         </div>
       </div>
       {isConfettiVisible && (
-        <Confetti width={width} height={height} recycle={false} />
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          onConfettiComplete={(confetti) => confetti?.reset()}
+        />
       )}
       <DisconnectedDialog />
       <EditNameDialog />
