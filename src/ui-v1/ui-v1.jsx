@@ -48,7 +48,7 @@ const Container = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
-  max-width: min(576px, calc(100vw - 32px)); // [ ]: required in ui v2?
+  max-width: min(576px, calc(100vw - 32px));
   margin: 32px 16px;
 `
 
