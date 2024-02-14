@@ -8,7 +8,6 @@ import { cn } from "@/utils/cn"
 import { Nav } from "./components/nav"
 import { VoteButtons } from "./components/vote-buttons"
 import { VoteTimer } from "./components/vote-timer"
-import { VoteStats } from "./components/vote-stats"
 import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDialog } from "./components/disconnected-dialog"
 import { EditNameDialog } from "./components/edit-name-dialog"
@@ -52,7 +51,6 @@ export default function UIV2() {
           <VoteButtons />
           <VotesGraph />
           {!display && <VoteTimer />}
-          <VoteStats />
         </div>
       </div>
       {isConfettiVisible && (
