@@ -45,7 +45,7 @@ export function ChangeVoteOptionsDialog() {
           </DialogDescription>
         </DialogHeader>
         <VoteButtonsPreview
-          voteValues={Object.values(voteOptionsList[+currentSelectedKey])}
+          voteValues={Object.values(voteOptionsList[currentSelectedKey])}
         />
         <form onSubmit={handleSubmit}>
           <RadioGroup
@@ -54,8 +54,8 @@ export function ChangeVoteOptionsDialog() {
             className="justify-center mb-6"
             name="voteOptions"
           >
-            {Object.entries(voteOptionsList).map(([key, options]) => (
-              <div key={key} className="flex gap-3 items-center">
+            {Object.entries(voteOptionsList).map(([key, options], index) => (
+              <div key={index} className="flex gap-3 items-center">
                 <RadioGroupItem value={key} id={key} />
                 <Label htmlFor={key} className="text-base">
                   {Object.values(options).join(", ")}

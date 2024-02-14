@@ -3,7 +3,7 @@ declare interface RoomPrimitive {
   endTime: number | object
   selectedVoteOptionsKey: string
   voteOptionsList: {
-    [key: number]: {
+    [key: string]: {
       [key: number]: number
     }
   }

@@ -10,7 +10,7 @@ export function VoteButtons() {
   return (
     <div className="flex gap-2">
       <div className="flex flex-wrap gap-2">
-        {Object.values(voteOptionsList[+selectedVoteOptionsKey]).map(
+        {Object.values(voteOptionsList[selectedVoteOptionsKey]).map(
           (number) => (
             <Button
               key={number}
