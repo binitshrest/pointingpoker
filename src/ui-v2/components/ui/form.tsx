@@ -72,18 +72,17 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 
 interface FormItemProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const FormItem = React.forwardRef<
-  HTMLDivElement,
-  FormItemProps
->(({ className, ...props }, ref) => {
-  const id = React.useId()
+const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
+  ({ className, ...props }, ref) => {
+    const id = React.useId()
 
-  return (
-    <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
-    </FormItemContext.Provider>
-  )
-})
+    return (
+      <FormItemContext.Provider value={{ id }}>
+        <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      </FormItemContext.Provider>
+    )
+  },
+)
 FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
@@ -125,7 +124,8 @@ const FormControl = React.forwardRef<
 })
 FormControl.displayName = "FormControl"
 
-interface FormDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+interface FormDescriptionProps
+  extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -146,28 +146,33 @@ FormDescription.displayName = "FormDescription"
 
 interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  FormMessageProps
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+  ({ className, children, ...props }, ref) => {
+    const { formMessageId, ...formField } = useFormField()
+    let { error } = formField
 
-  if (!body) {
-    return null
-  }
+    if (Array.isArray(error)) {
+      error = error[0]
+    }
 
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  )
-})
+    const body = error ? String(error?.message) : children
+
+    if (!body) {
+      return null
+    }
+
+    return (
+      <p
+        ref={ref}
+        id={formMessageId}
+        className={cn("text-sm font-medium text-destructive", className)}
+        {...props}
+      >
+        {body}
+      </p>
+    )
+  },
+)
 FormMessage.displayName = "FormMessage"
 
 export {

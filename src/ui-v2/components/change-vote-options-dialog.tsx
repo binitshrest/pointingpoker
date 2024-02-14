@@ -14,6 +14,7 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
 import { VoteButtonsPreview } from "./vote-buttons-preview"
+import { CustomVoteOptionsDialog } from "./custom-vote-options-dialog"
 
 const [subscribe, getSnapshot, setOpen] = createExternalStore(false)
 
@@ -63,10 +64,13 @@ export function ChangeVoteOptionsDialog() {
               </div>
             ))}
           </RadioGroup>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
         </form>
+        <DialogFooter className="gap-y-2 sm:justify-between">
+          <CustomVoteOptionsDialog />
+          <Button type="submit" onClick={handleSubmit}>
+            Save changes
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
