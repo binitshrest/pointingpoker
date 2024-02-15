@@ -9,15 +9,28 @@ import {
 import { clearVotes } from "@/utils/rtdb"
 import { setNameDrawerDialogOpen } from "./name-drawer-dialog"
 import { setVoteOptionsDrawerDialogOpen } from "./vote-options-drawer-dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip"
 
-export function MoreDropdownMenu() {
+export function MoreDropdownMenu({ className }: { className?: string }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <MoreVertical />
-        </Button>
-      </DropdownMenuTrigger>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild onFocus={(event) => event.preventDefault()}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className={className}>
+                <MoreVertical />
+              </Button>
+            </DropdownMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>More options</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={clearVotes}>Clear Votes</DropdownMenuItem>
         <DropdownMenuItem

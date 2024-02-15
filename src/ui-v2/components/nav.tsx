@@ -9,6 +9,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip"
+import { useMedia } from "react-use"
+import { MoreDropdownMenu } from "./more-dropdown-menu"
 
 type NavButtonProps = {
   children: React.ReactNode
@@ -33,6 +35,7 @@ function NavButton({ children, onClick, tooltipContent }: NavButtonProps) {
 
 export function Nav() {
   const { theme, setNextTheme } = useTheme()
+  const isDesktop = useMedia("(min-width: 768px)")
 
   return (
     <nav className="flex justify-between w-full flex-wrap content-center my-3 pl-4 pr-3 max-w-screen-2xl">
@@ -56,6 +59,7 @@ export function Nav() {
         >
           <Github className="h-7 w-7" />
         </NavButton>
+        {!isDesktop && <MoreDropdownMenu className="w-6" />}
       </div>
       <Separator className="mt-1" />
     </nav>

@@ -3,9 +3,11 @@ import { Button } from "./ui/button"
 import { vote } from "@/utils/rtdb"
 import { MoreDropdownMenu } from "./more-dropdown-menu"
 import { Separator } from "./ui/separator"
+import { useMedia } from "react-use"
 
 export function VoteButtons() {
   const { voteOptionsList, selectedVoteOptionsKey } = useStore()
+  const isDesktop = useMedia("(min-width: 768px)")
 
   return (
     <div className="flex gap-2">
@@ -26,8 +28,12 @@ export function VoteButtons() {
           ),
         )}
       </div>
-      <Separator orientation="vertical" className="h-[inherit] ml-5" />
-      <MoreDropdownMenu />
+      {isDesktop && (
+        <>
+          <Separator orientation="vertical" className="h-[inherit] ml-5" />
+          <MoreDropdownMenu />
+        </>
+      )}
     </div>
   )
 }
