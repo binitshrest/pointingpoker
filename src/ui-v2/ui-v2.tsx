@@ -6,7 +6,6 @@ import { useLoading } from "@/hooks/loading"
 import { cn } from "@/utils/cn"
 import { Nav } from "./components/nav"
 import { VoteButtons } from "./components/vote-buttons"
-import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDrawerDialog } from "./components/disconnected-drawer-dialog"
 import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog"
@@ -36,7 +35,7 @@ export default function UIV2() {
   }, [consensus])
 
   return (
-    <ThemeProvider>
+    <>
       <div
         className={cn(
           "grid grid-rows-[auto_1fr] place-items-center h-dvh",
@@ -61,7 +60,7 @@ export default function UIV2() {
       <DisconnectedDrawerDialog />
       <NameDrawerDialog />
       <VoteOptionsDrawerDialog />
-    </ThemeProvider>
+    </>
   )
 }
 
