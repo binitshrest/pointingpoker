@@ -8,7 +8,7 @@ import {
 } from "./ui/dropdown-menu"
 import { clearVotes } from "@/utils/rtdb"
 import { setNameDrawerDialogOpen } from "./name-drawer-dialog"
-import { setChangeVoteOptionsDialogOpen } from "./change-vote-options-dialog"
+import { setVoteOptionsDrawerDialogOpen } from "./vote-options-drawer-dialog"
 
 export function MoreDropdownMenu() {
   return (
@@ -22,7 +22,7 @@ export function MoreDropdownMenu() {
         <DropdownMenuItem onClick={clearVotes}>Clear Votes</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            setChangeVoteOptionsDialogOpen(true)
+            setVoteOptionsDrawerDialogOpen(true)
           }}
         >
           Change Vote Options

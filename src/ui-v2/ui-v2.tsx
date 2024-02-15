@@ -10,7 +10,7 @@ import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDrawerDialog } from "./components/disconnected-drawer-dialog"
 import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import "./styles/globals.css"
-import { ChangeVoteOptionsDialog } from "./components/change-vote-options-dialog"
+import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog"
 import { VotesGraph } from "./components/votes-graph"
 import { Votes } from "./components/votes"
 
@@ -61,7 +61,7 @@ export default function UIV2() {
       )}
       <DisconnectedDrawerDialog />
       <NameDrawerDialog />
-      <ChangeVoteOptionsDialog />
+      <VoteOptionsDrawerDialog />
     </ThemeProvider>
   )
 }
