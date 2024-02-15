@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const badgeVariants = cva(
-  "inline-flex items-center rounded-full border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-full border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-semibold",
   {
     variants: {
       variant: {
@@ -14,8 +14,9 @@ export const badgeVariants = cva(
         outline: "text-foreground",
       },
       size: {
-        default: "px-2.5 py-0.5 text-xs font-semibold",
-        lg: "text-lg px-6 py-2 font-semibold"
+        default: "px-2.5 py-0.5 text-xs",
+        md: "text-base px-3 py-1",
+        lg: "text-lg px-6 py-2"
       }
     },
     defaultVariants: {

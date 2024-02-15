@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react"
 import { DateTime } from "luxon"
+import { useStore } from "./store"
+import { useVotes } from "./votes"
 
 const ONE_SECOND: number = 1 * 1000
 const ONE_HOUR = 1 * 60 * 60 * 1000
 
-export function useTimer(startTime: number): string {
+export function useTimer(): { timer: string; isTimerStopped: boolean } {
   const [timer, setTimer] = useState("00:00")
+  const { startTime, endTime } = useStore()
+  const { display } = useVotes()
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    let timeout: NodeJS.Timeout
+
+    const tick = () => {
       const timeElapsed = DateTime.now().setZone("UTC").minus(startTime)
       setTimer(
         timeElapsed.toLocaleString({
@@ -18,12 +24,20 @@ export function useTimer(startTime: number): string {
           hourCycle: "h23",
         }),
       )
-    }, ONE_SECOND)
+
+      if (display && endTime) return
+
+      timeout = setTimeout(() => {
+        tick()
+      }, ONE_SECOND)
+    }
+
+    tick()
 
     return () => {
-      clearInterval(intervalId)
+      clearTimeout(timeout)
     }
-  })
+  }, [display, endTime, startTime])
 
-  return timer
+  return { timer, isTimerStopped: display && !!endTime }
 }
