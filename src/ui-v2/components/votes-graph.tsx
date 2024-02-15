@@ -39,11 +39,10 @@ export function VotesGraph() {
   return (
     <Card>
       <CardHeader>
-        <div className="grid grid-cols-[auto_1fr] place-items-center">
+        <div className="flex justify-between">
+          <CardTitle>Stats</CardTitle>
+          {consensus && <CardTitle>Consensus! 🎉🎉🎉</CardTitle>}
           <TimerBadge />
-          {consensus && (
-            <CardTitle>Consensus! 🎉🎉🎉</CardTitle>
-          )}
         </div>
       </CardHeader>
       <CardContent className="pl-2">

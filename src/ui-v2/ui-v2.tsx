@@ -12,6 +12,7 @@ import { EditNameDialog } from "./components/edit-name-dialog"
 import "./styles/globals.css"
 import { ChangeVoteOptionsDialog } from "./components/change-vote-options-dialog"
 import { VotesGraph } from "./components/votes-graph"
+import { Votes } from "./components/votes"
 
 export default function UIV2() {
   const { width, height } = useWindowSize()
@@ -46,6 +47,7 @@ export default function UIV2() {
         <Nav />
         <div className="flex flex-col gap-6 my-8 mx-4 max-w-screen-md">
           <VoteButtons />
+          <Votes />
           <VotesGraph />
         </div>
       </div>
