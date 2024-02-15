@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
 } from "./ui/dropdown-menu"
 import { clearVotes } from "@/utils/rtdb"
-import { setEditNameDialogOpen } from "./edit-name-dialog"
+import { setNameDrawerDialogOpen } from "./name-drawer-dialog"
 import { setChangeVoteOptionsDialogOpen } from "./change-vote-options-dialog"
 
 export function MoreDropdownMenu() {
@@ -29,7 +29,7 @@ export function MoreDropdownMenu() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            setEditNameDialogOpen(true)
+            setNameDrawerDialogOpen(true)
           }}
         >
           Edit Username

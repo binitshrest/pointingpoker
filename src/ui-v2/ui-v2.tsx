@@ -8,7 +8,7 @@ import { Nav } from "./components/nav"
 import { VoteButtons } from "./components/vote-buttons"
 import { ThemeProvider } from "./components/theme-provider"
 import { DisconnectedDialog } from "./components/disconnected-dialog"
-import { EditNameDialog } from "./components/edit-name-dialog"
+import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import "./styles/globals.css"
 import { ChangeVoteOptionsDialog } from "./components/change-vote-options-dialog"
 import { VotesGraph } from "./components/votes-graph"
@@ -60,7 +60,7 @@ export default function UIV2() {
         />
       )}
       <DisconnectedDialog />
-      <EditNameDialog />
+      <NameDrawerDialog />
       <ChangeVoteOptionsDialog />
     </ThemeProvider>
   )
