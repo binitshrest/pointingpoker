@@ -1,6 +1,7 @@
 import { StrictMode, Suspense, lazy } from "react"
 import ReactDOM from "react-dom/client"
 import { cleanUp, createRootElement, setCleanUp } from "./ui"
+import { SkeletonLoader } from "@/ui-v2/components/skeleton-loader"
 
 export function renderV2() {
   cleanUp?.()
@@ -10,7 +11,7 @@ export function renderV2() {
   const UIV2 = lazy(() => import("@/ui-v2/ui-v2"))
   root.render(
     <StrictMode>
-      <Suspense>
+      <Suspense fallback={<SkeletonLoader />}>
         <UIV2 />
       </Suspense>
     </StrictMode>,
@@ -23,5 +24,3 @@ export function renderV2() {
     document.querySelector("#root")?.remove()
   })
 }
-
-// [ ]: skeleton fallback for lazy loaded components
