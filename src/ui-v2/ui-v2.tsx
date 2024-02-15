@@ -43,7 +43,7 @@ export default function UIV2() {
         )}
       >
         <Nav />
-        <div className="flex flex-col gap-6 my-8 mx-4 max-w-screen-md">
+        <div className="flex flex-col gap-6 my-8 mx-4 max-w-xl">
           <VoteButtons />
           <Votes />
           <VotesGraph />

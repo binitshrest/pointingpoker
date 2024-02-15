@@ -13,9 +13,9 @@ export function Votes() {
       <CardHeader>
         <CardTitle>Votes</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-2">
         {Object.entries(users).map(([id, { name, hasVoted, vote }]) => (
-          <div key={id} className="grid mb-2 grid-cols-[15%_2fr_1fr]">
+          <div key={id} className="grid grid-cols-[15%_2fr_1fr]">
             {hasVoted && (
               <div className="mr-4 flex justify-center">
                 <Check />
