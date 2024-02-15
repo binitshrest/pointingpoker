@@ -24,6 +24,8 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "./ui/drawer"
+import { Alert, AlertDescription } from "./ui/alert"
+import { AlertCircle } from "lucide-react"
 
 const [subscribe, getSnapshot, setOpen] = createExternalStore(false)
 
@@ -50,10 +52,16 @@ export function VoteOptionsDrawerDialog() {
         <DialogContent className="max-w-xl gap-6">
           <DialogHeader>
             <DialogTitle>Change Vote Options</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="gap-3 flex flex-col">
               You can change this room&apos;s vote options here. Click save when
-              done. Do note that changing the vote options will clear votes and
-              reset the timer.
+              done.
+              <Alert variant="secondary">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Changing the vote options will clear votes and reset the
+                  timer.
+                </AlertDescription>
+              </Alert>
             </DialogDescription>
           </DialogHeader>
           <VoteButtonsPreview
@@ -80,10 +88,15 @@ export function VoteOptionsDrawerDialog() {
       <DrawerContent className="gap-2">
         <DrawerHeader>
           <DrawerTitle>Change Vote Options</DrawerTitle>
-          <DrawerDescription>
+          <DrawerDescription className="gap-3 flex flex-col">
             You can change this room&apos;s vote options here. Tap save when
-            done. Do note that changing the vote options will clear votes and
-            reset the timer.
+            done.
+            <Alert variant="secondary">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Changing the vote options will clear votes and reset the timer.
+              </AlertDescription>
+            </Alert>
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col px-4 gap-6">
