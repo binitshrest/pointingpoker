@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
 import { VoteButtonsPreview } from "./vote-buttons-preview"
-import { CustomVoteOptionsDialog } from "./custom-vote-options-dialog"
+import { CustomVoteOptionsDrawerDialog } from "./custom-vote-options-drawer-dialog"
 import { useMedia } from "react-use"
 import {
   Drawer,
@@ -65,7 +65,7 @@ export function VoteOptionsDrawerDialog() {
             setCurrentSelectedKey={setCurrentSelectedKey}
           />
           <DialogFooter className="gap-y-2 sm:justify-between">
-            <CustomVoteOptionsDialog />
+            <CustomVoteOptionsDrawerDialog />
             <Button type="submit" onClick={onSubmit}>
               Save changes
             </Button>
@@ -100,7 +100,7 @@ export function VoteOptionsDrawerDialog() {
           <Button type="submit" onClick={onSubmit}>
             Save changes
           </Button>
-          <CustomVoteOptionsDialog />
+          <CustomVoteOptionsDrawerDialog />
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
