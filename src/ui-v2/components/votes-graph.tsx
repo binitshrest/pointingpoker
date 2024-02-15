@@ -13,6 +13,7 @@ import { currentUserId } from "@/utils/firebase"
 import { getCurrentVote } from "@/hooks/store"
 import { useVotes } from "@/hooks/votes"
 import { useVoteStats } from "@/hooks/vote-stats"
+import { TimerBadge } from "./timer-badge"
 
 export function VotesGraph() {
   const { users, display } = useVotes()
@@ -38,17 +39,19 @@ export function VotesGraph() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-center">
-          {consensus ? "Consensus! 🎉🎉🎉" : "Overview"}
-        </CardTitle>
+        <div className="grid grid-cols-[auto_1fr] place-items-center">
+          <TimerBadge />
+          {consensus && (
+            <CardTitle>Consensus! 🎉🎉🎉</CardTitle>
+          )}
+        </div>
       </CardHeader>
-      <CardContent className="pl-0">
+      <CardContent className="pl-2">
         <ResponsiveContainer width="100%" aspect={2.2}>
           <BarChart
             data={data}
             maxBarSize={32}
-            margin={{ top: 32 }}
-            key={Math.random()}
+            key={display ? Math.random() : 1}
           >
             <XAxis
               dataKey="name"
@@ -59,6 +62,7 @@ export function VotesGraph() {
               tickFormatter={(value, index) =>
                 data[index].hasVoted ? `${value} ✓` : value
               }
+              fontWeight="bold"
             />
             <YAxis
               stroke="#888888"
@@ -72,7 +76,12 @@ export function VotesGraph() {
               radius={[4, 4, 0, 0]}
               className="fill-primary"
             >
-              <LabelList dataKey="label" position="top" fill="currentColor" />
+              <LabelList
+                dataKey="label"
+                position="top"
+                fill="#888888"
+                fontWeight="bold"
+              />
             </Bar>
             {!consensus && averageVote && (
               <ReferenceLine
@@ -80,7 +89,10 @@ export function VotesGraph() {
                 stroke="currentColor"
                 strokeDasharray="4"
               >
-                <Label value="Average" position="insideBottomLeft" />
+                <Label
+                  value={`Average ${averageVote}`}
+                  position="insideBottomLeft"
+                />
               </ReferenceLine>
             )}
           </BarChart>
