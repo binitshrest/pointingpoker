@@ -7,7 +7,7 @@ import { cn } from "@/utils/cn"
 import { Nav } from "./components/nav"
 import { VoteButtons } from "./components/vote-buttons"
 import { ThemeProvider } from "./components/theme-provider"
-import { DisconnectedDialog } from "./components/disconnected-dialog"
+import { DisconnectedDrawerDialog } from "./components/disconnected-drawer-dialog"
 import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import "./styles/globals.css"
 import { ChangeVoteOptionsDialog } from "./components/change-vote-options-dialog"
@@ -59,7 +59,7 @@ export default function UIV2() {
           onConfettiComplete={(confetti) => confetti?.reset()}
         />
       )}
-      <DisconnectedDialog />
+      <DisconnectedDrawerDialog />
       <NameDrawerDialog />
       <ChangeVoteOptionsDialog />
     </ThemeProvider>
