@@ -12,6 +12,7 @@ import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog
 import { VotesGraph } from "./components/votes-graph"
 import { Votes } from "./components/votes"
 import { ThemeProvider } from "./components/theme-provider"
+import { FeedbackDrawerDialog } from "./components/feedback-drawer-dialog"
 
 export default function UIV2() {
   const { width, height } = useWindowSize()
@@ -61,10 +62,8 @@ export default function UIV2() {
       <DisconnectedDrawerDialog />
       <NameDrawerDialog />
       <VoteOptionsDrawerDialog />
+      <FeedbackDrawerDialog />
     </ThemeProvider>
   )
 }
 
-// [ ]: Dialog stuff
-// [ ]: option for feedback
-// [ ]: dark mode

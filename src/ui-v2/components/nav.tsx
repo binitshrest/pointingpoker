@@ -1,5 +1,13 @@
+import { useMedia } from "react-use"
 import { Button } from "./ui/button"
-import { Gamepad, Github, Moon, Sun, SunMoon } from "lucide-react"
+import {
+  Gamepad,
+  Github,
+  MessageSquareText,
+  Moon,
+  Sun,
+  SunMoon,
+} from "lucide-react"
 import { renderV1 } from "@/utils/ui-v1"
 import { Separator } from "./ui/separator"
 import { useTheme } from "./theme-provider"
@@ -9,8 +17,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip"
-import { useMedia } from "react-use"
 import { MoreDropdownMenu } from "./more-dropdown-menu"
+import { setFeedbackDrawerDialogOpen } from "./feedback-drawer-dialog"
 
 type NavButtonProps = {
   children: React.ReactNode
@@ -50,6 +58,14 @@ export function Nav() {
         </NavButton>
         <NavButton onClick={renderV1} tooltipContent="Switch to old UI">
           <Gamepad className="h-7 w-7" />
+        </NavButton>
+        <NavButton
+          onClick={async () => {
+            setFeedbackDrawerDialogOpen(true)
+          }}
+          tooltipContent="Send feedback"
+        >
+          <MessageSquareText />
         </NavButton>
         <NavButton
           onClick={() =>
