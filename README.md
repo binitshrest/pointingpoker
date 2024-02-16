@@ -1,8 +1,8 @@
 # Pointing Poker
 
-Pointing poker web app implemented with React 18 and firebase realtime database
-
 https://pointingpoker.pages.dev/
+
+Pointing poker web app implemented with React 18, [NES.css](https://nostalgic-css.github.io/NES.css/#)  and firebase realtime database. New UI is made with Typescript, [shadcn](https://ui.shadcn.com/) UI components, Tailwind CSS and Recharts.
 
 ## Project Setup
 
