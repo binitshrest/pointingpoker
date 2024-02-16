@@ -12,7 +12,7 @@ Bugfender.init({
 
 let currVersion = localStorage.getItem("ui") as UIVersion
 if (!currVersion) {
-  currVersion = "v1"
+  currVersion = "v2"
   localStorage.setItem("ui", currVersion)
 }
 
