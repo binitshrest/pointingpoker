@@ -11,6 +11,7 @@ import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog"
 import { VotesGraph } from "./components/votes-graph"
 import { Votes } from "./components/votes"
+import { ThemeProvider } from "./components/theme-provider"
 
 export default function UIV2() {
   const { width, height } = useWindowSize()
@@ -35,7 +36,7 @@ export default function UIV2() {
   }, [consensus])
 
   return (
-    <>
+    <ThemeProvider>
       <div
         className={cn(
           "grid grid-rows-[auto_1fr] place-items-center h-dvh",
@@ -60,7 +61,7 @@ export default function UIV2() {
       <DisconnectedDrawerDialog />
       <NameDrawerDialog />
       <VoteOptionsDrawerDialog />
-    </>
+    </ThemeProvider>
   )
 }
 

@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+      body {
+        background-color: hsl(var(--background));
+      }
+
+      :root {
+        --background: 0 0% 100%;
+      }
+
+      .dark {
+        --background: 240 10% 3.9%;
+      }
     </style>
 
     <!-- Primary Meta Tags -->
@@ -42,7 +54,24 @@
       content="https://pointingpoker.pages.dev/pointing-poker-preview.png"
     />
   </head>
-  <body style="margin: 0">
+  <body>
+    <script>
+      ;(function () {
+        const themeStorageKey = "ui-v2-theme"
+        const preferredTheme = localStorage.getItem(themeStorageKey)
+        const root = window.document.documentElement
+        if (preferredTheme && preferredTheme !== "system") {
+          root.className = preferredTheme
+          return
+        }
+
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light"
+        root.className = systemTheme
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
