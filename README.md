@@ -1,8 +1,12 @@
 # Pointing Poker
 
-https://pointingpoker.pages.dev/
+Planning made easy. Clean UI, smooth UX, neat stats. 
 
-Pointing poker web app implemented with React 18, [NES.css](https://nostalgic-css.github.io/NES.css/#)  and firebase realtime database. New UI is made with Typescript, [shadcn](https://ui.shadcn.com/) UI components, Tailwind CSS and Recharts.
+Are you tired of random popups, bugs, and non-responsiveness from old generic PHP pointing poker apps? Use my pointing poker app to estimate tickets with your dev team and plan without hiccups. Try it today, and let me know how it worked for you!
+
+### [Go to App](https://pointingpoker.pages.dev/)
+
+Implemented with React 18, [NES.css](https://nostalgic-css.github.io/NES.css/#)  and firebase realtime database. New UI is made with Typescript, [shadcn](https://ui.shadcn.com/) UI components, Tailwind CSS and Recharts.
 
 ## Project Setup
 
