@@ -76,16 +76,13 @@ export function FeedbackDrawerDialog() {
     }, 3000)
   }
 
-  const hideOnThanksClasses =
-    "transition-opacity duration-150 data-[thanks=false]:opacity-100 data-[thanks=true]:opacity-0"
-
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
-          <div
-            data-thanks={showThankYou}
-            className={`flex flex-col gap-6 max-w-lg ${hideOnThanksClasses}`}
+          <HideOnThankYou
+            showThankYou={showThankYou}
+            className="flex flex-col gap-6 max-w-lg"
           >
             <DialogHeader>
               <DialogTitle>Send Feedback</DialogTitle>
@@ -99,7 +96,7 @@ export function FeedbackDrawerDialog() {
                 Send
               </Button>
             </DialogFooter>
-          </div>
+          </HideOnThankYou>
           <ThankYou showThankYou={showThankYou} />
         </DialogContent>
       </Dialog>
@@ -109,9 +106,9 @@ export function FeedbackDrawerDialog() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerContent>
-        <div
-          data-thanks={showThankYou}
-          className={`flex flex-col gap-2 ${hideOnThanksClasses}`}
+        <HideOnThankYou
+          showThankYou={showThankYou}
+          className="flex flex-col gap-2"
         >
           <DrawerHeader>
             <DrawerTitle>Send Feedback</DrawerTitle>
@@ -125,7 +122,7 @@ export function FeedbackDrawerDialog() {
               Send
             </Button>
           </DrawerFooter>
-        </div>
+        </HideOnThankYou>
         <ThankYou showThankYou={showThankYou} />
       </DrawerContent>
     </Drawer>
@@ -176,6 +173,28 @@ function ThankYou({ showThankYou }: { showThankYou: boolean }) {
       className="absolute grid place-items-center w-full h-full -z-10 transition-opacity duration-500 data-[thanks=false]:opacity-0 data-[thanks=true]:opacity-100"
     >
       <h2 className="text-3xl font-semibold">Thank you!</h2>
+    </div>
+  )
+}
+
+function HideOnThankYou({
+  showThankYou,
+  className,
+  children,
+}: {
+  showThankYou: boolean
+  className: string
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      data-thanks={showThankYou}
+      className={cn(
+        "transition-opacity data-[thanks=false]:opacity-100 data-[thanks=true]:opacity-0",
+        className,
+      )}
+    >
+      {children}
     </div>
   )
 }
