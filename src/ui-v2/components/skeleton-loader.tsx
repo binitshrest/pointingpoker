@@ -54,32 +54,38 @@ export function SkeletonLoader() {
             </div>
           </CardContent>
         </Card>
-        <Card className="shadow-none">
-          <CardHeader className="flex-row justify-between space-y-0 items-center">
-            <CardTitle>
-              <Skeleton className="h-4 w-20" />
-            </CardTitle>
-            <Skeleton className="h-6 px-6 rounded-xl" />
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-5 grid-rows-5 h-64 place-items-center">
-              <Skeleton className="h-3 w-3" />
-              <Skeleton className="h-3 w-3 row-start-2" />
-              <Skeleton className="h-3 w-3 row-start-3" />
-              <Skeleton className="h-3 w-3 row-start-4" />
-              <Skeleton className="h-3 w-3 row-start-5" />
-              <Skeleton className="h-3 w-3 row-start-5" />
-              <Skeleton className="h-3 w-3 row-start-5" />
-              <Skeleton className="h-3 w-3 row-start-5" />
-              <Skeleton className="h-3 w-3 row-start-5" />
-              <Skeleton className="h-6 w-8 row-start-4 self-end" />
-              <Skeleton className="h-20 w-8 row-start-4 self-end" />
-              <Skeleton className="h-32 w-8 row-start-4 self-end" />
-              <Skeleton className="h-44 w-8 row-start-4 self-end" />
-            </div>
-          </CardContent>
-        </Card>
+        <GraphSkeletonLoader />
       </div>
     </div>
+  )
+}
+
+export function GraphSkeletonLoader() {
+  return (
+    <Card className="shadow-none">
+      <CardHeader className="flex-row justify-between space-y-0 items-center">
+        <CardTitle>
+          <Skeleton className="h-4 w-20" />
+        </CardTitle>
+        <Skeleton className="h-6 px-6 rounded-xl" />
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-5 grid-rows-5 h-64 place-items-center">
+          <Skeleton className="h-3 w-3" />
+          <Skeleton className="h-3 w-3 row-start-2" />
+          <Skeleton className="h-3 w-3 row-start-3" />
+          <Skeleton className="h-3 w-3 row-start-4" />
+          <Skeleton className="h-3 w-3 row-start-5" />
+          <Skeleton className="h-3 w-3 row-start-5" />
+          <Skeleton className="h-3 w-3 row-start-5" />
+          <Skeleton className="h-3 w-3 row-start-5" />
+          <Skeleton className="h-3 w-3 row-start-5" />
+          <Skeleton className="h-6 w-8 row-start-4 self-end" />
+          <Skeleton className="h-20 w-8 row-start-4 self-end" />
+          <Skeleton className="h-32 w-8 row-start-4 self-end" />
+          <Skeleton className="h-44 w-8 row-start-4 self-end" />
+        </div>
+      </CardContent>
+    </Card>
   )
 }

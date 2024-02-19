@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Suspense, lazy, useEffect, useState } from "react"
 import Confetti from "react-confetti"
 import { useWindowSize } from "react-use"
 import { useVoteStats } from "@/hooks/vote-stats"
@@ -9,10 +9,12 @@ import { VoteButtons } from "./components/vote-buttons"
 import { DisconnectedDrawerDialog } from "./components/disconnected-drawer-dialog"
 import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog"
-import { VotesGraph } from "./components/votes-graph"
 import { Votes } from "./components/votes"
 import { ThemeProvider } from "./components/theme-provider"
 import { FeedbackDrawerDialog } from "./components/feedback-drawer-dialog"
+import { GraphSkeletonLoader } from "./components/skeleton-loader"
+
+const VotesGraph = lazy(() => import("./components/votes-graph"))
 
 export default function UIV2() {
   const { width, height } = useWindowSize()
@@ -48,7 +50,9 @@ export default function UIV2() {
         <div className="flex flex-col gap-6 my-8 mx-4 max-w-xl">
           <VoteButtons />
           <Votes />
-          <VotesGraph />
+          <Suspense fallback={<GraphSkeletonLoader />}>
+            <VotesGraph />
+          </Suspense>
         </div>
       </div>
       {isConfettiVisible && (
@@ -66,4 +70,3 @@ export default function UIV2() {
     </ThemeProvider>
   )
 }
-
