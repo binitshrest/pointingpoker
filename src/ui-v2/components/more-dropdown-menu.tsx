@@ -23,7 +23,12 @@ export function MoreDropdownMenu({ className }: { className?: string }) {
         <Tooltip>
           <TooltipTrigger asChild onFocus={(event) => event.preventDefault()}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className={className}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={className}
+                aria-label="More Options"
+              >
                 <MoreVertical />
               </Button>
             </DropdownMenuTrigger>

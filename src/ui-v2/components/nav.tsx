@@ -31,7 +31,12 @@ function NavButton({ children, onClick, tooltipContent }: NavButtonProps) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button size="icon" variant="ghost" onClick={onClick}>
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={onClick}
+            aria-label={tooltipContent}
+          >
             {children}
           </Button>
         </TooltipTrigger>
