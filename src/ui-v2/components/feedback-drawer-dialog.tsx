@@ -73,7 +73,7 @@ export function FeedbackDrawerDialog() {
       setShowThankYou(false)
       setOpen(false)
       form.reset()
-    }, 3000)
+    }, 3 * 1000)
   }
 
   if (isDesktop) {

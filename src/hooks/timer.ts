@@ -3,8 +3,8 @@ import { DateTime } from "luxon"
 import { useStore } from "./store"
 import { useVotes } from "./votes"
 
-const ONE_SECOND: number = 1 * 1000
-const ONE_HOUR = 1 * 60 * 60 * 1000
+const ONE_SECOND: number = 1000
+const ONE_HOUR = 60 * 60 * 1000
 
 export function useTimer(): { timer: string; isTimerStopped: boolean } {
   const [timer, setTimer] = useState("00:00")

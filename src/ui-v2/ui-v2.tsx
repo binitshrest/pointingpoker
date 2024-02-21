@@ -28,7 +28,7 @@ export default function UIV2() {
       setIsConfettiVisible(true)
       timer = setTimeout(() => {
         setIsConfettiVisible(false)
-      }, 1000 * 10)
+      }, 10 * 1000)
     } else {
       setIsConfettiVisible(false)
     }
