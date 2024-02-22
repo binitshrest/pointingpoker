@@ -1,6 +1,6 @@
 import PQueue from "p-queue"
 import { useSyncExternalStore } from "react"
-import { Bugfender } from "@bugfender/sdk"
+import LogRocket from "logrocket"
 
 let loading = false
 
@@ -17,7 +17,9 @@ asyncQueue.addListener("idle", () => {
 })
 
 asyncQueue.addListener("error", (error) => {
-  Bugfender.error("Error while executing function in async queue", error)
+  LogRocket.captureException(error, {
+    extra: { errorMessage: "Error while executing function in async queue" },
+  })
 })
 
 function subscribe(callback: () => void): () => void {

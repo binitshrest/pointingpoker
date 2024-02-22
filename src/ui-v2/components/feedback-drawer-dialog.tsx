@@ -4,7 +4,7 @@ import { UseFormReturn, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMedia } from "react-use"
 import ky from "ky"
-import { Bugfender } from "@bugfender/sdk"
+import LogRocket from "logrocket"
 import { createExternalStore } from "@/utils/create-external-store"
 import { cn } from "@/utils/cn"
 import { currentUser } from "@/utils/firebase"
@@ -66,7 +66,11 @@ export function FeedbackDrawerDialog() {
         },
       })
     } catch (error) {
-      Bugfender.error(error)
+      if (error instanceof Error) {
+        LogRocket.captureException(error)
+      } else {
+        LogRocket.captureMessage(error as string)
+      }
     }
 
     setTimeout(() => {

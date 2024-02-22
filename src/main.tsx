@@ -1,13 +1,11 @@
-import { Bugfender } from "@bugfender/sdk"
+import LogRocket from "logrocket"
 import { renderV1 } from "./utils/ui-v1"
 import { renderV2 } from "./utils/ui-v2"
 
 type UIVersion = "v1" | "v2"
 
-Bugfender.init({
-  appKey: import.meta.env.VITE_BUGFENDER_APPKEY,
-  printToConsole: import.meta.env.DEV,
-  logUIEvents: import.meta.env.PROD,
+LogRocket.init(import.meta.env.VITE_LOGROCKET_APPKEY, {
+  shouldDebugLog: import.meta.env.DEV,
 })
 
 let currVersion = localStorage.getItem("ui") as UIVersion

@@ -16,7 +16,7 @@ import {
   User,
 } from "@firebase/auth"
 import { has } from "lodash-es"
-import { Bugfender } from "@bugfender/sdk"
+import LogRocket from "logrocket"
 import { asyncQueue } from "../hooks/loading"
 import { roomId } from "./room-id"
 
@@ -44,11 +44,20 @@ try {
     )
   }
 } catch (error) {
-  Bugfender.error("Error while signing in anonymously", error)
+  if (error instanceof Error) {
+    LogRocket.captureException(error, {
+      extra: { errorMessage: "Error while signing in anonymously" },
+    })
+  } else {
+    LogRocket.captureMessage("Error while signing in anonymously", {
+      extra: { errorMessage: error as string },
+    })
+  }
   throw error
 }
 
 const currentUserId = currentUser.uid
+LogRocket.identify(currentUserId)
 
 const roomRef = ref(db, `rooms/${roomId}`)
 
@@ -83,7 +92,15 @@ try {
 
   await asyncQueue.add(() => update(roomRef, updates))
 } catch (error) {
-  Bugfender.error("Error while setting up room", error)
+  if (error instanceof Error) {
+    LogRocket.captureException(error, {
+      extra: { errorMessage: "Error while setting up room" },
+    })
+  } else {
+    LogRocket.captureMessage("Error while setting up room", {
+      extra: { errorMessage: error as string },
+    })
+  }
   throw error
 }
 

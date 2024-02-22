@@ -6,7 +6,7 @@ import {
   onDisconnect,
 } from "@firebase/database"
 import { updateProfile } from "@firebase/auth"
-import { Bugfender } from "@bugfender/sdk"
+import LogRocket from "logrocket"
 import { asyncQueue } from "../hooks/loading"
 import { deferVoteUpdate, getStore, setCurrentVote } from "../hooks/store"
 import { currentUser, currentUserId, db, roomRef } from "./firebase"
@@ -25,7 +25,15 @@ export async function vote(selectedOption: number): Promise<void> {
     updates[`users/${currentUserId}/hasVoted`] = true
     await updateDb(updates)
   } catch (error) {
-    Bugfender.error("Error in voting", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error in voting" },
+      })
+    } else {
+      LogRocket.captureMessage("Error in voting", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
@@ -34,7 +42,15 @@ export async function clearVotes(): Promise<void> {
   try {
     await updateDb(getClearVotesUpdates())
   } catch (error) {
-    Bugfender.error("Error in clearing votes", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error in clearing votes" },
+      })
+    } else {
+      LogRocket.captureMessage("Error in clearing votes", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
@@ -47,7 +63,15 @@ export async function selectVoteOptions(
       await updateDb({ selectedVoteOptionsKey, ...getClearVotesUpdates() })
     }
   } catch (error) {
-    Bugfender.error("Error in selecting vote options", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error in selecting vote options" },
+      })
+    } else {
+      LogRocket.captureMessage("Error in selecting vote options", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
@@ -60,7 +84,15 @@ export async function createVoteOptions(newVoteOptions: {
       update(push(ref(db, `rooms/${roomId}/voteOptionsList`)), newVoteOptions),
     )
   } catch (error) {
-    Bugfender.error("Error in creating vote options", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error in creating vote options" },
+      })
+    } else {
+      LogRocket.captureMessage("Error in creating vote options", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
@@ -71,7 +103,7 @@ export async function setName(name: string): Promise<void> {
       return
     }
 
-    Bugfender.setDeviceKey("name", name)
+    LogRocket.identify(currentUserId, { name })
     await asyncQueue.addAll([
       () =>
         updateProfile(currentUser, {
@@ -80,13 +112,24 @@ export async function setName(name: string): Promise<void> {
       () => update(roomRef, { [`users/${currentUserId}/name`]: name }),
     ])
   } catch (error) {
-    Bugfender.error("Error while setting name", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error while setting name" },
+      })
+    } else {
+      LogRocket.captureMessage("Error while setting name", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
 
 function getClearVotesUpdates(): Partial<RoomUpdates> {
-  const updates: Partial<RoomUpdates> = { startTime: serverTimestamp(), endTime: 0 }
+  const updates: Partial<RoomUpdates> = {
+    startTime: serverTimestamp(),
+    endTime: 0,
+  }
   for (const id of Object.keys(getStore().users)) {
     updates[`users/${id}/hasVoted`] = false
   }
@@ -110,7 +153,15 @@ export async function setupReconnection(): Promise<void> {
       ref(db, `rooms/${roomId}/users/${currentUserId}`),
     ).remove()
   } catch (error) {
-    Bugfender.error("Error while setting up reconnection", error)
+    if (error instanceof Error) {
+      LogRocket.captureException(error, {
+        extra: { errorMessage: "Error while setting up reconnection" },
+      })
+    } else {
+      LogRocket.captureMessage("Error while setting up reconnection", {
+        extra: { errorMessage: error as string },
+      })
+    }
     throw error
   }
 }
