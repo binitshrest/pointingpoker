@@ -25,6 +25,11 @@ Implemented with React 18, [NES.css](https://nostalgic-css.github.io/NES.css/#) 
    ```
    VITE_FIREBASE_CONFIG="{"apiKey":"xxx","authDomain":"xxx","databaseURL":"xxx","projectId":"xxx","storageBucket":"xxx","messagingSenderId":"xxx","appId":"xxx"}"
    ```
+9. Add firebase auth URL and database URL in `.env.local`.
+   ```
+   VITE_FIREBASE_APP_URL="https://{auth-domain}"
+   VITE_FIREBASE_DATABASE_URL="https://{database-domain}"
+   ```
 
 ## Running the app on localhost
 
