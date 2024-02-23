@@ -30,12 +30,12 @@ export function ShareSessionCard() {
         <div className="text-center">
           Missing some key players? Share the link and invite others to join.
         </div>
-        <div className="rounded-lg border bg-zinc-100 dark:bg-zinc-900 pl-4 pr-2 py-2 transition-colors text-nowrap">
-          {location.href}{" "}
+        <div className="rounded-lg border bg-zinc-100 dark:bg-zinc-900 pl-4 pr-2 py-2 transition-colors text-sm grid grid-cols-[auto_auto] place-items-center">
+          <span className="w-full truncate pr-1">{location.href} </span>
           <Button
             size="icon"
             variant="ghost"
-            className="h-6 w-6 translate-y-[1px]"
+            className="h-6 w-6"
             aria-label="copy"
             onClick={async () => {
               await navigator.clipboard.writeText(location.href)
