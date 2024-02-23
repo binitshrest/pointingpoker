@@ -45,7 +45,7 @@ export function DisconnectedDrawerDialog() {
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen} dismissible={false}>
+    <Drawer open={open} dismissible={false}>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Disconnected</DrawerTitle>
