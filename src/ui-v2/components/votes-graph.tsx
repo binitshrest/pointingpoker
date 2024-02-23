@@ -26,7 +26,7 @@ export default function VotesGraph() {
       if (display) {
         label = vote
       } else if (id === currentUserId && hasVoted) {
-        vote = label = getCurrentVote()
+        vote = label = getCurrentVote() as number
       } else {
         label = "?"
         vote = 0

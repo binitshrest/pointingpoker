@@ -8,7 +8,7 @@ import { asyncQueue } from "./loading"
 type LocalStore = {
   dbState: Room
   pendingUpdates: Pick<RoomUpdates, RoomUpdateUserVoteKey>
-  currentVote: number
+  currentVote: number | string
 }
 
 const roomSnapshot = (await asyncQueue.add(() =>
@@ -18,7 +18,7 @@ const roomSnapshot = (await asyncQueue.add(() =>
 const localStore: LocalStore = {
   dbState: roomSnapshot.val(),
   pendingUpdates: {},
-  currentVote: 0,
+  currentVote: "?",
 }
 
 function subscribe(callback: () => void): () => void {
@@ -51,10 +51,10 @@ export function deferVoteUpdate(
   localStore.pendingUpdates[key] = value
 }
 
-export function setCurrentVote(vote: number): void {
+export function setCurrentVote(vote: number | string): void {
   localStore.currentVote = vote
 }
 
-export function getCurrentVote(): number {
+export function getCurrentVote(): number | string {
   return localStore.currentVote
 }

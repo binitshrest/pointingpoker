@@ -40,6 +40,7 @@ export async function vote(selectedOption: number): Promise<void> {
 
 export async function clearVotes(): Promise<void> {
   try {
+    setCurrentVote("?")
     await updateDb(getClearVotesUpdates())
   } catch (error) {
     if (error instanceof Error) {

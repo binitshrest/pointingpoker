@@ -1,9 +1,10 @@
-import { useStore } from "@/hooks/store"
-import { Button } from "./ui/button"
-import { vote } from "@/utils/rtdb"
-import { MoreDropdownMenu } from "./more-dropdown-menu"
-import { Separator } from "./ui/separator"
 import { useMedia } from "react-use"
+import { getCurrentVote, useStore } from "@/hooks/store"
+import { vote } from "@/utils/rtdb"
+import { cn } from "@/utils/cn"
+import { MoreDropdownMenu } from "./more-dropdown-menu"
+import { Button } from "./ui/button"
+import { Separator } from "./ui/separator"
 
 export function VoteButtons() {
   const { voteOptionsList, selectedVoteOptionsKey } = useStore()
@@ -18,7 +19,10 @@ export function VoteButtons() {
               key={number}
               variant="outline"
               size="lg"
-              className="flex-grow"
+              className={cn(
+                "flex-grow",
+                getCurrentVote() === number && "ring-1 ring-current",
+              )}
               onClick={() => {
                 vote(number)
               }}
