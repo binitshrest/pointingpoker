@@ -52,9 +52,9 @@ export function Nav() {
 
   return (
     <nav className="flex justify-between w-full flex-wrap content-center my-3 pl-4 pr-3 max-w-screen-2xl">
-      <h1 className="grid place-items-center text-xl font-semibold tracking-tight">
+      <h2 className="grid place-items-center text-xl font-semibold tracking-tight">
         Pointing Poker
-      </h1>
+      </h2>
       <div className="flex gap-2">
         <NavButton onClick={setNextTheme} tooltipContent="Toggle theme">
           {theme === "light" && <Sun />}

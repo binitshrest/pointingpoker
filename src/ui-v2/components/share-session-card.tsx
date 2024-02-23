@@ -36,6 +36,7 @@ export function ShareSessionCard() {
             size="icon"
             variant="ghost"
             className="h-6 w-6 translate-y-[1px]"
+            aria-label="copy"
             onClick={async () => {
               await navigator.clipboard.writeText(location.href)
               setHasCopied(true)
