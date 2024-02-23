@@ -88,16 +88,16 @@ export function VoteOptionsDrawerDialog() {
       <DrawerContent className="gap-2">
         <DrawerHeader>
           <DrawerTitle>Change Vote Options</DrawerTitle>
-          <DrawerDescription className="gap-3 flex flex-col">
+          <DrawerDescription>
             You can change this room&apos;s vote options here. Tap save when
             done.
-            <Alert variant="secondary">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Changing the vote options will clear votes and reset the timer.
-              </AlertDescription>
-            </Alert>
           </DrawerDescription>
+          <Alert variant="secondary" className="mt-2">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Changing the vote options will clear votes and reset the timer.
+            </AlertDescription>
+          </Alert>
         </DrawerHeader>
         <div className="flex flex-col px-4 gap-6">
           <VoteButtonsPreview
