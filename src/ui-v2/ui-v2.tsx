@@ -13,6 +13,7 @@ import { Votes } from "./components/votes"
 import { ThemeProvider } from "./components/theme-provider"
 import { FeedbackDrawerDialog } from "./components/feedback-drawer-dialog"
 import { GraphSkeletonLoader } from "./components/skeleton-loader"
+import { NewPlayerHint } from "./components/new-player-hint"
 
 const VotesGraph = lazy(() => import("./components/votes-graph"))
 
@@ -49,6 +50,7 @@ export default function UIV2() {
         <Nav />
         <div className="flex flex-col gap-6 my-8 mx-4 max-w-xl">
           <VoteButtons />
+          <NewPlayerHint />
           <Votes />
           <Suspense fallback={<GraphSkeletonLoader />}>
             <VotesGraph />

@@ -25,7 +25,6 @@ import {
   DialogTitle,
 } from "./ui/dialog"
 import { Button } from "./ui/button"
-import { isNewPlayer } from "@/utils/misc"
 import { useMedia } from "react-use"
 import {
   Drawer,
@@ -64,7 +63,7 @@ const formSchema = z.object({
     ),
 })
 
-const [subscribe, getSnapshot, setOpen] = createExternalStore(isNewPlayer())
+const [subscribe, getSnapshot, setOpen] = createExternalStore(false)
 
 export const setNameDrawerDialogOpen = setOpen
 
