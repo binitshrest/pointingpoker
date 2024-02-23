@@ -5,7 +5,7 @@ import { getCurrentVote } from "@/hooks/store"
 import { Name } from "./name"
 import { Check } from "lucide-react"
 
-export function Votes() {
+export function VotesCard() {
   const { users, display } = useVotes()
 
   return (

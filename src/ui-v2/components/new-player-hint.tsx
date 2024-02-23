@@ -18,7 +18,7 @@ export function NewPlayerHint() {
 
   return (
     <Alert variant="secondary" className="sm:w-full">
-      <HelpCircle className="h-4 w-4" />
+      <HelpCircle className="h-4 w-4 -translate-y-[1px]" />
       <AlertDescription>
         Do you want to change your name?
         <Button

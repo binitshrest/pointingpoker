@@ -54,13 +54,13 @@ export function SkeletonLoader() {
             </div>
           </CardContent>
         </Card>
-        <GraphSkeletonLoader />
+        <StatsSkeletonLoader />
       </div>
     </div>
   )
 }
 
-export function GraphSkeletonLoader() {
+export function StatsSkeletonLoader() {
   return (
     <Card className="shadow-none">
       <CardHeader className="flex-row justify-between space-y-0 items-center">

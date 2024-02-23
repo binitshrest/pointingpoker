@@ -15,7 +15,7 @@ import { useVotes } from "@/hooks/votes"
 import { useVoteStats } from "@/hooks/vote-stats"
 import { TimerBadge } from "./timer-badge"
 
-export default function VotesGraph() {
+export default function StatsCard() {
   const { users, display } = useVotes()
   const { averageVote, consensus } = useVoteStats()
 

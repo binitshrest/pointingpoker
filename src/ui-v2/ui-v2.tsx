@@ -9,19 +9,22 @@ import { VoteButtons } from "./components/vote-buttons"
 import { DisconnectedDrawerDialog } from "./components/disconnected-drawer-dialog"
 import { NameDrawerDialog } from "./components/name-drawer-dialog"
 import { VoteOptionsDrawerDialog } from "./components/vote-options-drawer-dialog"
-import { Votes } from "./components/votes"
+import { VotesCard } from "./components/votes-card"
 import { ThemeProvider } from "./components/theme-provider"
 import { FeedbackDrawerDialog } from "./components/feedback-drawer-dialog"
-import { GraphSkeletonLoader } from "./components/skeleton-loader"
+import { StatsSkeletonLoader } from "./components/skeleton-loader"
 import { NewPlayerHint } from "./components/new-player-hint"
+import { useStore } from "@/hooks/store"
+import { ShareSessionCard } from "./components/share-session-card"
 
-const VotesGraph = lazy(() => import("./components/votes-graph"))
+const StatsCard = lazy(() => import("./components/stats-card"))
 
 export default function UIV2() {
   const { width, height } = useWindowSize()
   const { consensus } = useVoteStats()
   const loading = useLoading()
   const [isConfettiVisible, setIsConfettiVisible] = useState(false)
+  const { users } = useStore()
 
   useEffect(() => {
     let timer: NodeJS.Timeout
@@ -49,12 +52,18 @@ export default function UIV2() {
       >
         <Nav />
         <div className="flex flex-col gap-6 my-8 mx-4 max-w-xl">
-          <VoteButtons />
-          <NewPlayerHint />
-          <Votes />
-          <Suspense fallback={<GraphSkeletonLoader />}>
-            <VotesGraph />
-          </Suspense>
+          {Object.keys(users).length > 1 ? (
+            <>
+              <VoteButtons />
+              <NewPlayerHint />
+              <VotesCard />
+              <Suspense fallback={<StatsSkeletonLoader />}>
+                <StatsCard />
+              </Suspense>
+            </>
+          ) : (
+            <ShareSessionCard />
+          )}
         </div>
       </div>
       {isConfettiVisible && (
