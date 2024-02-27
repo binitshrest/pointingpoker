@@ -50,7 +50,6 @@ export default function StatsCard() {
           <BarChart
             data={data}
             maxBarSize={32}
-            key={display ? Math.random() : 1}
           >
             <XAxis
               dataKey="name"
