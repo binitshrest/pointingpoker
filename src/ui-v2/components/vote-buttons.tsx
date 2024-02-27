@@ -2,12 +2,13 @@ import { useMedia } from "react-use"
 import { getCurrentVote, useStore } from "@/hooks/store"
 import { vote } from "@/utils/rtdb"
 import { cn } from "@/utils/cn"
+import { currentUserId } from "@/utils/firebase"
 import { MoreDropdownMenu } from "./more-dropdown-menu"
 import { Button } from "./ui/button"
 import { Separator } from "./ui/separator"
 
 export function VoteButtons() {
-  const { voteOptionsList, selectedVoteOptionsKey } = useStore()
+  const { voteOptionsList, selectedVoteOptionsKey, users } = useStore()
   const isDesktop = useMedia("(min-width: 768px)")
 
   return (
@@ -21,7 +22,9 @@ export function VoteButtons() {
               size="lg"
               className={cn(
                 "flex-grow",
-                getCurrentVote() === number && "ring-1 ring-current",
+                users[currentUserId].hasVoted &&
+                  getCurrentVote() === number &&
+                  "ring-1 ring-current",
               )}
               onClick={() => {
                 vote(number)
