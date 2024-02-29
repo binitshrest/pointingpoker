@@ -3,7 +3,7 @@ import { z } from "zod"
 import { UseFormReturn, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMedia } from "react-use"
-import ky from "ky"
+import { useFormspark } from "@formspark/use-formspark"
 import LogRocket from "logrocket"
 import { createExternalStore } from "@/utils/create-external-store"
 import { cn } from "@/utils/cn"
@@ -56,15 +56,14 @@ export function FeedbackDrawerDialog() {
   const open = useSyncExternalStore(subscribe, getSnapshot)
   const isDesktop = useMedia("(min-width: 768px)")
   const [showThankYou, setShowThankYou] = useState(false)
+  const [submit] = useFormspark({
+    formId: "J7xPsgQRe",
+  })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setShowThankYou(true)
     try {
-      await ky.post("https://feedback.abizek.workers.dev", {
-        json: {
-          text: "From " + currentUser.displayName + ": " + values.text,
-        },
-      })
+      await submit({ message: values.text, from: currentUser.displayName })
     } catch (error) {
       if (error instanceof Error) {
         LogRocket.captureException(error)
