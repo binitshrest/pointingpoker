@@ -1,5 +1,7 @@
 # Pointing Poker
 
+
+Hello, world
 Planning made easy. Clean UI, smooth UX, neat stats. 
 
 I got tired of random popups, bugs, and non-responsiveness from old generic pointing poker apps made with PHP. So I made this pointing poker app to estimate tickets with my team and plan without annoyances. Try it today, and let me know how it worked for you!
